@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inspirit Clothing Co | Living Inspirit</title>
+  <meta name="description" content="Inspirit Clothing Co — Christian urban streetwear. Wear your faith. Walk in purpose. Limited drops, handprinted in Australia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:   #080808;
+      --near:    #111111;
+      --white:   #ffffff;
+      --cream:   #f2ece0;
+      --gold:    #c8a45a;
+      --gold-lt: #dfc07e;
+      --gold-dim:rgba(200,164,90,0.12);
+      --grey:    #181818;
+      --mid:     #242424;
+      --muted:   #666666;
+      --fh: 'Bebas Neue', sans-serif;
+      --fb: 'Inter', sans-serif;
+      --fs: 'Playfair Display', serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--black); color:var(--white); font-family:var(--fb); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+
+    /* ── ANNOUNCEMENT BAR ── */
+    .announce-bar {
+      background:var(--gold); color:var(--black);
+      text-align:center; padding:10px 48px;
+      font-family:var(--fb); font-size:12px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase;
+      position:relative; z-index:1000;
+    }
+    .announce-bar span { opacity:.7; margin:0 10px; }
+    .announce-code { background:var(--black); color:var(--gold); padding:2px 10px; font-weight:900; letter-spacing:3px; margin-left:8px; }
+    .announce-close { position:absolute; right:16px; top:50%; transform:translateY(-50%); cursor:pointer; font-size:16px; opacity:.6; border:none; background:none; color:var(--black); line-height:1; }
+    .announce-close:hover { opacity:1; }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; inset:0 0 auto 0; z-index:999;
+      height:88px; display:flex; align-items:center; justify-content:space-between;
+      padding:0 48px;
+      background:rgba(8,8,8,0.96); backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(200,164,90,0.15);
+    }
+    .logo { text-decoration:none; display:flex; align-items:center; }
+    .nav-logo-img { height:68px; width:auto; filter:invert(1); mix-blend-mode:screen; }
+    .logo:hover .nav-logo-img { opacity:.85; }
+    .nav-links { display:flex; list-style:none; align-items:center; gap:32px; }
+    .nav-links a { color:rgba(255,255,255,0.65); text-decoration:none; font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; transition:color .2s; }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-cta { background:var(--gold) !important; color:var(--black) !important; padding:10px 24px; font-weight:700 !important; }
+    .nav-cta:hover { background:var(--gold-lt) !important; }
+    .ham { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+    .ham span { width:22px; height:1.5px; background:var(--white); display:block; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:calc(100vh - 44px); display:flex; flex-direction:column;
+      justify-content:center; align-items:center; text-align:center;
+      padding:92px 40px 40px; position:relative; overflow:hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background: radial-gradient(ellipse 70% 55% at 50% -5%, rgba(200,164,90,0.1) 0%, transparent 65%),
+                  radial-gradient(ellipse 35% 35% at 80% 85%, rgba(200,164,90,0.05) 0%, transparent 60%);
+    }
+    .hero-content { position:relative; z-index:2; max-width:860px; }
+    .hero-pill {
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--gold-dim); border:1px solid rgba(200,164,90,0.3);
+      padding:8px 20px; font-size:10px; font-weight:700; letter-spacing:3px;
+      text-transform:uppercase; color:var(--gold); margin-bottom:32px;
+    }
+    .hero-pill::before { content:'✝'; }
+    .hero-h1 { font-family:var(--fh); font-size:clamp(72px,13vw,160px); line-height:.85; letter-spacing:6px; text-transform:uppercase; }
+    .hero-h1 .outline { -webkit-text-stroke:1.5px rgba(200,164,90,0.55); color:transparent; }
+    .hero-div {
+      display:flex; align-items:center; justify-content:center;
+      gap:16px; margin:18px 0; color:var(--gold); font-size:20px; opacity:.7;
+    }
+    .hero-div::before,.hero-div::after { content:''; flex:1; max-width:110px; height:1px; background:linear-gradient(to right,transparent,rgba(200,164,90,.4)); }
+    .hero-div::before { transform:scaleX(-1); }
+    .hero-tag { font-family:var(--fs); font-style:italic; font-size:clamp(15px,2.2vw,23px); color:var(--cream); opacity:.8; margin-bottom:14px; }
+    .hero-verse { font-size:10px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; margin-bottom:44px; }
+    .hero-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .btn { font-family:var(--fh); font-size:18px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; padding:15px 40px; display:inline-block; transition:all .25s; }
+    .btn-gold { background:var(--gold); color:var(--black); }
+    .btn-gold:hover { background:var(--gold-lt); transform:translateY(-2px); }
+    .btn-ghost { border:1px solid rgba(200,164,90,.35); color:var(--cream); }
+    .btn-ghost:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
+    .scroll-cue { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .scroll-cue span { font-size:9px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; }
+    .scroll-cue div { width:1px; height:44px; background:linear-gradient(to bottom,var(--gold),transparent); animation:gl 2s ease-in-out infinite; }
+    @keyframes gl { 0%,100%{opacity:.2} 50%{opacity:.9} }
+
+    /* ── DUAL SHOT TEE CARDS ── */
+    .dual-shot { display:grid; grid-template-columns:2fr 1fr; gap:1px; background:rgba(200,164,90,.07); position:relative; aspect-ratio:auto; height:460px; }
+    .dual-main { position:relative; overflow:hidden; height:100%; background:#efefed; }
+    .dual-main img { width:100%; height:100%; object-fit:cover; object-position:center 10%; transition:transform .5s; padding:0; }
+    .card:hover .dual-main img { transform:scale(1.04); }
+    .dual-thumb { overflow:hidden; height:100%; background:#efefed; }
+    .dual-thumb img { width:100%; height:100%; object-fit:cover; object-position:center 10%; filter:brightness(.88); transition:filter .3s; padding:0; }
+    .card:hover .dual-thumb img { filter:brightness(1); }
+    img.img-pullback { object-position:center 18% !important; }
+    @media(max-width:600px) { .dual-shot { grid-template-columns:1fr; height:380px; } .dual-thumb { display:none; } }
+
+    /* ── PRODUCT DETAIL MODAL ── */
+    #pdp-modal {
+      display:none; position:fixed; inset:0; z-index:2000;
+      background:rgba(0,0,0,0.88); backdrop-filter:blur(12px);
+      align-items:center; justify-content:center; padding:20px;
+    }
+    #pdp-modal.open { display:flex; animation:pdpIn .28s ease; }
+    @keyframes pdpIn { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+    .pdp-inner {
+      position:relative; display:flex; gap:0;
+      background:var(--near); border:1px solid rgba(200,164,90,0.18);
+      max-width:960px; width:100%; max-height:90vh; overflow:hidden;
+      border-radius:2px;
+    }
+    .pdp-close {
+      position:absolute; top:16px; right:18px; z-index:10;
+      background:none; border:none; color:var(--muted); font-size:20px;
+      cursor:pointer; line-height:1; transition:color .2s;
+    }
+    .pdp-close:hover { color:var(--white); }
+    .pdp-gallery {
+      flex:1; display:flex; flex-direction:column; background:var(--grey);
+      min-width:0; max-height:90vh;
+    }
+    .pdp-main-wrap {
+      flex:1; overflow:hidden; position:relative; min-height:0;
+    }
+    #pdp-main-img {
+      width:100%; height:100%; object-fit:cover; object-position:top center;
+      transition:opacity .25s;
+    }
+    .pdp-thumbs {
+      display:flex; gap:2px; background:var(--black); padding:8px; flex-shrink:0;
+    }
+    .pdp-thumb {
+      flex:1; background:var(--grey); border:2px solid transparent;
+      cursor:pointer; padding:0; overflow:hidden; position:relative;
+      aspect-ratio:3/4; transition:border-color .2s;
+    }
+    .pdp-thumb img { width:100%; height:100%; object-fit:cover; object-position:top; }
+    .pdp-thumb span {
+      position:absolute; bottom:0; left:0; right:0;
+      font-size:9px; letter-spacing:1.5px; text-transform:uppercase;
+      background:rgba(0,0,0,0.65); color:var(--muted); text-align:center;
+      padding:4px 0; font-family:var(--fb);
+    }
+    .pdp-thumb.active { border-color:var(--gold); }
+    .pdp-thumb.active span { color:var(--gold); }
+    .pdp-info {
+      width:340px; flex-shrink:0; padding:44px 32px 32px;
+      display:flex; flex-direction:column; gap:14px;
+      overflow-y:auto; max-height:90vh;
+    }
+    .pdp-badge {
+      font-family:var(--fb); font-size:10px; font-weight:700;
+      letter-spacing:2.5px; text-transform:uppercase; color:var(--gold);
+    }
+    .pdp-name {
+      font-family:var(--fh); font-size:32px; letter-spacing:1px;
+      color:var(--white); line-height:1.1; margin:0;
+    }
+    .pdp-price {
+      font-family:var(--fh); font-size:26px; color:var(--gold); margin:0;
+    }
+    .pdp-desc { font-size:14px; color:var(--white); line-height:1.6; margin:0; }
+    .pdp-sub { font-size:12px; color:var(--muted); line-height:1.5; margin:0; }
+    .pdp-fit-line { color:rgba(200,164,90,0.7); }
+    .pdp-size-label {
+      font-size:10px; letter-spacing:2px; text-transform:uppercase;
+      color:var(--muted); font-weight:700; margin-top:4px;
+    }
+    .pdp-sizes { display:flex; gap:8px; flex-wrap:wrap; }
+    .size-btn {
+      background:var(--grey); border:1px solid rgba(255,255,255,0.1);
+      color:var(--white); font-family:var(--fb); font-size:12px; font-weight:600;
+      letter-spacing:1px; padding:9px 14px; cursor:pointer;
+      transition:all .2s; border-radius:1px;
+    }
+    .size-btn:hover { border-color:var(--gold); color:var(--gold); }
+    .size-btn.selected { background:var(--gold); border-color:var(--gold); color:var(--black); }
+    .pdp-buy-btn {
+      display:block; text-align:center; text-decoration:none;
+      background:var(--gold); color:var(--black);
+      font-family:var(--fh); font-size:18px; letter-spacing:2px;
+      padding:16px 24px; margin-top:6px;
+      transition:background .2s, color .2s;
+    }
+    .pdp-buy-btn:hover { background:var(--gold-lt); }
+    .pdp-shipping {
+      font-size:11px; color:var(--muted); text-align:center;
+      letter-spacing:.5px; line-height:1.5; margin:0;
+    }
+    @media(max-width:720px) {
+      .pdp-inner { flex-direction:column; max-height:95vh; }
+      .pdp-gallery { max-height:55vw; min-height:200px; }
+      .pdp-main-wrap { min-height:180px; }
+      .pdp-info { width:100%; padding:24px 20px 28px; max-height:none; gap:10px; }
+      .pdp-name { font-size:24px; }
+    }
+
+    /* ── TICKER ── */
+    .ticker { overflow:hidden; background:var(--near); border-top:1px solid rgba(200,164,90,.15); border-bottom:1px solid rgba(200,164,90,.15); padding:13px 0; }
+    .ticker-track { display:inline-flex; white-space:nowrap; animation:run 30s linear infinite; }
+    .ti { font-family:var(--fh); font-size:15px; letter-spacing:4px; text-transform:uppercase; color:rgba(242,236,224,.6); padding:0 48px; }
+    .tc { color:var(--gold); font-size:11px; align-self:center; }
+    @keyframes run { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── TRUST ── */
+    .trust { display:grid; grid-template-columns:repeat(4,1fr); border-bottom:1px solid rgba(200,164,90,.1); }
+    .trust-item { padding:32px 20px; text-align:center; border-right:1px solid rgba(200,164,90,.1); }
+    .trust-item:last-child { border-right:none; }
+    .ti-icon { font-size:22px; margin-bottom:8px; color:var(--gold); }
+    .ti-title { font-family:var(--fh); font-size:16px; letter-spacing:2px; color:var(--white); margin-bottom:3px; }
+    .ti-sub { font-size:11px; color:var(--muted); }
+
+    /* ── PRODUCTS ── */
+    .products { padding:88px 48px; background:var(--near); }
+    .products-head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:44px; padding-bottom:20px; border-bottom:1px solid rgba(200,164,90,.12); }
+    .section-eyebrow { font-size:10px; font-weight:700; letter-spacing:3.5px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+    .section-h { font-family:var(--fh); font-size:clamp(36px,5vw,58px); letter-spacing:3px; text-transform:uppercase; line-height:1; }
+    .view-all { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(200,164,90,.4); padding-bottom:2px; transition:border-color .2s; white-space:nowrap; }
+    .view-all:hover { border-color:var(--gold); }
+
+    /* 5-card layout: 3 top, 2 bottom */
+    .product-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1px;
+      background:rgba(200,164,90,.07);
+    }
+    .product-grid .card:nth-child(4),
+    .product-grid .card:nth-child(5) {
+      /* bottom row spans half width each in a 3-col grid */
+    }
+    /* For 5 cards: use auto-flow */
+    .card { background:var(--black); display:flex; flex-direction:column; cursor:pointer; overflow:hidden; }
+    .card-img { position:relative; overflow:hidden; background:var(--grey); aspect-ratio:3/4; }
+    .card-img.dual-shot { aspect-ratio:unset; }
+    .card-img img { width:100%; height:100%; object-fit:cover; object-position:top center; transition:transform .5s cubic-bezier(.25,.46,.45,.94); filter:brightness(.94) contrast(1.04); }
+    .card:hover .card-img img { transform:scale(1.04); filter:brightness(1) contrast(1.04); }
+    .card-img::after { content:'Shop Now'; position:absolute; inset:0; background:rgba(8,8,8,.5); display:flex; align-items:center; justify-content:center; font-family:var(--fh); font-size:18px; letter-spacing:4px; color:var(--gold); opacity:0; transition:opacity .3s; }
+    .card:hover .card-img::after { opacity:1; }
+    .badge { position:absolute; top:14px; left:14px; z-index:3; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 12px; }
+    .bg { background:var(--gold); color:var(--black); }
+    .bo { border:1px solid var(--gold); color:var(--gold); background:transparent; }
+    .bw { background:var(--white); color:var(--black); }
+    .card-info { padding:18px 22px 22px; border-top:1px solid rgba(200,164,90,.08); flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:10px; }
+    .card-name { font-family:var(--fh); font-size:20px; letter-spacing:1.5px; text-transform:uppercase; color:var(--white); }
+    .card-desc { font-size:12px; color:var(--muted); line-height:1.6; flex:1; }
+    .card-foot { display:flex; justify-content:space-between; align-items:center; }
+    .card-price { font-family:var(--fh); font-size:22px; letter-spacing:1px; color:var(--gold); }
+    .card-btn { background:transparent; border:1px solid rgba(200,164,90,.3); color:var(--cream); padding:8px 16px; font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all .2s; }
+    .card-btn:hover { background:var(--gold); border-color:var(--gold); color:var(--black); }
+    .card-colors { display:flex; gap:6px; align-items:center; }
+    .cdot { width:12px; height:12px; border-radius:50%; border:1px solid rgba(255,255,255,.2); }
+    .cdot-b { background:#111; border-color:#444; }
+    .cdot-w { background:#f5f5f5; }
+
+    /* ── HATS ── */
+    .hats-section { padding:88px 48px; background:var(--black); }
+    .hats-head { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:44px; padding-bottom:20px; border-bottom:1px solid rgba(200,164,90,.12); }
+    .hats-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(200,164,90,.07); }
+    .hat-card { background:var(--near); display:flex; flex-direction:column; overflow:hidden; }
+    .hat-shots { display:grid; grid-template-columns:2fr 1fr; gap:1px; background:rgba(200,164,90,.07); }
+    .hat-main { position:relative; aspect-ratio:3/4; overflow:hidden; background:var(--grey); }
+    .hat-main img { width:100%; height:100%; object-fit:cover; object-position:top center; transition:transform .5s; filter:brightness(.95) contrast(1.03); }
+    .hat-card:hover .hat-main img { transform:scale(1.04); filter:brightness(1); }
+    .hat-thumb { aspect-ratio:3/4; overflow:hidden; background:var(--mid); }
+    .hat-thumb img { width:100%; height:100%; object-fit:cover; object-position:center; filter:brightness(.85); transition:filter .3s; }
+    .hat-card:hover .hat-thumb img { filter:brightness(1); }
+    .hat-info { padding:22px 26px 28px; flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:12px; }
+    .hat-detail { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-top:4px; margin-bottom:6px; }
+    @media(max-width:900px) { .hats-section { padding:64px 24px; } .hats-grid { grid-template-columns:1fr; } }
+    @media(max-width:600px) { .hat-shots { grid-template-columns:1fr; } .hat-thumb { display:none; } }
+
+    /* ── STORY ── */
+    .story { display:grid; grid-template-columns:1fr 1fr; min-height:580px; }
+    .story-visual { position:relative; background:var(--grey); overflow:hidden; }
+    .story-visual img { width:100%; height:100%; object-fit:cover; object-position:top center; filter:brightness(.75) contrast(1.1); }
+    .story-visual::after { content:''; position:absolute; inset:0; background:linear-gradient(to right,transparent 55%,var(--black) 100%); }
+    .story-wm { position:absolute; font-family:var(--fh); font-size:160px; color:rgba(255,255,255,.025); top:50%; left:50%; transform:translate(-50%,-50%); letter-spacing:10px; pointer-events:none; z-index:1; white-space:nowrap; }
+    .story-text { padding:80px 60px 80px 52px; display:flex; flex-direction:column; justify-content:center; background:var(--black); }
+    .story-quote { font-family:var(--fs); font-size:clamp(22px,2.8vw,36px); font-weight:700; line-height:1.3; color:var(--cream); margin-bottom:20px; }
+    .story-quote em { font-style:italic; color:var(--gold); }
+    .story-body { font-size:14px; line-height:1.95; color:var(--muted); margin-bottom:28px; }
+    .verse-block { padding:18px 22px; border-left:2px solid var(--gold); background:var(--gold-dim); margin-bottom:32px; }
+    .verse-block p { font-family:var(--fs); font-style:italic; font-size:14px; color:var(--cream); line-height:1.7; }
+    .verse-ref { font-family:var(--fb); font-style:normal !important; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--gold) !important; margin-top:6px; display:block; }
+
+    /* ── DROP CTA ── */
+    .drop-cta { background:var(--cream); color:var(--black); padding:68px 48px; display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center; }
+    .drop-cta h2 { font-family:var(--fh); font-size:clamp(36px,5vw,64px); letter-spacing:3px; text-transform:uppercase; line-height:.95; margin-bottom:10px; }
+    .drop-cta h2 span { color:var(--gold); }
+    .drop-cta p { font-size:14px; color:#555; max-width:380px; line-height:1.7; }
+    .cd-row { display:flex; align-items:center; gap:4px; }
+    .cd-box { background:var(--black); padding:14px 16px; text-align:center; min-width:68px; }
+    .cd-n { font-family:var(--fh); font-size:38px; color:var(--gold); line-height:1; letter-spacing:1px; }
+    .cd-l { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#888; margin-top:3px; }
+    .cd-sep { font-family:var(--fh); font-size:28px; color:var(--black); opacity:.25; }
+
+    /* ── EMAIL ── */
+    .email-sec { padding:96px 48px; background:var(--grey); text-align:center; position:relative; overflow:hidden; }
+    .email-sec::before { content:'INSPIRIT'; position:absolute; font-family:var(--fh); font-size:clamp(100px,22vw,260px); color:rgba(255,255,255,.02); top:50%; left:50%; transform:translate(-50%,-50%); letter-spacing:20px; pointer-events:none; white-space:nowrap; }
+    .email-sec h2 { font-family:var(--fs); font-size:clamp(28px,4vw,46px); font-weight:700; color:var(--cream); margin-bottom:10px; line-height:1.2; position:relative; z-index:2; }
+    .email-sec h2 em { font-style:italic; color:var(--gold); }
+    .email-sec p { font-size:14px; color:var(--muted); margin-bottom:28px; position:relative; z-index:2; }
+    .email-form { display:flex; max-width:480px; margin:0 auto 12px; position:relative; z-index:2; }
+    .email-input { flex:1; background:rgba(255,255,255,.04); border:1px solid rgba(200,164,90,.22); border-right:none; color:var(--white); padding:15px 20px; font-family:var(--fb); font-size:14px; outline:none; transition:border-color .2s; }
+    .email-input:focus { border-color:var(--gold); }
+    .email-input::placeholder { color:#444; }
+    .email-sub { background:var(--gold); color:var(--black); border:none; padding:15px 28px; font-family:var(--fh); font-size:18px; letter-spacing:2px; cursor:pointer; transition:background .2s; }
+    .email-sub:hover { background:var(--gold-lt); }
+    .email-note { font-size:11px; color:#3a3a3a; position:relative; z-index:2; }
+
+    /* ── SOCIAL STRIP ── */
+    .social-head { text-align:center; padding:52px 40px 24px; }
+    .social-head p { font-size:12px; color:var(--muted); margin-top:6px; }
+    .social-head a { color:var(--gold); text-decoration:none; }
+    .social-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--mid); }
+    .s-tile { aspect-ratio:1; background:var(--grey); position:relative; overflow:hidden; cursor:pointer; }
+    .s-tile img { width:100%; height:100%; object-fit:cover; object-position:center 40%; filter:brightness(.82) grayscale(15%); transition:opacity 1s ease, filter .4s, transform .4s; position:absolute; inset:0; opacity:0; }
+    .s-tile img.active { opacity:1; }
+    .s-tile:hover img.active { filter:brightness(1) grayscale(0%); transform:scale(1.04); }
+    .s-tile::after { content:'↗'; position:absolute; bottom:10px; right:10px; width:26px; height:26px; background:var(--gold); color:var(--black); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; opacity:0; transition:opacity .3s; z-index:2; }
+    .s-tile:hover::after { opacity:1; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--near); border-top:1px solid rgba(200,164,90,.1); padding:68px 48px 28px; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:52px; }
+    .f-logo { font-family:var(--fh); font-size:30px; letter-spacing:5px; color:var(--white); margin-bottom:4px; }
+    .f-logo span { color:var(--gold); }
+    .f-tag { font-family:var(--fs); font-style:italic; color:var(--gold); font-size:13px; margin-bottom:12px; }
+    .f-desc { font-size:13px; color:var(--muted); line-height:1.8; max-width:220px; }
+    .footer-col h4 { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+    .footer-col ul { list-style:none; }
+    .footer-col li { margin-bottom:10px; }
+    .footer-col a { color:rgba(255,255,255,.45); text-decoration:none; font-size:13px; transition:color .2s; }
+    .footer-col a:hover { color:var(--gold); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.04); padding-top:22px; display:flex; justify-content:space-between; align-items:center; }
+    .footer-bottom p { font-size:11px; color:#2a2a2a; }
+    .socials { display:flex; gap:10px; }
+    .soc { width:36px; height:36px; border:1px solid rgba(200,164,90,.18); color:rgba(255,255,255,.4); display:flex; align-items:center; justify-content:center; text-decoration:none; font-size:11px; font-weight:700; transition:all .2s; }
+    .soc:hover { border-color:var(--gold); color:var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px) { .product-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:900px) {
+      nav { padding:0 20px; } .nav-links { display:none; } .ham { display:flex; }
+      .hero { padding:100px 24px 88px; }
+      .trust { grid-template-columns:1fr 1fr; }
+      .trust-item:nth-child(2) { border-right:none; }
+      .trust-item:nth-child(3) { border-top:1px solid rgba(200,164,90,.1); border-right:1px solid rgba(200,164,90,.1); }
+      .trust-item:nth-child(4) { border-top:1px solid rgba(200,164,90,.1); border-right:none; }
+      .products { padding:64px 24px; }
+      .story { grid-template-columns:1fr; }
+      .story-visual { min-height:380px; }
+      .story-text { padding:52px 24px; }
+      .drop-cta { grid-template-columns:1fr; padding:52px 24px; }
+      .email-sec { padding:72px 24px; }
+      .social-grid { grid-template-columns:repeat(3,1fr); }
+      .s-tile:nth-child(4),.s-tile:nth-child(5) { display:none; }
+      footer { padding:52px 24px 24px; }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      .footer-brand { grid-column:span 2; }
+      .footer-bottom { flex-direction:column; gap:14px; }
+    }
+    @media(max-width:600px) {
+      .product-grid { grid-template-columns:1fr; }
+      .email-form { flex-direction:column; }
+      .email-input { border-right:1px solid rgba(200,164,90,.22); }
+      .social-grid { grid-template-columns:repeat(2,1fr); }
+      .s-tile:nth-child(3) { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar" id="announcebar">
+  ✝ Welcome to Inspirit Clothing Co — Use code <strong class="announce-code">INSPIRIT10</strong> for 10% off your first order <span>·</span> Free shipping on orders over £60
+  <button class="announce-close" onclick="document.getElementById('announcebar').style.display='none'">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <img src="images/logo.png" alt="Inspirit Clothing Co" class="nav-logo-img" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="#shop">Tees</a></li>
+    <li><a href="#hats">Hats</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#drop">New Drop</a></li>
+    <li><a href="#shop" class="nav-cta">Shop Now</a></li>
+  </ul>
+  <div class="ham"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-pill" style="margin-bottom:8px;">New Drop — Spring 2026</div>
+    <img src="images/logo.png" alt="Inspirit Clothing Co" style="width:min(92vw,820px);height:auto;filter:invert(1);mix-blend-mode:screen;margin:0 auto 2px;display:block;" />
+    <p class="hero-tag" style="font-size:clamp(11px,1.4vw,15px);opacity:.55;margin-bottom:2px;letter-spacing:4px;font-style:normal;font-family:var(--fb);font-weight:300;text-transform:uppercase;">Living Inspirit</p>
+    <div class="hero-div" style="margin:2px 0;">✝</div>
+    <p class="hero-verse" style="margin-bottom:12px;">Philippians 4:13 &nbsp;·&nbsp; Handprinted in Australia &nbsp;·&nbsp; Limited Drops</p>
+    <p style="font-size:11px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;">Use code <strong style="background:rgba(200,164,90,0.15);padding:3px 12px;border:1px solid rgba(200,164,90,0.4);">INSPIRIT10</strong> for 10% off your first order</p>
+    <div class="hero-btns">
+      <a href="#shop" class="btn btn-gold">Shop The Drop</a>
+      <a href="#story" class="btn btn-ghost">Our Story</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><div></div></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ti">Living Inspirit</span><span class="tc">✝</span>
+    <span class="ti">Spiritual Badass</span><span class="tc">✝</span>
+    <span class="ti">Handprinted in Australia</span><span class="tc">✝</span>
+    <span class="ti">Wear Your Faith</span><span class="tc">✝</span>
+    <span class="ti">Limited Drops Only</span><span class="tc">✝</span>
+    <span class="ti">Walk in Purpose</span><span class="tc">✝</span>
+    <span class="ti">New Drop Live</span><span class="tc">✝</span>
+    <span class="ti">Living Inspirit</span><span class="tc">✝</span>
+    <span class="ti">Spiritual Badass</span><span class="tc">✝</span>
+    <span class="ti">Handprinted in Australia</span><span class="tc">✝</span>
+    <span class="ti">Wear Your Faith</span><span class="tc">✝</span>
+    <span class="ti">Limited Drops Only</span><span class="tc">✝</span>
+    <span class="ti">Walk in Purpose</span><span class="tc">✝</span>
+    <span class="ti">New Drop Live</span><span class="tc">✝</span>
+  </div>
+</div>
+
+<!-- TRUST -->
+<div class="trust">
+  <div class="trust-item"><div class="ti-icon">✝</div><div class="ti-title">Faith First</div><div class="ti-sub">Every design carries a message</div></div>
+  <div class="trust-item"><div class="ti-icon">◈</div><div class="ti-title">Limited Drops</div><div class="ti-sub">Once it's gone, it's gone</div></div>
+  <div class="trust-item"><div class="ti-icon">⟡</div><div class="ti-title">Handprinted</div><div class="ti-sub">Made by hand, with intention</div></div>
+  <div class="trust-item"><div class="ti-icon">↻</div><div class="ti-title">Free Returns</div><div class="ti-sub">14-day hassle-free returns</div></div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products" id="shop">
+  <div class="products-head">
+    <div>
+      <p class="section-eyebrow">Current Drop 2026</p>
+      <h2 class="section-h">The Collection</h2>
+    </div>
+    <a href="#shop" class="view-all">View All →</a>
+  </div>
+
+  <div class="product-grid">
+
+    <!-- 1: Spiritual Badass Tee — WHITE -->
+    <div class="card" onclick="openProduct(0)">
+      <div class="card-img dual-shot">
+        <span class="badge bg">New</span>
+        <div class="dual-main"><img src="images/white-sb-front-hanger.jpg" alt="Spiritual Badass Tee front" loading="lazy" /></div>
+        <div class="dual-thumb"><img src="images/white-sb-back-hanger.jpg" alt="Spiritual Badass Tee back" loading="lazy" /></div>
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Spiritual Badass Tee</p>
+          <p class="card-desc">You're called. You're bold. Spiritual Badass bold on the back. Heavyweight Christian streetwear, screen printed in Australia.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-w"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$40 AUD</span>
+            <button class="card-btn">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2: Girl Inspirit Tee — BLACK -->
+    <div class="card" onclick="openProduct(1)">
+      <div class="card-img dual-shot">
+        <span class="badge bo">Women's</span>
+        <div class="dual-main"><img src="images/girl-sb-front-hanger.jpg" alt="Girl Inspirit Tee front" loading="lazy" /></div>
+        <div class="dual-thumb"><img class="img-pullback" src="images/girl-sb-back-hanger.jpg" alt="Girl Inspirit Tee back" loading="lazy" /></div>
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Girl Inspirit Tee</p>
+          <p class="card-desc">Made for women who walk in faith. Bold pink Inspirit cross on black. Screen printed in Australia.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$40 AUD</span>
+            <button class="card-btn">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3: Jesus Fish Tee — WHITE -->
+    <div class="card" onclick="openProduct(2)">
+      <div class="card-img dual-shot">
+        <span class="badge bg">Bestseller</span>
+        <div class="dual-main"><img src="images/fish-tee-front-hanger.jpg" alt="Jesus Fish Tee front" loading="lazy" /></div>
+        <div class="dual-thumb"><img src="images/fish-tee-back-hanger.jpg" alt="Jesus Fish Tee back" loading="lazy" /></div>
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Jesus Fish Tee</p>
+          <p class="card-desc">Inspirit fish logo on the chest. JESUS in the fish on the back. Two sides of the same unwavering faith.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-w"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$40 AUD</span>
+            <button class="card-btn">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4: Charlie Kirk x Inspirit — BLACK -->
+    <div class="card" onclick="openProduct(3)">
+      <div class="card-img dual-shot">
+        <span class="badge bo">Collab</span>
+        <div class="dual-main"><img src="images/ck-front-hanger.jpg" alt="Charlie Kirk x Inspirit front" loading="lazy" /></div>
+        <div class="dual-thumb"><img src="images/ck-back-hanger.jpg" alt="Charlie Kirk x Inspirit back" loading="lazy" /></div>
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Charlie Kirk x Inspirit</p>
+          <p class="card-desc">Wings and cross on the front. Feeding the 5000 on the back. Faith meets conviction — limited run.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$40 AUD</span>
+            <button class="card-btn">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WINTER DROP -->
+<section class="products" id="winter" style="margin-top:1px;">
+  <div class="products-head">
+    <div>
+      <p class="section-eyebrow">Winter Drop 2026</p>
+      <h2 class="section-h">Stay Warm. Stay Faithful.</h2>
+    </div>
+    <a href="#winter" class="view-all">Shop Winter →</a>
+  </div>
+  <div class="product-grid">
+
+    <!-- Hoodie — dual shot (hanger + model) -->
+    <div class="card" onclick="openProduct(4)">
+      <div class="card-img dual-shot">
+        <span class="badge bg">Winter Drop</span>
+        <div class="dual-main"><img src="images/winter-hoodie-hanger.jpg" alt="Inspirit Hoodie front" loading="lazy" /></div>
+        <div class="dual-thumb"><img src="images/winter-hoodie-model.jpg" alt="Inspirit Hoodie model" loading="lazy" /></div>
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Inspirit Hoodie</p>
+          <p class="card-desc">Heavyweight pullover. INSPIRIT† Clothing Co. bold on the chest. Warm, oversized, faith-forward.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$65 AUD</span>
+            <button class="card-btn">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Crewneck — dual shot -->
+    <div class="card" onclick="openProduct(5)">
+      <div class="card-img dual-shot">
+        <span class="badge bg">Winter Drop</span>
+        <div class="dual-main"><img src="images/winter-crewneck-hanger.jpg" alt="Inspirit Crewneck front" loading="lazy" /></div>
+        <div class="dual-thumb"><img src="images/winter-crewneck-model.jpg" alt="Inspirit Crewneck model" loading="lazy" /></div>
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Inspirit Crewneck</p>
+          <p class="card-desc">Clean black crewneck. INSPIRIT† Clothing Co. chest logo. Minimal, bold, built to last.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$60 AUD</span>
+            <button class="card-btn">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Beanie — single image -->
+    <div class="card" onclick="openProduct(6)">
+      <div class="card-img" style="aspect-ratio:3/4;background:#efefed;overflow:hidden;">
+        <span class="badge bg">Winter Drop</span>
+        <img src="images/winter-beanie-hanger.jpg" alt="Inspirit Beanie" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;" />
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Inspirit Beanie</p>
+          <p class="card-desc">Black knit beanie. INSPIRIT† Clothing Co. embroidered logo. One size fits all.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$20 AUD</span>
+            <button class="card-btn">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HATS -->
+<section class="hats-section" id="hats">
+  <div class="hats-head">
+    <div>
+      <p class="section-eyebrow">Headwear Collection</p>
+      <h2 class="section-h">Hats & Caps</h2>
+    </div>
+    <a href="#" class="view-all">View All →</a>
+  </div>
+
+  <div class="hats-grid">
+
+    <!-- Hat 1: Inspirit Cross Bucket Hat -->
+    <div class="hat-card">
+      <div class="hat-shots">
+        <div class="hat-main">
+          <img src="images/inspirit-bucket-hat-model.jpg" alt="Inspirit Bucket Hat" loading="lazy" />
+          <span class="badge bg" style="top:14px;left:14px;">New</span>
+        </div>
+        <div class="hat-thumb">
+          <img src="images/inspirit-bucket-hat-real.jpg" alt="Inspirit Bucket Hat detail" loading="lazy" />
+        </div>
+      </div>
+      <div class="hat-info">
+        <div>
+          <p class="card-name">Inspirit Bucket Hat</p>
+          <p class="hat-detail">Reversible · White/Black</p>
+          <p class="card-desc">The cross logo bucket hat — reversible black and white. Wear it both ways. Faith either side.</p>
+        </div>
+        <div class="card-foot" style="margin-top:12px;">
+          <span class="card-price">$35</span>
+          <button class="card-btn">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hat 2: Spiritual Badass Bucket Hat -->
+    <div class="hat-card">
+      <div class="hat-shots">
+        <div class="hat-main">
+          <img src="images/spiritual-badass-bucket-hat-model.jpg" alt="Spiritual Badass Bucket Hat" loading="lazy" />
+          <span class="badge bo" style="top:14px;left:14px;">Limited</span>
+        </div>
+        <div class="hat-thumb">
+          <img src="images/spiritual-badass-bucket-hat-real.jpg" alt="Spiritual Badass Bucket Hat detail" loading="lazy" />
+        </div>
+      </div>
+      <div class="hat-info">
+        <div>
+          <p class="card-name">Spiritual Badass Bucket Hat</p>
+          <p class="hat-detail">Reversible · Black/White</p>
+          <p class="card-desc">Spiritual Badass on black, clean white reverse. The hat that says everything without saying a word.</p>
+        </div>
+        <div class="card-foot" style="margin-top:12px;">
+          <span class="card-price">$35</span>
+          <button class="card-btn">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-visual">
+    <img src="images/feeding-5000-black-tee.jpg" alt="Inspirit story" />
+    <span class="story-wm">INSPIRIT</span>
+  </div>
+  <div class="story-text">
+    <p class="section-eyebrow" style="margin-bottom:14px;">Who We Are</p>
+    <h2 class="story-quote">This isn't just clothing.<br>It's a <em>statement of faith</em><br>you wear every day.</h2>
+    <p class="story-body">Inspirit started with a vision — that streetwear could carry something deeper. Every piece is handprinted, limited, and made with purpose. We're not a fast fashion brand. We're a movement. Rooted in faith. Built for the streets. Living Inspirit isn't just what's on the tee — it's how we move.</p>
+    <div class="verse-block">
+      <p>"I can do all things through Christ who strengthens me."<span class="verse-ref">— Philippians 4:13</span></p>
+    </div>
+    <a href="#shop" class="btn btn-gold" style="align-self:flex-start;">Shop The Range</a>
+  </div>
+</section>
+
+<!-- DROP COUNTDOWN -->
+<section class="drop-cta" id="drop">
+  <div>
+    <h2>Winter Drop<br><span>Coming Soon ✝</span></h2>
+    <p>Limited pieces. First access goes to the list. This is your sign — don't sleep on it.</p>
+  </div>
+</section>
+
+<!-- EMAIL -->
+<section class="email-sec">
+  <p class="section-eyebrow" style="margin-bottom:12px;">The List</p>
+  <h2>Get <em>10% Off</em><br>Your First Order.</h2>
+  <p>Sign up and we'll send your discount code straight to your inbox. Plus drop alerts and early access.</p>
+  <form class="email-form" onsubmit="handleSub(event)">
+    <input class="email-input" type="email" placeholder="your@email.com" required />
+    <button class="email-sub" type="submit">Get 10% Off</button>
+  </form>
+  <p style="font-size:13px;color:var(--gold);letter-spacing:2px;margin-top:14px;position:relative;z-index:2;">Use code <strong>INSPIRIT10</strong> at checkout</p>
+  <p class="email-note" style="margin-top:6px;">No spam. Just drops. Unsubscribe anytime.</p>
+</section>
+
+<!-- SOCIAL STRIP -->
+<div>
+  <div class="social-head">
+    <p class="section-eyebrow">Follow The Journey</p>
+    <p>Tag us in your fits → <a href="#">@inspiritclothingco</a></p>
+  </div>
+  <div class="social-grid">
+    <div class="s-tile fade-tile">
+      <img src="images/tee1-front.jpg" alt="Inspirit" class="active" />
+      <img src="images/tee1-back.jpg" alt="Inspirit" />
+    </div>
+    <div class="s-tile fade-tile">
+      <img src="images/tee2-back.jpg" alt="Inspirit" class="active" style="object-position:center 15%;" />
+      <img src="images/tee2-front.jpg" alt="Inspirit" />
+    </div>
+    <div class="s-tile fade-tile">
+      <img src="images/tee3-front.jpg" alt="Inspirit" class="active" />
+      <img src="images/tee3-back.jpg" alt="Inspirit" style="object-position:center 15%;" />
+    </div>
+    <div class="s-tile fade-tile">
+      <img src="images/tee4-back.jpg" alt="Inspirit" class="active" style="object-position:center 15%;" />
+      <img src="images/tee4-front.jpg" alt="Inspirit" />
+    </div>
+    <div class="s-tile fade-tile">
+      <img src="images/tee5-front.jpg" alt="Inspirit" class="active" style="object-position:center 45%;" />
+      <img src="images/tee5-back.jpg" alt="Inspirit" style="object-position:center top;" />
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="images/logo.png" alt="Inspirit Clothing Co" style="height:48px;width:auto;filter:invert(1);mix-blend-mode:screen;margin-bottom:8px;display:block;" />
+      <p class="f-tag">Living Inspirit</p>
+      <p class="f-desc">Christian urban streetwear — handprinted, limited, intentional. Built from faith, worn on the streets.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">All Products</a></li>
+        <li><a href="#">Tees</a></li>
+        <li><a href="#">Bucket Hats</a></li>
+        <li><a href="#">New Drop</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Size Guide</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Find Us</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">X (Twitter)</a></li>
+        <li><a href="#">Etsy Store</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Inspirit Clothing Co. All rights reserved.</p>
+    <div class="socials">
+      <a href="#" class="soc">IG</a>
+      <a href="#" class="soc">TT</a>
+      <a href="#" class="soc">𝕏</a>
+    </div>
+  </div>
+</footer>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div id="pdp-modal" onclick="if(event.target===this)closeProduct()">
+  <div class="pdp-inner">
+    <button class="pdp-close" onclick="closeProduct()">✕</button>
+    <div class="pdp-gallery">
+      <div class="pdp-main-wrap">
+        <img id="pdp-main-img" src="" alt="" />
+      </div>
+      <div id="pdp-thumbs" class="pdp-thumbs"></div>
+    </div>
+    <div class="pdp-info">
+      <span id="pdp-badge" class="pdp-badge"></span>
+      <h2 id="pdp-name" class="pdp-name"></h2>
+      <p id="pdp-price" class="pdp-price"></p>
+      <p id="pdp-desc" class="pdp-desc"></p>
+      <p id="pdp-detail" class="pdp-sub"></p>
+      <p id="pdp-fit" class="pdp-sub pdp-fit-line"></p>
+      <div class="pdp-size-label">Select Size</div>
+      <div class="pdp-sizes">
+        <button class="size-btn" onclick="selectSize(this)">XS</button>
+        <button class="size-btn" onclick="selectSize(this)">S</button>
+        <button class="size-btn" onclick="selectSize(this)">M</button>
+        <button class="size-btn" onclick="selectSize(this)">L</button>
+        <button class="size-btn" onclick="selectSize(this)">XL</button>
+        <button class="size-btn" onclick="selectSize(this)">2XL</button>
+      </div>
+      <a id="pdp-buy" href="#" target="_blank" class="pdp-buy-btn">Add to Cart →</a>
+      <p class="pdp-shipping">Free shipping on orders over $80 AUD · Printed in Australia</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const PRODUCTS = [
+    { // 0 — WHITE
+      name: "Spiritual Badass Tee",
+      badge: "New Drop",
+      price: "$40 AUD",
+      desc: "You're called. You're bold. Small Inspirit chest logo on the front — SPIRITUAL BADASS hits hard on the back.",
+      detail: "Screen printed on heavyweight white cotton. 200gsm. Pre-shrunk. Runs slightly oversized.",
+      fit: "Regular/oversized unisex fit. Model wears size M.",
+      mainImage: "images/model-white-sb.jpg",
+      images: ["images/white-sb-front-hanger.jpg","images/white-sb-back-hanger.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 1 — BLACK
+      name: "Girl Inspirit Tee",
+      badge: "Women's",
+      price: "$40 AUD",
+      desc: "Made for women who walk in faith. Bold pink INSPIRIT† design on premium black cotton.",
+      detail: "Screen printed by hand in Queensland, Australia. 180gsm pre-shrunk cotton. Runs true to size.",
+      fit: "Oversized fit. Model wears size S.",
+      mainImage: "images/model-girl-sb.jpg",
+      images: ["images/girl-sb-front-hanger.jpg","images/girl-sb-back-hanger.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 2 — WHITE
+      name: "Jesus Fish Tee",
+      badge: "Bestseller",
+      price: "$40 AUD",
+      desc: "Inspirit fish logo on the left chest. JESUS bold in the fish on the back. Two sides of the same unwavering faith.",
+      detail: "Screen printed on premium white cotton. 180gsm. Pre-shrunk. Classic streetwear cut.",
+      fit: "Regular unisex fit. Model wears size L.",
+      mainImage: "images/model-fish-tee.jpg",
+      images: ["images/fish-tee-front-hanger.jpg","images/fish-tee-back-hanger.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 3 — BLACK
+      name: "Charlie Kirk x Inspirit",
+      badge: "Limited Collab",
+      price: "$40 AUD",
+      desc: "Wings and cross on the front. Feeding the 5000 on the back. Faith meets conviction — limited run.",
+      detail: "Screen printed on premium black cotton. 200gsm. Pre-shrunk. Bold oversized graphic.",
+      fit: "Oversized unisex fit. Model wears size M.",
+      mainImage: "images/model-charlie-kirk.jpg",
+      images: ["images/ck-front-hanger.jpg","images/ck-back-hanger.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 4 — WINTER: Hoodie
+      name: "Inspirit Hoodie",
+      badge: "Winter Drop",
+      price: "$65 AUD",
+      desc: "Heavyweight pullover hoodie. INSPIRIT† Clothing Co. bold across the chest. Warm, oversized, faith-forward.",
+      detail: "Premium 400gsm fleece. Pre-shrunk. Kangaroo pocket. Unisex oversized cut.",
+      fit: "Oversized fit. Size up for extra oversized look.",
+      mainImage: "images/winter-hoodie-model.jpg",
+      images: ["images/winter-hoodie-hanger.jpg","images/winter-hoodie-model.jpg"],
+      labels: ["Hanger","Model"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 5 — WINTER: Crewneck
+      name: "Inspirit Crewneck",
+      badge: "Winter Drop",
+      price: "$60 AUD",
+      desc: "Clean black crewneck. INSPIRIT† Clothing Co. chest logo. Minimal, bold, built to last.",
+      detail: "350gsm fleece blend. Pre-shrunk. Ribbed cuffs and hem. Unisex fit.",
+      fit: "Regular/oversized unisex fit. Model wears size L.",
+      mainImage: "images/winter-crewneck-model.jpg",
+      images: ["images/winter-crewneck-hanger.jpg","images/winter-crewneck-model.jpg"],
+      labels: ["Hanger","Model"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 6 — WINTER: Beanie
+      name: "Inspirit Beanie",
+      badge: "Winter Drop",
+      price: "$20 AUD",
+      desc: "Black knit beanie. INSPIRIT† Clothing Co. embroidered logo. One size fits all.",
+      detail: "100% acrylic knit. Embroidered Inspirit logo. Stretchy one-size fit.",
+      fit: "One size fits all.",
+      mainImage: "images/winter-beanie-hanger.jpg",
+      images: ["images/winter-beanie-hanger.jpg"],
+      labels: ["Front"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    }
+  ];
+
+  function selectSize(btn) {
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  }
+
+  const target = new Date(Date.now() + 7*24*60*60*1000);
+  function tick() {
+    const d = target - Date.now();
+    if (d <= 0) { document.getElementById('countdown').innerHTML='<p style="font-family:\'Bebas Neue\',sans-serif;font-size:26px;letter-spacing:3px;color:var(--gold)">LIVE NOW ✝</p>'; return; }
+    const p = n => String(Math.floor(n)).padStart(2,'0');
+    document.getElementById('cd-d').textContent = p(d/86400000);
+    document.getElementById('cd-h').textContent = p(d%86400000/3600000);
+    document.getElementById('cd-m').textContent = p(d%3600000/60000);
+    document.getElementById('cd-s').textContent = p(d%60000/1000);
+  }
+  setInterval(tick,1000); tick();
+
+  // Fade cycling for social strip tiles
+  document.querySelectorAll('.fade-tile').forEach((tile, i) => {
+    const imgs = tile.querySelectorAll('img');
+    let current = 0;
+    setTimeout(() => {
+      setInterval(() => {
+        imgs[current].classList.remove('active');
+        current = (current + 1) % imgs.length;
+        imgs[current].classList.add('active');
+      }, 5000);
+    }, i * 1000); // stagger each tile by 1s so they don't all switch at once
+  });
+
+  /* ── PRODUCT MODAL ── */
+  function openProduct(idx) {
+    const p = PRODUCTS[idx];
+    const m = document.getElementById('pdp-modal');
+    document.getElementById('pdp-badge').textContent = p.badge;
+    document.getElementById('pdp-name').textContent = p.name;
+    document.getElementById('pdp-price').textContent = p.price;
+    document.getElementById('pdp-desc').textContent = p.desc;
+    document.getElementById('pdp-detail').textContent = p.detail;
+    document.getElementById('pdp-fit').textContent = p.fit;
+    document.getElementById('pdp-buy').href = p.shopifyUrl;
+    // images — open with model/back as the hero
+    const mainImg = document.getElementById('pdp-main-img');
+    mainImg.src = p.mainImage;
+    mainImg.alt = p.name;
+    const thumbs = document.getElementById('pdp-thumbs');
+    thumbs.innerHTML = '';
+    p.images.forEach((src, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'pdp-thumb';
+      btn.innerHTML = `<img src="${src}" alt="${p.labels[i]}" /><span>${p.labels[i]}</span>`;
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        mainImg.src = src;
+        document.querySelectorAll('.pdp-thumb').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      };
+      thumbs.appendChild(btn);
+    });
+    // sizes
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+    m.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeProduct() {
+    document.getElementById('pdp-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProduct(); });
+
+  function handleSub(e) {
+    e.preventDefault();
+    const b = e.target.querySelector('.email-sub');
+    b.textContent = "You're In ✝"; b.style.background='var(--near)'; b.style.color='var(--gold)';
+    e.target.querySelector('input').value='';
+  }
+</script>
+</body>
+</html>
