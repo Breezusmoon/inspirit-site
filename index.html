@@ -56,8 +56,21 @@
     .nav-links a:hover { color:var(--gold); }
     .nav-cta { background:var(--gold) !important; color:var(--black) !important; padding:10px 24px; font-weight:700 !important; }
     .nav-cta:hover { background:var(--gold-lt) !important; }
-    .ham { display:none; flex-direction:column; gap:5px; cursor:pointer; }
-    .ham span { width:22px; height:1.5px; background:var(--white); display:block; }
+    .ham { display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:1001; }
+    .ham span { width:22px; height:1.5px; background:var(--white); display:block; transition:all .3s; }
+    .ham.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+    .ham.open span:nth-child(2) { opacity:0; }
+    .ham.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+    .mobile-nav {
+      display:none; position:fixed; inset:88px 0 0 0; z-index:998;
+      background:rgba(8,8,8,0.98); backdrop-filter:blur(20px);
+      flex-direction:column; align-items:center; justify-content:center; gap:36px;
+      border-top:1px solid rgba(200,164,90,0.15);
+    }
+    .mobile-nav.open { display:flex; animation:pdpIn .25s ease; }
+    .mobile-nav a { color:rgba(255,255,255,0.75); text-decoration:none; font-family:var(--fh); font-size:32px; letter-spacing:5px; text-transform:uppercase; transition:color .2s; }
+    .mobile-nav a:hover { color:var(--gold); }
+    .mobile-nav a.nav-cta { color:var(--gold); border:1px solid rgba(200,164,90,0.4); padding:12px 40px; }
 
     /* ── HERO ── */
     .hero {
@@ -65,10 +78,22 @@
       justify-content:center; align-items:center; text-align:center;
       padding:92px 40px 40px; position:relative; overflow:hidden;
     }
+    /* ── HERO SLIDESHOW ── */
+    .hero-slide {
+      position:absolute; inset:0; z-index:0;
+      opacity:0; transition:opacity 1.4s ease;
+    }
+    .hero-slide.active { opacity:1; }
+    .hero-slide img {
+      width:100%; height:100%; object-fit:cover; object-position:center 10%;
+      filter:brightness(0.36);
+    }
     .hero::before {
-      content:''; position:absolute; inset:0; pointer-events:none;
-      background: radial-gradient(ellipse 70% 55% at 50% -5%, rgba(200,164,90,0.1) 0%, transparent 65%),
-                  radial-gradient(ellipse 35% 35% at 80% 85%, rgba(200,164,90,0.05) 0%, transparent 60%);
+      content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+      background:
+        linear-gradient(to bottom, rgba(8,8,8,0.35) 0%, transparent 35%, transparent 65%, rgba(8,8,8,0.7) 100%),
+        radial-gradient(ellipse 70% 55% at 50% -5%, rgba(200,164,90,0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 35% 35% at 80% 85%, rgba(200,164,90,0.06) 0%, transparent 60%);
     }
     .hero-content { position:relative; z-index:2; max-width:860px; }
     .hero-pill {
@@ -254,6 +279,7 @@
     .card:hover .card-img::after { opacity:1; }
     .badge { position:absolute; top:14px; left:14px; z-index:3; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 12px; }
     .bg { background:var(--gold); color:var(--black); }
+    .bn { background:var(--black); border:1px solid var(--gold); color:var(--gold); }
     .bo { border:1px solid var(--gold); color:var(--gold); background:transparent; }
     .bw { background:var(--white); color:var(--black); }
     .card-info { padding:18px 22px 22px; border-top:1px solid rgba(200,164,90,.08); flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:10px; }
@@ -389,7 +415,7 @@
 
 <!-- ANNOUNCEMENT BAR -->
 <div class="announce-bar" id="announcebar">
-  ✝ Welcome to Inspirit Clothing Co — Use code <strong class="announce-code">INSPIRIT10</strong> for 10% off your first order <span>·</span> Free shipping on orders over £60
+  ✝ Welcome to Inspirit Clothing Co — Use code <strong class="announce-code">INSPIRIT10</strong> for 10% off your first order <span>·</span> Free shipping on orders over $80 AUD
   <button class="announce-close" onclick="document.getElementById('announcebar').style.display='none'">✕</button>
 </div>
 
@@ -405,11 +431,26 @@
     <li><a href="#drop">New Drop</a></li>
     <li><a href="#shop" class="nav-cta">Shop Now</a></li>
   </ul>
-  <div class="ham"><span></span><span></span><span></span></div>
+  <div class="ham" id="ham" onclick="toggleMobileNav()"><span></span><span></span><span></span></div>
 </nav>
 
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#shop" onclick="closeMobileNav()">Tees</a>
+  <a href="#hats" onclick="closeMobileNav()">Hats</a>
+  <a href="#story" onclick="closeMobileNav()">Our Story</a>
+  <a href="#drop" onclick="closeMobileNav()">New Drop</a>
+  <a href="#shop" class="nav-cta" onclick="closeMobileNav()">Shop Now</a>
+</div>
+
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
+  <!-- Hero slideshow — 4 new drop front models -->
+  <div class="hero-slide active"><img src="images-clean/model-feeding5000.jpg" alt="Feeding 5000 Tee" /></div>
+  <div class="hero-slide"><img src="images-clean/model-sb-black.jpg" alt="Spiritual Badass Black" /></div>
+  <div class="hero-slide"><img src="images-clean/model-fish-jesus.jpg" alt="Jesus Fish Black" /></div>
+  <div class="hero-slide"><img src="images-clean/model-womens-heart.jpg" alt="Heart Tee" /></div>
+
   <div class="hero-content">
     <div class="hero-pill" style="margin-bottom:8px;">New Drop — Spring 2026</div>
     <img src="images-clean/logo.png" alt="Inspirit Clothing Co" style="width:min(92vw,820px);height:auto;mix-blend-mode:screen;margin:0 auto 2px;display:block;" />
@@ -465,96 +506,8 @@
 
   <div class="product-grid">
 
-    <!-- 1: Spiritual Badass Tee — WHITE -->
+    <!-- 0: Feeding 5000 — BLACK -->
     <div class="card" onclick="openProduct(0)">
-      <div class="card-img dual-shot">
-        <span class="badge bg">New</span>
-        <div class="dual-main"><img src="images-clean/white-sb-front-hanger.jpg" alt="Spiritual Badass Tee front" loading="lazy" /></div>
-        <div class="dual-thumb"><img src="images-clean/white-sb-back-hanger.jpg" alt="Spiritual Badass Tee back" loading="lazy" /></div>
-      </div>
-      <div class="card-info">
-        <div>
-          <p class="card-name">Spiritual Badass Tee</p>
-          <p class="card-desc">You're called. You're bold. Spiritual Badass bold on the back. Heavyweight Christian streetwear, screen printed in Australia.</p>
-        </div>
-        <div>
-          <div class="card-colors"><div class="cdot cdot-w"></div></div>
-          <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$40 AUD</span>
-            <button class="card-btn">View →</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2: Girl Inspirit Tee — BLACK -->
-    <div class="card" onclick="openProduct(1)">
-      <div class="card-img dual-shot">
-        <span class="badge bo">Women's</span>
-        <div class="dual-main"><img src="images-clean/girl-sb-front-hanger.jpg" alt="Girl Inspirit Tee front" loading="lazy" /></div>
-        <div class="dual-thumb"><img class="img-pullback" src="images-clean/girl-sb-back-hanger.jpg" alt="Girl Inspirit Tee back" loading="lazy" /></div>
-      </div>
-      <div class="card-info">
-        <div>
-          <p class="card-name">Girl Inspirit Tee</p>
-          <p class="card-desc">Made for women who walk in faith. Bold pink Inspirit cross on black. Screen printed in Australia.</p>
-        </div>
-        <div>
-          <div class="card-colors"><div class="cdot cdot-b"></div></div>
-          <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$40 AUD</span>
-            <button class="card-btn">View →</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3: Jesus Fish Tee — WHITE -->
-    <div class="card" onclick="openProduct(2)">
-      <div class="card-img dual-shot">
-        <span class="badge bg">Bestseller</span>
-        <div class="dual-main"><img src="images-clean/fish-tee-front-hanger.jpg" alt="Jesus Fish Tee front" loading="lazy" /></div>
-        <div class="dual-thumb"><img src="images-clean/fish-tee-back-hanger.jpg" alt="Jesus Fish Tee back" loading="lazy" /></div>
-      </div>
-      <div class="card-info">
-        <div>
-          <p class="card-name">Jesus Fish Tee</p>
-          <p class="card-desc">Inspirit fish logo on the chest. JESUS in the fish on the back. Two sides of the same unwavering faith.</p>
-        </div>
-        <div>
-          <div class="card-colors"><div class="cdot cdot-w"></div></div>
-          <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$40 AUD</span>
-            <button class="card-btn">View →</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4: Charlie Kirk x Inspirit — BLACK -->
-    <div class="card" onclick="openProduct(3)">
-      <div class="card-img dual-shot">
-        <span class="badge bo">Collab</span>
-        <div class="dual-main"><img src="images-clean/ck-front-hanger.jpg" alt="Charlie Kirk x Inspirit front" loading="lazy" /></div>
-        <div class="dual-thumb"><img src="images-clean/ck-back-hanger.jpg" alt="Charlie Kirk x Inspirit back" loading="lazy" /></div>
-      </div>
-      <div class="card-info">
-        <div>
-          <p class="card-name">Charlie Kirk x Inspirit</p>
-          <p class="card-desc">Wings and cross on the front. Feeding the 5000 on the back. Faith meets conviction — limited run.</p>
-        </div>
-        <div>
-          <div class="card-colors"><div class="cdot cdot-b"></div></div>
-          <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$40 AUD</span>
-            <button class="card-btn">View →</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7: Feeding 5000 — BLACK -->
-    <div class="card" onclick="openProduct(7)">
       <div class="card-img dual-shot">
         <span class="badge bn">New Drop</span>
         <div class="dual-main"><img src="images-clean/feeding5000-front-hanger.jpg" alt="Feeding 5000 Tee front" loading="lazy" /></div>
@@ -575,8 +528,8 @@
       </div>
     </div>
 
-    <!-- 8: Spiritual Badass — BLACK -->
-    <div class="card" onclick="openProduct(8)">
+    <!-- 1: Spiritual Badass — BLACK -->
+    <div class="card" onclick="openProduct(1)">
       <div class="card-img dual-shot">
         <span class="badge bn">New Drop</span>
         <div class="dual-main"><img src="images-clean/sb-black-front-hanger.jpg" alt="Spiritual Badass Black front" loading="lazy" /></div>
@@ -597,8 +550,8 @@
       </div>
     </div>
 
-    <!-- 9: Jesus Fish — BLACK -->
-    <div class="card" onclick="openProduct(9)">
+    <!-- 2: Jesus Fish — BLACK -->
+    <div class="card" onclick="openProduct(2)">
       <div class="card-img dual-shot">
         <span class="badge bn">New Drop</span>
         <div class="dual-main"><img src="images-clean/fish-jesus-black-front-hanger.jpg" alt="Jesus Fish Black front" loading="lazy" /></div>
@@ -619,8 +572,8 @@
       </div>
     </div>
 
-    <!-- 10: Womens Heart — WHITE/BLACK -->
-    <div class="card" onclick="openProduct(10)">
+    <!-- 3: Womens Heart — WHITE/BLACK -->
+    <div class="card" onclick="openProduct(3)">
       <div class="card-img dual-shot">
         <span class="badge bw">Women's</span>
         <div class="dual-main"><img src="images-clean/womens-heart-white-front-hanger.jpg" alt="Womens Heart Tee front" loading="lazy" /></div>
@@ -935,51 +888,51 @@
 
 <script>
   const PRODUCTS = [
-    { // 0 — WHITE
-      name: "Spiritual Badass Tee",
+    { // 0 — Feeding 5000 Black
+      name: "Feeding 5000 Tee",
       badge: "New Drop",
       price: "$40 AUD",
-      desc: "You're called. You're bold. Small Inspirit chest logo on the front — SPIRITUAL BADASS hits hard on the back.",
-      detail: "Screen printed on heavyweight white cotton. 200gsm. Pre-shrunk. Runs slightly oversized.",
-      fit: "Regular/oversized unisex fit. Model wears size M.",
-      mainImage: "images-clean/model-white-sb.jpg",
-      images: ["images-clean/white-sb-front-hanger.jpg","images-clean/white-sb-back-hanger.jpg"],
+      desc: "Jesus feeding the 5000 — bold graphic on the back. Inspirit fish logo on the chest. Faith in action.",
+      detail: "Screen printed on heavyweight black cotton. 200gsm. Pre-shrunk. Unisex oversized cut.",
+      fit: "Oversized unisex fit. Model wears size M.",
+      mainImage: "images-clean/model-feeding5000.jpg",
+      images: ["images-clean/feeding5000-front-hanger.jpg","images-clean/feeding5000-back-hanger.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
-    { // 1 — BLACK
-      name: "Girl Inspirit Tee",
+    { // 1 — Spiritual Badass Black
+      name: "Spiritual Badass Tee — Black",
+      badge: "New Drop",
+      price: "$40 AUD",
+      desc: "The original statement tee — now in black. Inspirit logo on the chest, SPIRITUAL BADASS hits hard on the back.",
+      detail: "Screen printed on heavyweight black cotton. 200gsm. Pre-shrunk. Runs slightly oversized.",
+      fit: "Oversized unisex fit. Model wears size M.",
+      mainImage: "images-clean/model-sb-black.jpg",
+      images: ["images-clean/sb-black-front-hanger.jpg","images-clean/sb-black-back-hanger.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 2 — Jesus Fish Black
+      name: "Jesus Fish Tee — Black",
+      badge: "New Drop",
+      price: "$40 AUD",
+      desc: "Inspirit fish logo on the chest. JESUS bold in the fish on the back. Now in black.",
+      detail: "Screen printed on premium black cotton. 180gsm. Pre-shrunk. Classic streetwear cut.",
+      fit: "Regular unisex fit. Model wears size L.",
+      mainImage: "images-clean/model-fish-jesus.jpg",
+      images: ["images-clean/fish-jesus-black-front-hanger.jpg","images-clean/fish-jesus-black-back-hanger.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 3 — Womens Heart White
+      name: "Heart Tee",
       badge: "Women's",
       price: "$40 AUD",
-      desc: "Made for women who walk in faith. Bold pink INSPIRIT† design on premium black cotton.",
-      detail: "Screen printed by hand in Queensland, Australia. 180gsm pre-shrunk cotton. Runs true to size.",
-      fit: "Oversized fit. Model wears size S.",
-      mainImage: "images-clean/model-girl-sb.jpg",
-      images: ["images-clean/girl-sb-front-hanger.jpg","images-clean/girl-sb-back-hanger.jpg"],
-      labels: ["Front","Back"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com"
-    },
-    { // 2 — WHITE
-      name: "Jesus Fish Tee",
-      badge: "Bestseller",
-      price: "$40 AUD",
-      desc: "Inspirit fish logo on the left chest. JESUS bold in the fish on the back. Two sides of the same unwavering faith.",
-      detail: "Screen printed on premium white cotton. 180gsm. Pre-shrunk. Classic streetwear cut.",
-      fit: "Regular unisex fit. Model wears size L.",
-      mainImage: "images-clean/model-fish-tee.jpg",
-      images: ["images-clean/fish-tee-front-hanger.jpg","images-clean/fish-tee-back-hanger.jpg"],
-      labels: ["Front","Back"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com"
-    },
-    { // 3 — BLACK
-      name: "Charlie Kirk x Inspirit",
-      badge: "Limited Collab",
-      price: "$40 AUD",
-      desc: "Wings and cross on the front. Feeding the 5000 on the back. Faith meets conviction — limited run.",
-      detail: "Screen printed on premium black cotton. 200gsm. Pre-shrunk. Bold oversized graphic.",
-      fit: "Oversized unisex fit. Model wears size M.",
-      mainImage: "images-clean/model-charlie-kirk.jpg",
-      images: ["images-clean/ck-front-hanger.jpg","images-clean/ck-back-hanger.jpg"],
+      desc: "Faith and love in one. Pink heart cross logo on the chest. SPIRITUAL BADASS on the back. Made for women who walk boldly.",
+      detail: "Screen printed on premium white cotton. 180gsm. Pre-shrunk. Women's relaxed fit.",
+      fit: "Relaxed women's fit. Model wears size S.",
+      mainImage: "images-clean/model-womens-heart.jpg",
+      images: ["images-clean/womens-heart-white-front-hanger.jpg","images-clean/womens-heart-black-back-hanger.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
@@ -1019,54 +972,6 @@
       labels: ["Front"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
-    { // 7 — Feeding 5000 Black
-      name: "Feeding 5000 Tee",
-      badge: "New Drop",
-      price: "$40 AUD",
-      desc: "Jesus feeding the 5000 — bold graphic on the back. Inspirit fish logo on the chest. Faith in action.",
-      detail: "Screen printed on heavyweight black cotton. 200gsm. Pre-shrunk. Unisex oversized cut.",
-      fit: "Oversized unisex fit. Model wears size M.",
-      mainImage: "images-clean/model-feeding5000.jpg",
-      images: ["images-clean/feeding5000-front-hanger.jpg","images-clean/feeding5000-back-hanger.jpg"],
-      labels: ["Front","Back"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com"
-    },
-    { // 8 — Spiritual Badass Black
-      name: "Spiritual Badass Tee — Black",
-      badge: "New Drop",
-      price: "$40 AUD",
-      desc: "The original statement tee — now in black. Inspirit logo on the chest, SPIRITUAL BADASS hits hard on the back.",
-      detail: "Screen printed on heavyweight black cotton. 200gsm. Pre-shrunk. Runs slightly oversized.",
-      fit: "Oversized unisex fit. Model wears size M.",
-      mainImage: "images-clean/model-sb-black.jpg",
-      images: ["images-clean/sb-black-front-hanger.jpg","images-clean/sb-black-back-hanger.jpg"],
-      labels: ["Front","Back"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com"
-    },
-    { // 9 — Jesus Fish Black
-      name: "Jesus Fish Tee — Black",
-      badge: "New Drop",
-      price: "$40 AUD",
-      desc: "Inspirit fish logo on the chest. JESUS bold in the fish on the back. Now in black.",
-      detail: "Screen printed on premium black cotton. 180gsm. Pre-shrunk. Classic streetwear cut.",
-      fit: "Regular unisex fit. Model wears size L.",
-      mainImage: "images-clean/model-fish-jesus.jpg",
-      images: ["images-clean/fish-jesus-black-front-hanger.jpg","images-clean/fish-jesus-black-back-hanger.jpg"],
-      labels: ["Front","Back"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com"
-    },
-    { // 10 — Womens Heart White
-      name: "Heart Tee — White",
-      badge: "Women's",
-      price: "$40 AUD",
-      desc: "Faith and love in one. Pink heart cross logo on the chest. SPIRITUAL BADASS on the back. Made for women who walk boldly.",
-      detail: "Screen printed on premium white cotton. 180gsm. Pre-shrunk. Women's relaxed fit.",
-      fit: "Relaxed women's fit. Model wears size S.",
-      mainImage: "images-clean/model-womens-heart.jpg",
-      images: ["images-clean/womens-heart-white-front-hanger.jpg","images-clean/womens-heart-black-back-hanger.jpg"],
-      labels: ["Front","Back"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com"
-    }
   ];
 
   function selectSize(btn) {
@@ -1140,6 +1045,31 @@
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProduct(); });
+
+  /* ── HERO SLIDESHOW ── */
+  (function(){
+    const slides = document.querySelectorAll('#hero .hero-slide');
+    if(!slides.length) return;
+    let idx = 0;
+    setInterval(() => {
+      slides[idx].classList.remove('active');
+      idx = (idx + 1) % slides.length;
+      slides[idx].classList.add('active');
+    }, 4500);
+  })();
+
+  function toggleMobileNav() {
+    const ham = document.getElementById('ham');
+    const nav = document.getElementById('mobile-nav');
+    ham.classList.toggle('open');
+    nav.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+  }
+  function closeMobileNav() {
+    document.getElementById('ham').classList.remove('open');
+    document.getElementById('mobile-nav').classList.remove('open');
+    document.body.style.overflow = '';
+  }
 
   function handleSub(e) {
     e.preventDefault();
