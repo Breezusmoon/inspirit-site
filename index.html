@@ -648,14 +648,15 @@
     </div>
     <a href="#winter" class="view-all">Shop Winter →</a>
   </div>
-  <div class="product-grid">
+  <!-- Row 1: 3 hoodies/jumper -->
+  <div class="product-grid" style="grid-template-columns:repeat(3,1fr);">
 
-    <!-- Inspirit Hoodie — dual shot (front model + back model) -->
+    <!-- Inspirit Hoodie -->
     <div class="card" onclick="openProduct(4)">
-      <div class="card-img dual-shot">
+      <div class="card-img" style="background:#111;aspect-ratio:2/3;">
         <span class="badge bg">Winter Drop</span>
-        <div class="dual-main"><img src="images-clean/hoodie-inspirit-model-front.jpg" alt="Inspirit Hoodie front" loading="lazy" /><img src="images-clean/hoodie-inspirit-model-back.jpg" class="card-hover-img" alt="Inspirit Hoodie back" /></div>
-        <div class="dual-thumb"><img src="images-clean/hoodie-inspirit-model-back.jpg" alt="Inspirit Hoodie back" loading="lazy" /></div>
+        <img src="images-clean/hoodie-inspirit-hanger-back.jpg" alt="Inspirit Hoodie back" loading="lazy" />
+        <img src="images-clean/hoodie-inspirit-model-front.jpg" class="card-hover-img" alt="Inspirit Hoodie model" />
       </div>
       <div class="card-info">
         <div>
@@ -672,17 +673,39 @@
       </div>
     </div>
 
-    <!-- Crewneck — dual shot -->
-    <div class="card" onclick="openProduct(5)">
-      <div class="card-img dual-shot">
+    <!-- Spiritual Badass Pink Hoodie -->
+    <div class="card" onclick="openProduct(7)">
+      <div class="card-img" style="background:#111;aspect-ratio:2/3;">
         <span class="badge bg">Winter Drop</span>
-        <div class="dual-main"><img src="images-clean/winter-crewneck-hanger.jpg" alt="Inspirit Crewneck front" loading="lazy" /><img src="images-clean/winter-crewneck-model.jpg" class="card-hover-img" alt="Crewneck model" /></div>
-        <div class="dual-thumb"><img src="images-clean/winter-crewneck-model.jpg" alt="Inspirit Crewneck model" loading="lazy" /></div>
+        <img src="images-clean/hoodie-pink-hanger-back.jpg" alt="Spiritual Badass Pink Hoodie back" loading="lazy" />
+        <img src="images-clean/hoodie-pink-model-front.jpg" class="card-hover-img" alt="Spiritual Badass Pink Hoodie model" />
       </div>
       <div class="card-info">
         <div>
-          <p class="card-name">Inspirit Crewneck</p>
-          <p class="card-desc">Clean black crewneck. INSPIRIT† Clothing Co. chest logo. Minimal, bold, built to last.</p>
+          <p class="card-name">Spiritual Badass Hoodie</p>
+          <p class="card-desc">Black oversized hoodie. Pink SPIRITUAL BADASS front, heart cross back. Made for her.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$65 AUD</span>
+            <button class="card-btn">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jesus Fish Jumper -->
+    <div class="card" onclick="openProduct(8)">
+      <div class="card-img" style="background:#111;aspect-ratio:2/3;">
+        <span class="badge bg">Winter Drop</span>
+        <img src="images-clean/jumper-fishjesus-hanger-back.jpg" alt="Jesus Fish Jumper back" loading="lazy" />
+        <img src="images-clean/jumper-fishjesus-model-front.jpg" class="card-hover-img" alt="Jesus Fish Jumper model" />
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Jesus Fish Jumper</p>
+          <p class="card-desc">Black crewneck. Inspirit chest logo. Bold JESUS fish graphic on the back. Walk in faith.</p>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
@@ -694,7 +717,10 @@
       </div>
     </div>
 
-    <!-- Beanie — single image -->
+  </div>
+
+  <!-- Row 2: Beanie -->
+  <div class="product-grid" style="grid-template-columns:repeat(3,1fr);margin-top:1px;">
     <div class="card" onclick="openProduct(6)">
       <div class="card-img" style="aspect-ratio:3/4;background:#efefed;overflow:hidden;">
         <span class="badge bg">Winter Drop</span>
@@ -714,52 +740,8 @@
         </div>
       </div>
     </div>
-
-    <!-- Pink Women's Hoodie — dual shot -->
-    <div class="card" onclick="openProduct(7)">
-      <div class="card-img dual-shot">
-        <span class="badge bg">Winter Drop</span>
-        <div class="dual-main"><img src="images-clean/hoodie-pink-model-front.jpg" alt="Spiritual Badass Pink Hoodie front" loading="lazy" /><img src="images-clean/hoodie-pink-model-back.jpg" class="card-hover-img" alt="Spiritual Badass Pink Hoodie back" /></div>
-        <div class="dual-thumb"><img src="images-clean/hoodie-pink-model-back-alt.jpg" alt="Spiritual Badass Pink Hoodie back" loading="lazy" /></div>
-      </div>
-      <div class="card-info">
-        <div>
-          <p class="card-name">Spiritual Badass Hoodie</p>
-          <p class="card-desc">Black oversized hoodie. Pink SPIRITUAL BADASS front, heart cross back. Made for her.</p>
-        </div>
-        <div>
-          <div class="card-colors"><div class="cdot cdot-b"></div></div>
-          <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$65 AUD</span>
-            <button class="card-btn">View →</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Jesus Fish Jumper — dual shot -->
-    <div class="card" onclick="openProduct(8)">
-      <div class="card-img dual-shot">
-        <span class="badge bg">Winter Drop</span>
-        <div class="dual-main"><img src="images-clean/jumper-fishjesus-model-front.jpg" alt="Jesus Fish Jumper front" loading="lazy" /><img src="images-clean/jumper-fishjesus-model-back-alt.jpg" class="card-hover-img" alt="Jesus Fish Jumper back" /></div>
-        <div class="dual-thumb"><img src="images-clean/jumper-fishjesus-model-back.jpg" alt="Jesus Fish Jumper back" loading="lazy" /></div>
-      </div>
-      <div class="card-info">
-        <div>
-          <p class="card-name">Jesus Fish Jumper</p>
-          <p class="card-desc">Black crewneck. Inspirit chest logo. Bold JESUS fish graphic on the back. Walk in faith.</p>
-        </div>
-        <div>
-          <div class="card-colors"><div class="cdot cdot-b"></div></div>
-          <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$60 AUD</span>
-            <button class="card-btn">View →</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
+
 </section>
 
 <!-- HATS -->
