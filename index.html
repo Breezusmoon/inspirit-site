@@ -240,11 +240,34 @@
       letter-spacing:.5px; line-height:1.5; margin:0;
     }
     @media(max-width:720px) {
-      .pdp-inner { flex-direction:column; max-height:95vh; }
-      .pdp-gallery { max-height:55vw; min-height:200px; }
-      .pdp-main-wrap { min-height:180px; }
-      .pdp-info { width:100%; padding:24px 20px 28px; max-height:none; gap:10px; }
-      .pdp-name { font-size:24px; }
+      #pdp-modal { padding:0; align-items:flex-end; justify-content:center; }
+      @keyframes pdpIn { from{opacity:0;transform:translateY(60px)} to{opacity:1;transform:none} }
+      .pdp-inner {
+        flex-direction:column;
+        max-height:96vh; width:100%; max-width:100%;
+        border-radius:20px 20px 0 0;
+        border-left:none; border-right:none; border-bottom:none;
+        overflow:hidden;
+      }
+      .pdp-close { top:14px; right:16px; font-size:22px; background:rgba(0,0,0,0.4); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+      .pdp-gallery { height:44vh; max-height:44vh; min-height:180px; flex-shrink:0; }
+      .pdp-main-wrap { min-height:0; flex:1; }
+      .pdp-thumbs { padding:5px; gap:3px; }
+      .pdp-thumb { aspect-ratio:1/1; }
+      .pdp-thumb span { font-size:8px; padding:3px 0; }
+      .pdp-info {
+        width:100%; padding:18px 18px 36px;
+        overflow-y:auto; -webkit-overflow-scrolling:touch;
+        max-height:52vh; gap:10px;
+      }
+      .pdp-name { font-size:22px; }
+      .pdp-price { font-size:18px; }
+      .pdp-color-row { margin-bottom:8px; }
+      .pdp-color-swatches { gap:14px; margin-top:8px; }
+      .pdp-swatch { width:36px; height:36px; }
+      .pdp-sizes { gap:7px; flex-wrap:wrap; }
+      .size-btn { min-width:46px; min-height:46px; font-size:13px; }
+      .pdp-buy-btn { font-size:16px; padding:15px 20px; margin-top:10px; }
     }
 
     /* ── TICKER ── */
@@ -412,11 +435,21 @@
       .footer-bottom { flex-direction:column; gap:14px; }
     }
     @media(max-width:600px) {
-      .product-grid { grid-template-columns:1fr; }
+      .product-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+      .product-grid.grid-4 { grid-template-columns:repeat(2,1fr); }
+      .card-info { padding:12px 10px 14px; gap:6px; }
+      .card-name { font-size:13px; }
+      .card-desc { font-size:11px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+      .card-price { font-size:14px; }
+      .card-btn { font-size:11px; padding:7px 12px; }
       .email-form { flex-direction:column; }
       .email-input { border-right:1px solid rgba(200,164,90,.22); }
       .social-grid { grid-template-columns:repeat(2,1fr); }
       .s-tile:nth-child(3) { display:none; }
+      .products-head { flex-direction:column; gap:8px; align-items:flex-start; }
+      .section-h { font-size:32px; }
+      .products { padding:48px 16px; }
+      .hero h1 { font-size:clamp(36px,11vw,72px); }
     }
   </style>
 </head>
@@ -617,12 +650,12 @@
   </div>
   <div class="product-grid">
 
-    <!-- Hoodie — dual shot (hanger + model) -->
+    <!-- Inspirit Hoodie — dual shot (front model + back model) -->
     <div class="card" onclick="openProduct(4)">
       <div class="card-img dual-shot">
         <span class="badge bg">Winter Drop</span>
-        <div class="dual-main"><img src="images-clean/winter-hoodie-hanger.jpg" alt="Inspirit Hoodie front" loading="lazy" /><img src="images-clean/winter-hoodie-model.jpg" class="card-hover-img" alt="Hoodie model" /></div>
-        <div class="dual-thumb"><img src="images-clean/winter-hoodie-model.jpg" alt="Inspirit Hoodie model" loading="lazy" /></div>
+        <div class="dual-main"><img src="images-clean/hoodie-inspirit-model-front.jpg" alt="Inspirit Hoodie front" loading="lazy" /><img src="images-clean/hoodie-inspirit-model-back.jpg" class="card-hover-img" alt="Inspirit Hoodie back" /></div>
+        <div class="dual-thumb"><img src="images-clean/hoodie-inspirit-model-back.jpg" alt="Inspirit Hoodie back" loading="lazy" /></div>
       </div>
       <div class="card-info">
         <div>
@@ -676,6 +709,50 @@
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
             <span class="card-price">$20 AUD</span>
+            <button class="card-btn">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pink Women's Hoodie — dual shot -->
+    <div class="card" onclick="openProduct(7)">
+      <div class="card-img dual-shot">
+        <span class="badge bg">Winter Drop</span>
+        <div class="dual-main"><img src="images-clean/hoodie-pink-model-front.jpg" alt="Spiritual Badass Pink Hoodie front" loading="lazy" /><img src="images-clean/hoodie-pink-model-back.jpg" class="card-hover-img" alt="Spiritual Badass Pink Hoodie back" /></div>
+        <div class="dual-thumb"><img src="images-clean/hoodie-pink-model-back-alt.jpg" alt="Spiritual Badass Pink Hoodie back" loading="lazy" /></div>
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Spiritual Badass Hoodie</p>
+          <p class="card-desc">Black oversized hoodie. Pink SPIRITUAL BADASS front, heart cross back. Made for her.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$65 AUD</span>
+            <button class="card-btn">View →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jesus Fish Jumper — dual shot -->
+    <div class="card" onclick="openProduct(8)">
+      <div class="card-img dual-shot">
+        <span class="badge bg">Winter Drop</span>
+        <div class="dual-main"><img src="images-clean/jumper-fishjesus-model-front.jpg" alt="Jesus Fish Jumper front" loading="lazy" /><img src="images-clean/jumper-fishjesus-model-back-alt.jpg" class="card-hover-img" alt="Jesus Fish Jumper back" /></div>
+        <div class="dual-thumb"><img src="images-clean/jumper-fishjesus-model-back.jpg" alt="Jesus Fish Jumper back" loading="lazy" /></div>
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Jesus Fish Jumper</p>
+          <p class="card-desc">Black crewneck. Inspirit chest logo. Bold JESUS fish graphic on the back. Walk in faith.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$60 AUD</span>
             <button class="card-btn">View →</button>
           </div>
         </div>
@@ -965,16 +1042,16 @@
         { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-womensheart.jpg', images:['images-clean/womensheart-white-front.jpg','images-clean/womensheart-white-back.jpg'], labels:['Front','Back'] }
       ]
     },
-    { // 4 — WINTER: Hoodie
+    { // 4 — WINTER: Inspirit Hoodie
       name: "Inspirit Hoodie",
       badge: "Winter Drop",
       price: "$65 AUD",
       desc: "Heavyweight pullover hoodie. INSPIRIT† Clothing Co. bold across the chest. Warm, oversized, faith-forward.",
-      detail: "Premium 400gsm fleece. Pre-shrunk. Kangaroo pocket. Unisex oversized cut.",
-      fit: "Oversized fit. Size up for extra oversized look.",
-      mainImage: "images-clean/winter-hoodie-model.jpg",
-      images: ["images-clean/winter-hoodie-hanger.jpg","images-clean/winter-hoodie-model.jpg"],
-      labels: ["Hanger","Model"],
+      detail: "Premium 400gsm fleece. Pre-shrunk. Kangaroo pocket. Cross cuff detail. Unisex oversized cut.",
+      fit: "Oversized unisex fit. Model wears size L.",
+      mainImage: "images-clean/hoodie-inspirit-model-front.jpg",
+      images: ["images-clean/hoodie-inspirit-hanger-front.jpg","images-clean/hoodie-inspirit-hanger-back.jpg","images-clean/hoodie-inspirit-model-front.jpg","images-clean/hoodie-inspirit-model-back.jpg"],
+      labels: ["Hanger Front","Hanger Back","Model Front","Model Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
     { // 5 — WINTER: Crewneck
@@ -999,6 +1076,30 @@
       mainImage: "images-clean/winter-beanie-hanger.jpg",
       images: ["images-clean/winter-beanie-hanger.jpg"],
       labels: ["Front"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 7 — WINTER: Spiritual Badass Pink Hoodie
+      name: "Spiritual Badass Hoodie",
+      badge: "Winter Drop",
+      price: "$65 AUD",
+      desc: "Black oversized hoodie. Pink SPIRITUAL BADASS bold on the front. Heart cross graphic on the back. Made for her.",
+      detail: "Premium 400gsm fleece. Pre-shrunk. Kangaroo pocket. Pink cross cuff detail. Women's oversized cut.",
+      fit: "Oversized women's fit. Model wears size S.",
+      mainImage: "images-clean/hoodie-pink-model-front.jpg",
+      images: ["images-clean/hoodie-pink-hanger-front.jpg","images-clean/hoodie-pink-hanger-back.jpg","images-clean/hoodie-pink-model-front.jpg","images-clean/hoodie-pink-model-back.jpg"],
+      labels: ["Hanger Front","Hanger Back","Model Front","Model Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 8 — WINTER: Jesus Fish Jumper
+      name: "Jesus Fish Jumper",
+      badge: "Winter Drop",
+      price: "$60 AUD",
+      desc: "Black crewneck. Inspirit Clothing Co. chest logo. Bold JESUS fish graphic across the back. Walk in faith.",
+      detail: "350gsm fleece blend. Pre-shrunk. Ribbed cuffs and hem. Cross cuff detail. Unisex fit.",
+      fit: "Regular unisex fit. Model wears size L.",
+      mainImage: "images-clean/jumper-fishjesus-model-front.jpg",
+      images: ["images-clean/jumper-fishjesus-hanger-front.jpg","images-clean/jumper-fishjesus-hanger-back.jpg","images-clean/jumper-fishjesus-model-front.jpg","images-clean/jumper-fishjesus-model-back.jpg"],
+      labels: ["Hanger Front","Hanger Back","Model Front","Model Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
   ];
