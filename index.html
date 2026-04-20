@@ -189,6 +189,12 @@
     }
     .pdp-thumb.active { border-color:var(--gold); }
     .pdp-thumb.active span { color:var(--gold); }
+    .pdp-color-row { margin-bottom:10px; }
+    .pdp-color-swatches { display:flex; gap:10px; margin-top:6px; }
+    .pdp-swatch { width:28px; height:28px; border-radius:50%; border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:border-color .2s, transform .15s; padding:0; flex-shrink:0; }
+    .pdp-swatch:hover { transform:scale(1.1); }
+    .pdp-swatch.active { border-color:var(--gold) !important; }
+    .pdp-swatch-label { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-left:4px; vertical-align:middle; font-family:var(--fb); }
     .pdp-info {
       width:340px; flex-shrink:0; padding:44px 32px 32px;
       display:flex; flex-direction:column; gap:14px;
@@ -871,6 +877,10 @@
       <span id="pdp-badge" class="pdp-badge"></span>
       <h2 id="pdp-name" class="pdp-name"></h2>
       <p id="pdp-price" class="pdp-price"></p>
+      <div id="pdp-color-row" class="pdp-color-row" style="display:none;">
+        <div class="pdp-size-label">Select Colour <span id="pdp-color-name" class="pdp-swatch-label"></span></div>
+        <div id="pdp-color-swatches" class="pdp-color-swatches"></div>
+      </div>
       <p id="pdp-desc" class="pdp-desc"></p>
       <p id="pdp-detail" class="pdp-sub"></p>
       <p id="pdp-fit" class="pdp-sub pdp-fit-line"></p>
@@ -899,21 +909,29 @@
       detail: "Screen printed on heavyweight black cotton. 200gsm. Pre-shrunk. Unisex oversized cut.",
       fit: "Oversized unisex fit. Model wears size M.",
       mainImage: "images-clean/model-f5000.jpg",
-      images: ["images-clean/f5000-back.jpg","images-clean/model-f5000.jpg"],
-      labels: ["Back","Model"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com"
+      images: ["images-clean/f5000-front.jpg","images-clean/f5000-back.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com",
+      colorways: [
+        { label:'Black', hex:'#111111', mainImage:'images-clean/model-f5000.jpg', images:['images-clean/f5000-front.jpg','images-clean/f5000-back.jpg'], labels:['Front','Back'] },
+        { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-fishjesus.jpg', images:['images-clean/f5000-white-front.jpg','images-clean/f5000-white-back.jpg'], labels:['Front','Back'] }
+      ]
     },
-    { // 1 — Jesus Fish White
-      name: "Jesus Fish Tee — White",
+    { // 1 — Jesus Fish (White + Black)
+      name: "Jesus Fish Tee",
       badge: "New Drop",
       price: "$40 AUD",
-      desc: "Inspirit fish logo on the chest. JESUS bold in the fish on the back. Clean white.",
-      detail: "Screen printed on premium white cotton. 180gsm. Pre-shrunk. Classic streetwear cut.",
+      desc: "Inspirit fish logo on the chest. JESUS bold in the fish on the back.",
+      detail: "Screen printed on premium cotton. 180gsm. Pre-shrunk. Classic streetwear cut.",
       fit: "Regular unisex fit. Model wears size L.",
       mainImage: "images-clean/model-fishjesus.jpg",
-      images: ["images-clean/fishjesus-back.jpg","images-clean/model-fishjesus.jpg"],
-      labels: ["Back","Model"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com"
+      images: ["images-clean/fishjesus-front.jpg","images-clean/fishjesus-back.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com",
+      colorways: [
+        { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-fishjesus.jpg', images:['images-clean/fishjesus-front.jpg','images-clean/fishjesus-back.jpg'], labels:['Front','Back'] },
+        { label:'Black', hex:'#111111', mainImage:'images-clean/model-f5000.jpg', images:['images-clean/fishjesus-black-front.jpg','images-clean/fishjesus-black-back.jpg'], labels:['Front','Back'] }
+      ]
     },
     { // 2 — Spiritual Badass Black
       name: "Spiritual Badass Tee",
@@ -923,21 +941,29 @@
       detail: "Screen printed on heavyweight black cotton. 200gsm. Pre-shrunk. Runs slightly oversized.",
       fit: "Oversized unisex fit. Model wears size M.",
       mainImage: "images-clean/model-sb.jpg",
-      images: ["images-clean/sb-back.jpg","images-clean/model-sb.jpg"],
-      labels: ["Back","Model"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com"
+      images: ["images-clean/sb-front.jpg","images-clean/sb-back.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com",
+      colorways: [
+        { label:'Black', hex:'#111111', mainImage:'images-clean/model-sb.jpg', images:['images-clean/sb-front.jpg','images-clean/sb-back.jpg'], labels:['Front','Back'] },
+        { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-fishjesus.jpg', images:['images-clean/sb-white-front.jpg','images-clean/sb-white-back.jpg'], labels:['Front','Back'] }
+      ]
     },
-    { // 3 — Womens Heart Black
-      name: "Heart Tee — Black",
+    { // 3 — Womens Heart (Black + White)
+      name: "Heart Tee",
       badge: "Women's",
       price: "$40 AUD",
       desc: "Faith and love in one. Pink heart cross on the chest. SPIRITUAL BADASS on the back. Made for women who walk boldly.",
-      detail: "Screen printed on premium black cotton. 180gsm. Pre-shrunk. Women's relaxed fit.",
+      detail: "Screen printed on premium cotton. 180gsm. Pre-shrunk. Women's relaxed fit.",
       fit: "Relaxed women's fit. Model wears size S.",
       mainImage: "images-clean/model-womensheart.jpg",
-      images: ["images-clean/womensheart-back.jpg","images-clean/model-womensheart.jpg"],
-      labels: ["Back","Model"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com"
+      images: ["images-clean/womensheart-front.jpg","images-clean/womensheart-back.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com",
+      colorways: [
+        { label:'Black', hex:'#111111', mainImage:'images-clean/model-womensheart.jpg', images:['images-clean/womensheart-front.jpg','images-clean/womensheart-back.jpg'], labels:['Front','Back'] },
+        { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-womensheart.jpg', images:['images-clean/womensheart-white-front.jpg','images-clean/womensheart-white-back.jpg'], labels:['Front','Back'] }
+      ]
     },
     { // 4 — WINTER: Hoodie
       name: "Inspirit Hoodie",
@@ -1010,6 +1036,23 @@
   });
 
   /* ── PRODUCT MODAL ── */
+  function renderThumbs(images, labels, mainImg) {
+    const thumbs = document.getElementById('pdp-thumbs');
+    thumbs.innerHTML = '';
+    images.forEach((src, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'pdp-thumb' + (i === 0 ? ' active' : '');
+      btn.innerHTML = `<img src="${src}" alt="${labels[i]}" /><span>${labels[i]}</span>`;
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        mainImg.src = src;
+        document.querySelectorAll('.pdp-thumb').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      };
+      thumbs.appendChild(btn);
+    });
+  }
+
   function openProduct(idx) {
     const p = PRODUCTS[idx];
     const m = document.getElementById('pdp-modal');
@@ -1020,25 +1063,45 @@
     document.getElementById('pdp-detail').textContent = p.detail;
     document.getElementById('pdp-fit').textContent = p.fit;
     document.getElementById('pdp-buy').href = p.shopifyUrl;
-    // images — open with model/back as the hero
+
     const mainImg = document.getElementById('pdp-main-img');
-    mainImg.src = p.mainImage;
     mainImg.alt = p.name;
-    const thumbs = document.getElementById('pdp-thumbs');
-    thumbs.innerHTML = '';
-    p.images.forEach((src, i) => {
-      const btn = document.createElement('button');
-      btn.className = 'pdp-thumb';
-      btn.innerHTML = `<img src="${src}" alt="${p.labels[i]}" /><span>${p.labels[i]}</span>`;
-      btn.onclick = (e) => {
-        e.stopPropagation();
-        mainImg.src = src;
-        document.querySelectorAll('.pdp-thumb').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      };
-      thumbs.appendChild(btn);
-    });
-    // sizes
+
+    // colour swatches
+    const colorRow = document.getElementById('pdp-color-row');
+    const swatchWrap = document.getElementById('pdp-color-swatches');
+    const colorName = document.getElementById('pdp-color-name');
+    swatchWrap.innerHTML = '';
+
+    if (p.colorways && p.colorways.length) {
+      colorRow.style.display = 'block';
+      p.colorways.forEach((cw, i) => {
+        const sw = document.createElement('button');
+        sw.className = 'pdp-swatch' + (i === 0 ? ' active' : '');
+        sw.style.background = cw.hex;
+        sw.style.boxShadow = cw.hex === '#ffffff' || cw.hex === '#f5f5f5' ? 'inset 0 0 0 1px rgba(0,0,0,0.15)' : 'none';
+        sw.title = cw.label;
+        sw.onclick = (e) => {
+          e.stopPropagation();
+          document.querySelectorAll('.pdp-swatch').forEach(b => b.classList.remove('active'));
+          sw.classList.add('active');
+          colorName.textContent = cw.label;
+          mainImg.src = cw.mainImage;
+          renderThumbs(cw.images, cw.labels, mainImg);
+        };
+        swatchWrap.appendChild(sw);
+      });
+      // activate first colorway
+      const first = p.colorways[0];
+      colorName.textContent = first.label;
+      mainImg.src = first.mainImage;
+      renderThumbs(first.images, first.labels, mainImg);
+    } else {
+      colorRow.style.display = 'none';
+      mainImg.src = p.mainImage;
+      renderThumbs(p.images, p.labels, mainImg);
+    }
+
     document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
     m.classList.add('open');
     document.body.style.overflow = 'hidden';
