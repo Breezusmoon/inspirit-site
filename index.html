@@ -5,18 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Inspirit Clothing Co | Living Inspirit</title>
   <meta name="description" content="Inspirit Clothing Co — Christian urban streetwear. Wear your faith. Walk in purpose. Limited drops, handprinted in Australia." />
-  <link rel="icon" href="images-clean/logo.png" type="image/png" />
-  <link rel="apple-touch-icon" href="images-clean/logo.png" />
-  <meta property="og:title" content="Inspirit Clothing Co | Living Inspirit" />
-  <meta property="og:description" content="Christian urban streetwear. Handprinted in Australia. Limited drops." />
-  <meta property="og:image" content="images-clean/new-drop-images/model-feeding5000.jpg" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://inspiritclothingco.io" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Inspirit Clothing Co | Living Inspirit" />
-  <meta name="twitter:description" content="Christian urban streetwear. Handprinted in Australia. Limited drops." />
-  <meta name="twitter:image" content="images-clean/new-drop-images/model-feeding5000.jpg" />
-  <meta name="theme-color" content="#080808" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
@@ -141,15 +129,16 @@
     .dual-main { position:relative; overflow:hidden; height:100%; background:#efefed; }
     .dual-main img { width:100%; height:100%; object-fit:cover; object-position:center 10%; transition:transform .5s; padding:0; }
     .card:hover .dual-main img { transform:scale(1.04); }
+    .card-hover-img {
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; object-position:center top;
+      opacity:0; transition:opacity .5s ease; z-index:2;
+    }
+    .card:hover .card-hover-img { opacity:1; }
     .dual-thumb { overflow:hidden; height:100%; background:#efefed; }
     .dual-thumb img { width:100%; height:100%; object-fit:cover; object-position:center 10%; filter:brightness(.88); transition:filter .3s; padding:0; }
     .card:hover .dual-thumb img { filter:brightness(1); }
     img.img-pullback { object-position:center 18% !important; }
-    /* Beanie single-image card — matches dual-shot height so Winter row is even */
-    .beanie-solo { aspect-ratio:unset; height:460px; background:#efefed; overflow:hidden; position:relative; }
-    .beanie-solo img { width:100%; height:100%; object-fit:cover; object-position:center 15%; transition:transform .5s; }
-    .card:hover .beanie-solo img { transform:scale(1.04); }
-    @media(max-width:600px) { .beanie-solo { height:380px; } }
     @media(max-width:600px) { .dual-shot { grid-template-columns:1fr; height:380px; } .dual-thumb { display:none; } }
 
     /* ── PRODUCT DETAIL MODAL ── */
@@ -178,10 +167,9 @@
     }
     .pdp-main-wrap {
       flex:1; overflow:hidden; position:relative; min-height:0;
-      background:var(--black);
     }
     #pdp-main-img {
-      width:100%; height:100%; object-fit:contain; object-position:center;
+      width:100%; height:100%; object-fit:cover; object-position:top center;
       transition:opacity .25s;
     }
     .pdp-thumbs {
@@ -283,10 +271,7 @@
       gap:1px;
       background:rgba(200,164,90,.07);
     }
-    .product-grid .card:nth-child(4),
-    .product-grid .card:nth-child(5) {
-      /* bottom row spans half width each in a 3-col grid */
-    }
+    .product-grid.grid-4 { grid-template-columns:repeat(4,1fr); }
     /* For 5 cards: use auto-flow */
     .card { background:var(--black); display:flex; flex-direction:column; cursor:pointer; overflow:hidden; }
     .card-img { position:relative; overflow:hidden; background:var(--grey); aspect-ratio:3/4; }
@@ -344,10 +329,15 @@
     .verse-ref { font-family:var(--fb); font-style:normal !important; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--gold) !important; margin-top:6px; display:block; }
 
     /* ── DROP CTA ── */
-    .drop-cta { background:var(--cream); color:var(--black); padding:68px 48px; text-align:center; }
+    .drop-cta { background:var(--cream); color:var(--black); padding:68px 48px; display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center; }
     .drop-cta h2 { font-family:var(--fh); font-size:clamp(36px,5vw,64px); letter-spacing:3px; text-transform:uppercase; line-height:.95; margin-bottom:10px; }
     .drop-cta h2 span { color:var(--gold); }
     .drop-cta p { font-size:14px; color:#555; max-width:380px; line-height:1.7; }
+    .cd-row { display:flex; align-items:center; gap:4px; }
+    .cd-box { background:var(--black); padding:14px 16px; text-align:center; min-width:68px; }
+    .cd-n { font-family:var(--fh); font-size:38px; color:var(--gold); line-height:1; letter-spacing:1px; }
+    .cd-l { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#888; margin-top:3px; }
+    .cd-sep { font-family:var(--fh); font-size:28px; color:var(--black); opacity:.25; }
 
     /* ── EMAIL ── */
     .email-sec { padding:96px 48px; background:var(--grey); text-align:center; position:relative; overflow:hidden; }
@@ -394,7 +384,7 @@
     .soc:hover { border-color:var(--gold); color:var(--gold); }
 
     /* ── RESPONSIVE ── */
-    @media(max-width:1024px) { .product-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:1024px) { .product-grid { grid-template-columns:repeat(2,1fr); } .product-grid.grid-4 { grid-template-columns:repeat(2,1fr); } }
     @media(max-width:900px) {
       nav { padding:0 20px; } .nav-links { display:none; } .ham { display:flex; }
       .hero { padding:100px 24px 88px; }
@@ -425,8 +415,6 @@
   </style>
 </head>
 <body>
-
-<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Inspirit Clothing Co — Christian Urban Streetwear, Handprinted in Australia</h1>
 
 <!-- ANNOUNCEMENT BAR -->
 <div class="announce-bar" id="announcebar">
@@ -461,13 +449,13 @@
 <!-- HERO -->
 <section class="hero" id="hero">
   <!-- Hero slideshow — 4 new drop front models -->
-  <div class="hero-slide active"><img src="images-clean/new-drop-images/model-feeding5000.jpg" alt="Feeding 5000 Tee" /></div>
-  <div class="hero-slide"><img src="images-clean/new-drop-images/model-sb-black.jpg" alt="Spiritual Badass Black" /></div>
-  <div class="hero-slide"><img src="images-clean/new-drop-images/model-fish-jesus.jpg" alt="Jesus Fish Black" /></div>
-  <div class="hero-slide"><img src="images-clean/new-drop-images/model-womens-heart.jpg" alt="Heart Tee" /></div>
+  <div class="hero-slide active"><img src="images-clean/model-feeding5000.jpg" alt="Feeding 5000 Tee" /></div>
+  <div class="hero-slide"><img src="images-clean/model-sb-black.jpg" alt="Spiritual Badass Black" /></div>
+  <div class="hero-slide"><img src="images-clean/model-fish-jesus.jpg" alt="Jesus Fish Black" /></div>
+  <div class="hero-slide"><img src="images-clean/model-womens-heart.jpg" alt="Heart Tee" /></div>
 
   <div class="hero-content">
-    <div class="hero-pill" style="margin-bottom:8px;">New Drop — 2026 Collection</div>
+    <div class="hero-pill" style="margin-bottom:8px;">New Drop — Spring 2026</div>
     <img src="images-clean/logo.png" alt="Inspirit Clothing Co" style="width:min(92vw,820px);height:auto;mix-blend-mode:screen;margin:0 auto 2px;display:block;" />
     <p class="hero-tag" style="font-size:clamp(11px,1.4vw,15px);opacity:.55;margin-bottom:2px;letter-spacing:4px;font-style:normal;font-family:var(--fb);font-weight:300;text-transform:uppercase;">Living Inspirit</p>
     <div class="hero-div" style="margin:2px 0;">✝</div>
@@ -516,17 +504,17 @@
       <p class="section-eyebrow">Current Drop 2026</p>
       <h2 class="section-h">The Collection</h2>
     </div>
-    <a href="https://inspirit-8346.myshopify.com" target="_blank" rel="noopener" class="view-all">Shop All →</a>
+    <a href="#shop" class="view-all">View All →</a>
   </div>
 
-  <div class="product-grid">
+  <div class="product-grid grid-4">
 
     <!-- 0: Feeding 5000 — BLACK -->
     <div class="card" onclick="openProduct(0)">
       <div class="card-img dual-shot">
         <span class="badge bn">New Drop</span>
-        <div class="dual-main"><img src="images-clean/new-drop-images/feeding5000-front-hanger.jpg" alt="Feeding 5000 Tee front" loading="lazy" /></div>
-        <div class="dual-thumb"><img src="images-clean/new-drop-images/feeding5000-back-hanger.jpg" alt="Feeding 5000 Tee back" loading="lazy" /></div>
+        <div class="dual-main"><img src="images-clean/feeding5000-front-hanger.jpg" alt="Feeding 5000 Tee front" loading="lazy" /><img src="images-clean/model-feeding5000.jpg" class="card-hover-img" alt="Feeding 5000 model" /></div>
+        <div class="dual-thumb"><img src="images-clean/feeding5000-back-hanger.jpg" alt="Feeding 5000 Tee back" loading="lazy" /></div>
       </div>
       <div class="card-info">
         <div>
@@ -547,8 +535,8 @@
     <div class="card" onclick="openProduct(1)">
       <div class="card-img dual-shot">
         <span class="badge bn">New Drop</span>
-        <div class="dual-main"><img src="images-clean/new-drop-images/sb-black-front-hanger.jpg" alt="Spiritual Badass Black front" loading="lazy" /></div>
-        <div class="dual-thumb"><img src="images-clean/new-drop-images/sb-black-back-hanger.jpg" alt="Spiritual Badass Black back" loading="lazy" /></div>
+        <div class="dual-main"><img src="images-clean/sb-black-front-hanger.jpg" alt="Spiritual Badass Black front" loading="lazy" /><img src="images-clean/model-sb-black.jpg" class="card-hover-img" alt="Spiritual Badass model" /></div>
+        <div class="dual-thumb"><img src="images-clean/sb-black-back-hanger.jpg" alt="Spiritual Badass Black back" loading="lazy" /></div>
       </div>
       <div class="card-info">
         <div>
@@ -569,8 +557,8 @@
     <div class="card" onclick="openProduct(2)">
       <div class="card-img dual-shot">
         <span class="badge bn">New Drop</span>
-        <div class="dual-main"><img src="images-clean/new-drop-images/fish-jesus-black-front-hanger.jpg" alt="Jesus Fish Black front" loading="lazy" /></div>
-        <div class="dual-thumb"><img src="images-clean/new-drop-images/fish-jesus-black-back-hanger.jpg" alt="Jesus Fish Black back" loading="lazy" /></div>
+        <div class="dual-main"><img src="images-clean/fish-jesus-black-front-hanger.jpg" alt="Jesus Fish Black front" loading="lazy" /><img src="images-clean/model-fish-jesus.jpg" class="card-hover-img" alt="Jesus Fish model" /></div>
+        <div class="dual-thumb"><img src="images-clean/fish-jesus-black-back-hanger.jpg" alt="Jesus Fish Black back" loading="lazy" /></div>
       </div>
       <div class="card-info">
         <div>
@@ -591,8 +579,8 @@
     <div class="card" onclick="openProduct(3)">
       <div class="card-img dual-shot">
         <span class="badge bw">Women's</span>
-        <div class="dual-main"><img src="images-clean/new-drop-images/womens-heart-white-front-hanger.jpg" alt="Womens Heart Tee front" loading="lazy" /></div>
-        <div class="dual-thumb"><img src="images-clean/new-drop-images/womens-heart-black-back-hanger.jpg" alt="Womens Heart Tee back" loading="lazy" /></div>
+        <div class="dual-main"><img src="images-clean/womens-heart-white-front-hanger.jpg" alt="Womens Heart Tee front" loading="lazy" /><img src="images-clean/model-womens-heart.jpg" class="card-hover-img" alt="Heart Tee model" /></div>
+        <div class="dual-thumb"><img src="images-clean/womens-heart-black-back-hanger.jpg" alt="Womens Heart Tee back" loading="lazy" /></div>
       </div>
       <div class="card-info">
         <div>
@@ -619,7 +607,7 @@
       <p class="section-eyebrow">Winter Drop 2026</p>
       <h2 class="section-h">Stay Warm. Stay Faithful.</h2>
     </div>
-    <a href="https://inspirit-8346.myshopify.com" target="_blank" rel="noopener" class="view-all">Shop Winter →</a>
+    <a href="#winter" class="view-all">Shop Winter →</a>
   </div>
   <div class="product-grid">
 
@@ -627,7 +615,7 @@
     <div class="card" onclick="openProduct(4)">
       <div class="card-img dual-shot">
         <span class="badge bg">Winter Drop</span>
-        <div class="dual-main"><img src="images-clean/winter-hoodie-hanger.jpg" alt="Inspirit Hoodie front" loading="lazy" /></div>
+        <div class="dual-main"><img src="images-clean/winter-hoodie-hanger.jpg" alt="Inspirit Hoodie front" loading="lazy" /><img src="images-clean/winter-hoodie-model.jpg" class="card-hover-img" alt="Hoodie model" /></div>
         <div class="dual-thumb"><img src="images-clean/winter-hoodie-model.jpg" alt="Inspirit Hoodie model" loading="lazy" /></div>
       </div>
       <div class="card-info">
@@ -649,7 +637,7 @@
     <div class="card" onclick="openProduct(5)">
       <div class="card-img dual-shot">
         <span class="badge bg">Winter Drop</span>
-        <div class="dual-main"><img src="images-clean/winter-crewneck-hanger.jpg" alt="Inspirit Crewneck front" loading="lazy" /></div>
+        <div class="dual-main"><img src="images-clean/winter-crewneck-hanger.jpg" alt="Inspirit Crewneck front" loading="lazy" /><img src="images-clean/winter-crewneck-model.jpg" class="card-hover-img" alt="Crewneck model" /></div>
         <div class="dual-thumb"><img src="images-clean/winter-crewneck-model.jpg" alt="Inspirit Crewneck model" loading="lazy" /></div>
       </div>
       <div class="card-info">
@@ -669,9 +657,9 @@
 
     <!-- Beanie — single image -->
     <div class="card" onclick="openProduct(6)">
-      <div class="card-img beanie-solo">
+      <div class="card-img" style="aspect-ratio:3/4;background:#efefed;overflow:hidden;">
         <span class="badge bg">Winter Drop</span>
-        <img src="images-clean/winter-beanie-hanger.jpg" alt="Inspirit Beanie" loading="lazy" />
+        <img src="images-clean/winter-beanie-hanger.jpg" alt="Inspirit Beanie" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;" />
       </div>
       <div class="card-info">
         <div>
@@ -698,7 +686,7 @@
       <p class="section-eyebrow">Headwear Collection</p>
       <h2 class="section-h">Hats & Caps</h2>
     </div>
-    <a href="https://inspirit-8346.myshopify.com" target="_blank" rel="noopener" class="view-all">Shop All →</a>
+    <a href="#" class="view-all">View All →</a>
   </div>
 
   <div class="hats-grid">
@@ -772,15 +760,16 @@
   </div>
 </section>
 
-<!-- DROP CTA -->
+<!-- DROP COUNTDOWN -->
 <section class="drop-cta" id="drop">
-  <h2>Winter Drop<br><span>Coming Soon ✝</span></h2>
-  <p style="max-width:420px;margin:18px auto 28px;">Limited pieces. First access goes to the list. This is your sign — don't sleep on it.</p>
-  <a href="#email" class="btn btn-gold" style="background:var(--black);color:var(--gold);">Join The List</a>
+  <div>
+    <h2>Winter Drop<br><span>Coming Soon ✝</span></h2>
+    <p>Limited pieces. First access goes to the list. This is your sign — don't sleep on it.</p>
+  </div>
 </section>
 
 <!-- EMAIL -->
-<section class="email-sec" id="email">
+<section class="email-sec">
   <p class="section-eyebrow" style="margin-bottom:12px;">The List</p>
   <h2>Get <em>10% Off</em><br>Your First Order.</h2>
   <p>Sign up and we'll send your discount code straight to your inbox. Plus drop alerts and early access.</p>
@@ -887,12 +876,12 @@
       <p id="pdp-fit" class="pdp-sub pdp-fit-line"></p>
       <div class="pdp-size-label">Select Size</div>
       <div class="pdp-sizes">
-        <button class="size-btn" type="button" onclick="selectSize(this)">XS</button>
-        <button class="size-btn" type="button" onclick="selectSize(this)">S</button>
-        <button class="size-btn" type="button" onclick="selectSize(this)">M</button>
-        <button class="size-btn" type="button" onclick="selectSize(this)">L</button>
-        <button class="size-btn" type="button" onclick="selectSize(this)">XL</button>
-        <button class="size-btn" type="button" onclick="selectSize(this)">2XL</button>
+        <button class="size-btn" onclick="selectSize(this)">XS</button>
+        <button class="size-btn" onclick="selectSize(this)">S</button>
+        <button class="size-btn" onclick="selectSize(this)">M</button>
+        <button class="size-btn" onclick="selectSize(this)">L</button>
+        <button class="size-btn" onclick="selectSize(this)">XL</button>
+        <button class="size-btn" onclick="selectSize(this)">2XL</button>
       </div>
       <a id="pdp-buy" href="#" target="_blank" class="pdp-buy-btn">Add to Cart →</a>
       <p class="pdp-shipping">Free shipping on orders over $80 AUD · Printed in Australia</p>
@@ -909,8 +898,8 @@
       desc: "Jesus feeding the 5000 — bold graphic on the back. Inspirit fish logo on the chest. Faith in action.",
       detail: "Screen printed on heavyweight black cotton. 200gsm. Pre-shrunk. Unisex oversized cut.",
       fit: "Oversized unisex fit. Model wears size M.",
-      mainImage: "images-clean/new-drop-images/model-feeding5000.jpg",
-      images: ["images-clean/new-drop-images/feeding5000-front-hanger.jpg","images-clean/new-drop-images/feeding5000-back-hanger.jpg"],
+      mainImage: "images-clean/model-feeding5000.jpg",
+      images: ["images-clean/feeding5000-front-hanger.jpg","images-clean/feeding5000-back-hanger.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
@@ -921,8 +910,8 @@
       desc: "The original statement tee — now in black. Inspirit logo on the chest, SPIRITUAL BADASS hits hard on the back.",
       detail: "Screen printed on heavyweight black cotton. 200gsm. Pre-shrunk. Runs slightly oversized.",
       fit: "Oversized unisex fit. Model wears size M.",
-      mainImage: "images-clean/new-drop-images/model-sb-black.jpg",
-      images: ["images-clean/new-drop-images/sb-black-front-hanger.jpg","images-clean/new-drop-images/sb-black-back-hanger.jpg"],
+      mainImage: "images-clean/model-sb-black.jpg",
+      images: ["images-clean/sb-black-front-hanger.jpg","images-clean/sb-black-back-hanger.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
@@ -933,8 +922,8 @@
       desc: "Inspirit fish logo on the chest. JESUS bold in the fish on the back. Now in black.",
       detail: "Screen printed on premium black cotton. 180gsm. Pre-shrunk. Classic streetwear cut.",
       fit: "Regular unisex fit. Model wears size L.",
-      mainImage: "images-clean/new-drop-images/model-fish-jesus.jpg",
-      images: ["images-clean/new-drop-images/fish-jesus-black-front-hanger.jpg","images-clean/new-drop-images/fish-jesus-black-back-hanger.jpg"],
+      mainImage: "images-clean/model-fish-jesus.jpg",
+      images: ["images-clean/fish-jesus-black-front-hanger.jpg","images-clean/fish-jesus-black-back-hanger.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
@@ -945,8 +934,8 @@
       desc: "Faith and love in one. Pink heart cross logo on the chest. SPIRITUAL BADASS on the back. Made for women who walk boldly.",
       detail: "Screen printed on premium white cotton. 180gsm. Pre-shrunk. Women's relaxed fit.",
       fit: "Relaxed women's fit. Model wears size S.",
-      mainImage: "images-clean/new-drop-images/model-womens-heart.jpg",
-      images: ["images-clean/new-drop-images/womens-heart-white-front-hanger.jpg","images-clean/new-drop-images/womens-heart-black-back-hanger.jpg"],
+      mainImage: "images-clean/model-womens-heart.jpg",
+      images: ["images-clean/womens-heart-white-front-hanger.jpg","images-clean/womens-heart-black-back-hanger.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
@@ -993,6 +982,20 @@
     btn.classList.add('selected');
   }
 
+  const target = new Date(Date.now() + 7*24*60*60*1000);
+  function tick() {
+    const cdD = document.getElementById('cd-d');
+    if (!cdD) return;
+    const d = target - Date.now();
+    if (d <= 0) { const cd = document.getElementById('countdown'); if(cd) cd.innerHTML='<p style="font-family:\'Bebas Neue\',sans-serif;font-size:26px;letter-spacing:3px;color:var(--gold)">LIVE NOW ✝</p>'; return; }
+    const p = n => String(Math.floor(n)).padStart(2,'0');
+    cdD.textContent = p(d/86400000);
+    document.getElementById('cd-h').textContent = p(d%86400000/3600000);
+    document.getElementById('cd-m').textContent = p(d%3600000/60000);
+    document.getElementById('cd-s').textContent = p(d%60000/1000);
+  }
+  setInterval(tick,1000); tick();
+
   // Fade cycling for social strip tiles
   document.querySelectorAll('.fade-tile').forEach((tile, i) => {
     const imgs = tile.querySelectorAll('img');
@@ -1023,18 +1026,13 @@
     mainImg.alt = p.name;
     const thumbs = document.getElementById('pdp-thumbs');
     thumbs.innerHTML = '';
-    // Build thumbs: mainImage first as "Model", then the rest
-    const allThumbs = p.mainImage && !p.images.includes(p.mainImage)
-      ? [{src: p.mainImage, label: 'Model'}, ...p.images.map((s, i) => ({src: s, label: p.labels[i]}))]
-      : p.images.map((s, i) => ({src: s, label: p.labels[i]}));
-    allThumbs.forEach((item, i) => {
+    p.images.forEach((src, i) => {
       const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'pdp-thumb' + (i === 0 ? ' active' : '');
-      btn.innerHTML = `<img src="${item.src}" alt="${item.label}" /><span>${item.label}</span>`;
+      btn.className = 'pdp-thumb';
+      btn.innerHTML = `<img src="${src}" alt="${p.labels[i]}" /><span>${p.labels[i]}</span>`;
       btn.onclick = (e) => {
         e.stopPropagation();
-        mainImg.src = item.src;
+        mainImg.src = src;
         document.querySelectorAll('.pdp-thumb').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
       };
