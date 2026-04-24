@@ -242,34 +242,103 @@
       letter-spacing:.5px; line-height:1.5; margin:0;
     }
     @media(max-width:720px) {
-      #pdp-modal { padding:0; align-items:flex-end; justify-content:center; }
-      @keyframes pdpIn { from{opacity:0;transform:translateY(60px)} to{opacity:1;transform:none} }
+      /* ── PDP MODAL — full screen mobile, no overlaps ── */
+      #pdp-modal {
+        padding:0;
+        align-items:stretch;
+        justify-content:stretch;
+      }
+      @keyframes pdpIn { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:none} }
+
       .pdp-inner {
         flex-direction:column;
-        max-height:96vh; width:100%; max-width:100%;
-        border-radius:20px 20px 0 0;
-        border-left:none; border-right:none; border-bottom:none;
-        overflow:hidden;
+        width:100%; max-width:100%;
+        height:100dvh; max-height:100dvh;
+        border-radius:0;
+        border:none;
+        overflow-y:auto;        /* the whole modal scrolls as one piece — no dual scrollbars */
+        overflow-x:hidden;
       }
-      .pdp-close { top:14px; right:16px; font-size:22px; background:rgba(0,0,0,0.4); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
-      .pdp-gallery { height:44vh; max-height:44vh; min-height:180px; flex-shrink:0; }
-      .pdp-main-wrap { min-height:0; flex:1; }
-      .pdp-thumbs { padding:5px; gap:3px; }
-      .pdp-thumb { aspect-ratio:1/1; }
-      .pdp-thumb span { font-size:8px; padding:3px 0; }
+
+      /* Close button — floating on top */
+      .pdp-close {
+        position:fixed; top:max(12px, env(safe-area-inset-top));
+        right:12px; z-index:100;
+        font-size:20px; width:40px; height:40px;
+        background:rgba(0,0,0,0.65); color:var(--white);
+        border-radius:50%; display:flex;
+        align-items:center; justify-content:center;
+        backdrop-filter:blur(6px);
+      }
+
+      /* Gallery — natural height, no competing vh values */
+      .pdp-gallery {
+        width:100%;
+        height:auto; max-height:none; min-height:0;
+        flex-shrink:0;
+        display:block;
+      }
+      .pdp-main-wrap {
+        width:100%;
+        aspect-ratio:3/4;
+        min-height:0; max-height:none;
+        flex:none;
+      }
+      #pdp-main-img {
+        width:100%; height:100%;
+        object-fit:cover; object-position:center 20%;
+      }
+
+      /* Thumbs — horizontal scroll row, uniform square tiles */
+      .pdp-thumbs {
+        display:flex; flex-direction:row;
+        gap:6px; padding:10px 14px;
+        overflow-x:auto; overflow-y:hidden;
+        -webkit-overflow-scrolling:touch;
+        background:var(--black);
+        flex-wrap:nowrap;
+      }
+      .pdp-thumb {
+        flex:0 0 64px;
+        width:64px; height:64px;
+        aspect-ratio:1/1;
+        border-radius:2px;
+        margin:0;
+      }
+      .pdp-thumb img { object-position:center; }
+      .pdp-thumb span {
+        font-size:8px; letter-spacing:0.5px;
+        padding:2px 0;
+      }
+
+      /* Info panel — full width, no max-height (lets outer scroll) */
       .pdp-info {
-        width:100%; padding:18px 18px 36px;
-        overflow-y:auto; -webkit-overflow-scrolling:touch;
-        max-height:52vh; gap:10px;
+        width:100%; max-width:100%;
+        height:auto; max-height:none;
+        padding:24px 20px 40px;
+        overflow:visible;
+        display:flex; flex-direction:column; gap:14px;
       }
-      .pdp-name { font-size:22px; }
-      .pdp-price { font-size:18px; }
-      .pdp-color-row { margin-bottom:8px; }
+      .pdp-name { font-size:24px; line-height:1.15; }
+      .pdp-price { font-size:20px; }
+      .pdp-desc { font-size:14px; }
+      .pdp-sub { font-size:12px; }
+
+      /* Colour swatches — easier to tap */
+      .pdp-color-row { margin-bottom:4px; }
       .pdp-color-swatches { gap:14px; margin-top:8px; }
-      .pdp-swatch { width:36px; height:36px; }
-      .pdp-sizes { gap:7px; flex-wrap:wrap; }
-      .size-btn { min-width:46px; min-height:46px; font-size:13px; }
-      .pdp-buy-btn { font-size:16px; padding:15px 20px; margin-top:10px; }
+      .pdp-swatch { width:38px; height:38px; }
+
+      /* Size buttons — 44px min tap target */
+      .pdp-sizes { gap:8px; flex-wrap:wrap; }
+      .size-btn { min-width:48px; min-height:48px; font-size:13px; padding:10px 14px; }
+
+      /* Buy button — sticky-feeling, prominent */
+      .pdp-buy-btn {
+        font-size:16px; padding:16px 20px;
+        margin-top:8px;
+      }
+      .pdp-shipping { font-size:11px; padding:0 4px; }
     }
 
     /* ── TICKER ── */
@@ -461,16 +530,7 @@
       .section-h { font-size:32px; }
       .products { padding:48px 16px; }
       .hero h1 { font-size:clamp(36px,11vw,72px); }
-      /* PDP modal — full screen on mobile, no awkward sizing */
-      .pdp { padding:0; }
-      .pdp-inner { max-width:100vw; width:100vw; height:100dvh; max-height:100dvh; border-radius:0; flex-direction:column; }
-      .pdp-main-wrap { min-height:50vh; }
-      .pdp-thumbs { flex-direction:row; padding:12px; gap:8px; overflow-x:auto; }
-      .pdp-thumb { flex:0 0 60px; min-width:60px; }
-      .pdp-info { padding:20px; max-height:50vh; overflow-y:auto; }
-      .pdp-close { top:12px; right:12px; width:36px; height:36px; }
       /* Tap targets — minimum 44px for accessibility */
-      .size-btn { min-height:44px; min-width:44px; }
       .card-btn { min-height:36px; }
       /* Better mobile menu */
       .mobile-nav-link { padding:18px 24px; }
@@ -1036,8 +1096,8 @@
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com",
       colorways: [
-        { label:'Black', hex:'#111111', mainImage:'images-clean/model-sb.jpg', images:['images-clean/sb-front.jpg','images-clean/sb-back.jpg','images-clean/model-sb.jpg'], labels:['Hanger Front','Hanger Back','Model'] },
-        { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-sb-white.jpg', images:['images-clean/sb-white-front.jpg','images-clean/sb-white-back.jpg','images-clean/model-sb-white.jpg'], labels:['Hanger Front','Hanger Back','Model'] }
+        { label:'Black', hex:'#111111', mainImage:'images-clean/model-sb.jpg', images:['images-clean/sb-front.jpg','images-clean/sb-back.jpg'], labels:['Hanger Front','Hanger Back'] },
+        { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-sb-white.jpg', images:['images-clean/sb-white-front.jpg','images-clean/sb-white-back.jpg'], labels:['Hanger Front','Hanger Back'] }
       ]
     },
     { // 3 — Womens Heart (Black + White)
@@ -1052,8 +1112,8 @@
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com",
       colorways: [
-        { label:'Black', hex:'#111111', mainImage:'images-clean/model-womensheart.jpg', images:['images-clean/womensheart-front.jpg','images-clean/womensheart-back.jpg','images-clean/model-womensheart.jpg'], labels:['Hanger Front','Hanger Back','Model'] },
-        { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-womensheart-white.jpg', images:['images-clean/womensheart-white-front.jpg','images-clean/womensheart-white-back.jpg','images-clean/model-womensheart-white.jpg'], labels:['Hanger Front','Hanger Back','Model'] }
+        { label:'Black', hex:'#111111', mainImage:'images-clean/model-womensheart.jpg', images:['images-clean/womensheart-front.jpg','images-clean/womensheart-back.jpg'], labels:['Hanger Front','Hanger Back'] },
+        { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-womensheart-white.jpg', images:['images-clean/womensheart-white-front.jpg','images-clean/womensheart-white-back.jpg'], labels:['Hanger Front','Hanger Back'] }
       ]
     },
     { // 4 — WINTER: Inspirit Hoodie
