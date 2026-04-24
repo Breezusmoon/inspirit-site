@@ -143,6 +143,247 @@
     img.img-pullback { object-position:center 18% !important; }
     @media(max-width:600px) { .dual-shot { grid-template-columns:1fr; height:380px; } .dual-thumb { display:none; } }
 
+    /* ── CART ── */
+    .cart-btn {
+      background:none; border:none; cursor:pointer; color:var(--white);
+      position:relative; padding:8px; display:flex; align-items:center;
+      transition:color .2s;
+    }
+    .cart-btn:hover { color:var(--gold); }
+    .cart-count {
+      position:absolute; top:-2px; right:-2px;
+      background:var(--gold); color:var(--black);
+      font-family:var(--fb); font-size:10px; font-weight:700;
+      min-width:18px; height:18px; border-radius:9px;
+      display:flex; align-items:center; justify-content:center;
+      padding:0 5px;
+    }
+    .cart-count.hidden { display:none; }
+
+    #cart-overlay {
+      display:none; position:fixed; inset:0; z-index:1900;
+      background:rgba(0,0,0,0.6); backdrop-filter:blur(4px);
+    }
+    #cart-overlay.open { display:block; }
+
+    #cart-drawer {
+      position:fixed; top:0; right:0; bottom:0;
+      width:420px; max-width:100vw; z-index:1950;
+      background:var(--near); border-left:1px solid rgba(200,164,90,0.2);
+      transform:translateX(100%); transition:transform .32s cubic-bezier(.4,0,.2,1);
+      display:flex; flex-direction:column;
+    }
+    #cart-drawer.open { transform:translateX(0); }
+
+    .cart-header {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:22px 24px; border-bottom:1px solid rgba(200,164,90,0.15);
+      flex-shrink:0;
+    }
+    .cart-header h3 {
+      font-family:var(--fh); font-size:22px; letter-spacing:2px;
+      color:var(--white); margin:0;
+    }
+    .cart-close {
+      background:none; border:none; color:var(--muted); font-size:22px;
+      cursor:pointer; line-height:1; padding:4px 8px;
+      transition:color .2s;
+    }
+    .cart-close:hover { color:var(--white); }
+
+    .cart-items {
+      flex:1; overflow-y:auto; padding:16px 20px;
+    }
+    .cart-empty {
+      text-align:center; color:var(--muted); font-size:14px;
+      padding:60px 20px;
+    }
+    .cart-line {
+      display:grid; grid-template-columns:72px 1fr auto;
+      gap:14px; padding:14px 0;
+      border-bottom:1px solid rgba(200,164,90,0.1);
+    }
+    .cart-line-img {
+      width:72px; height:96px; background:var(--grey);
+      border-radius:2px; overflow:hidden; flex-shrink:0;
+    }
+    .cart-line-img img { width:100%; height:100%; object-fit:cover; }
+    .cart-line-info {
+      display:flex; flex-direction:column; gap:4px; min-width:0;
+    }
+    .cart-line-name {
+      font-family:var(--fb); font-size:13px; font-weight:600;
+      color:var(--white); letter-spacing:.5px; line-height:1.3; margin:0;
+    }
+    .cart-line-meta {
+      font-size:11px; color:var(--muted); letter-spacing:1px;
+      text-transform:uppercase; margin:0;
+    }
+    .cart-line-qty {
+      display:flex; align-items:center; gap:8px; margin-top:4px;
+    }
+    .cart-qty-btn {
+      background:var(--grey); border:1px solid rgba(255,255,255,0.1);
+      color:var(--white); width:24px; height:24px; cursor:pointer;
+      font-size:14px; line-height:1; border-radius:2px;
+      display:flex; align-items:center; justify-content:center;
+      transition:border-color .2s, color .2s;
+    }
+    .cart-qty-btn:hover { border-color:var(--gold); color:var(--gold); }
+    .cart-qty-val {
+      font-family:var(--fb); font-size:13px; font-weight:600;
+      color:var(--white); min-width:18px; text-align:center;
+    }
+    .cart-line-right {
+      display:flex; flex-direction:column; align-items:flex-end;
+      justify-content:space-between; gap:8px;
+    }
+    .cart-line-price {
+      font-family:var(--fh); font-size:15px; color:var(--gold);
+    }
+    .cart-line-remove {
+      background:none; border:none; color:var(--muted); cursor:pointer;
+      font-size:11px; letter-spacing:1px; text-transform:uppercase;
+      padding:2px 4px; transition:color .2s;
+    }
+    .cart-line-remove:hover { color:#ff6b6b; }
+
+    .cart-footer {
+      padding:20px 24px 24px; border-top:1px solid rgba(200,164,90,0.15);
+      flex-shrink:0; background:var(--black);
+    }
+    .cart-subtotal {
+      display:flex; justify-content:space-between; align-items:baseline;
+      margin-bottom:6px;
+    }
+    .cart-subtotal span:first-child {
+      font-family:var(--fb); font-size:13px; letter-spacing:2px;
+      text-transform:uppercase; color:var(--muted);
+    }
+    .cart-subtotal span:last-child {
+      font-family:var(--fh); font-size:22px; color:var(--gold);
+    }
+    .cart-shipping-note {
+      font-size:11px; color:var(--muted); margin:0 0 14px 0;
+      text-align:center; line-height:1.5;
+    }
+    .cart-checkout-btn {
+      width:100%; background:var(--gold); color:var(--black);
+      border:none; font-family:var(--fh); font-size:18px;
+      letter-spacing:2px; padding:16px; cursor:pointer;
+      transition:background .2s;
+    }
+    .cart-checkout-btn:hover:not(:disabled) { background:var(--gold-lt); }
+    .cart-checkout-btn:disabled {
+      background:var(--grey); color:var(--muted); cursor:not-allowed;
+    }
+    .cart-secure {
+      text-align:center; font-size:11px; color:var(--muted);
+      margin:10px 0 0 0; letter-spacing:.5px;
+    }
+
+    /* Add-to-cart toast */
+    .cart-toast {
+      position:fixed; top:20px; right:20px; z-index:2100;
+      background:var(--gold); color:var(--black);
+      padding:12px 20px; border-radius:2px;
+      font-family:var(--fb); font-weight:700; font-size:13px;
+      letter-spacing:1px; text-transform:uppercase;
+      transform:translateY(-80px); opacity:0;
+      transition:transform .3s ease, opacity .3s ease;
+      box-shadow:0 10px 40px rgba(0,0,0,0.4);
+    }
+    .cart-toast.show { transform:translateY(0); opacity:1; }
+
+    /* ASOS-style cart popover */
+    #cart-popover {
+      position:fixed; top:78px; right:20px; z-index:2080;
+      width:340px; max-width:calc(100vw - 24px);
+      background:var(--near); border:1px solid rgba(200,164,90,0.25);
+      border-radius:4px; padding:0; overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,0.6);
+      transform:translateY(-20px); opacity:0; pointer-events:none;
+      transition:transform .28s ease, opacity .28s ease;
+    }
+    #cart-popover.open { transform:translateY(0); opacity:1; pointer-events:auto; }
+    .cart-pop-header {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:14px 16px; border-bottom:1px solid rgba(200,164,90,0.12);
+    }
+    .cart-pop-header span {
+      font-family:var(--fb); font-weight:700; font-size:13px;
+      color:var(--white); letter-spacing:1px;
+    }
+    .cart-pop-close {
+      background:none; border:none; color:var(--muted);
+      cursor:pointer; font-size:16px; line-height:1; padding:2px 6px;
+      transition:color .2s;
+    }
+    .cart-pop-close:hover { color:var(--white); }
+    .cart-pop-success {
+      display:flex; align-items:center; gap:8px;
+      background:rgba(46,125,50,0.15); color:#7bca7e;
+      padding:10px 16px; font-family:var(--fb); font-size:12px;
+      font-weight:600; letter-spacing:.5px;
+    }
+    .cart-pop-success svg { flex-shrink:0; }
+    .cart-pop-item {
+      display:grid; grid-template-columns:72px 1fr;
+      gap:12px; padding:14px 16px;
+    }
+    .cart-pop-item-img {
+      width:72px; height:96px; background:var(--grey);
+      overflow:hidden; border-radius:2px;
+    }
+    .cart-pop-item-img img { width:100%; height:100%; object-fit:cover; }
+    .cart-pop-item-info { display:flex; flex-direction:column; gap:4px; }
+    .cart-pop-item-price {
+      font-family:var(--fh); font-size:17px; color:var(--gold);
+    }
+    .cart-pop-item-name {
+      font-family:var(--fb); font-size:12px; font-weight:600;
+      color:var(--white); letter-spacing:.5px; line-height:1.3;
+    }
+    .cart-pop-item-meta {
+      font-size:11px; color:var(--muted); letter-spacing:.5px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .cart-pop-subtotal {
+      display:flex; justify-content:space-between; align-items:baseline;
+      padding:12px 16px; border-top:1px solid rgba(200,164,90,0.12);
+    }
+    .cart-pop-subtotal span:first-child {
+      font-family:var(--fb); font-size:12px; color:var(--muted);
+      letter-spacing:1.5px; text-transform:uppercase;
+    }
+    .cart-pop-subtotal span:last-child {
+      font-family:var(--fh); font-size:17px; color:var(--gold);
+    }
+    .cart-pop-actions {
+      display:grid; grid-template-columns:1fr 1fr; gap:8px;
+      padding:0 16px 16px;
+    }
+    .cart-pop-btn {
+      padding:12px 14px; border:none; cursor:pointer;
+      font-family:var(--fb); font-weight:700; font-size:12px;
+      letter-spacing:1.5px; border-radius:2px;
+      transition:background .2s, color .2s, border-color .2s;
+    }
+    .cart-pop-btn-view {
+      background:transparent; color:var(--white);
+      border:1px solid rgba(255,255,255,0.25);
+    }
+    .cart-pop-btn-view:hover { border-color:var(--gold); color:var(--gold); }
+    .cart-pop-btn-checkout {
+      background:var(--gold); color:var(--black);
+      border:1px solid var(--gold);
+    }
+    .cart-pop-btn-checkout:hover { background:var(--gold-lt); }
+
+    @media(max-width:720px) {
+      #cart-popover { top:70px; right:12px; left:12px; width:auto; }
+    }
+
     /* ── PRODUCT DETAIL MODAL ── */
     #pdp-modal {
       display:none; position:fixed; inset:0; z-index:2000;
@@ -562,6 +803,10 @@
     <li><a href="#story">Our Story</a></li>
     <li><a href="#drop">New Drop</a></li>
     <li><a href="#shop" class="nav-cta">Shop Now</a></li>
+    <li><button class="cart-btn" onclick="openCart()" aria-label="Cart">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+      <span class="cart-count" id="cart-count">0</span>
+    </button></li>
   </ul>
   <div class="ham" id="ham" onclick="toggleMobileNav()"><span></span><span></span><span></span></div>
 </nav>
@@ -573,6 +818,7 @@
   <a href="#story" onclick="closeMobileNav()">Our Story</a>
   <a href="#drop" onclick="closeMobileNav()">New Drop</a>
   <a href="#shop" class="nav-cta" onclick="closeMobileNav()">Shop Now</a>
+  <a href="#" onclick="event.preventDefault();closeMobileNav();openCart();">Cart (<span id="cart-count-mobile">0</span>)</a>
 </div>
 
 <!-- HERO -->
@@ -1013,6 +1259,48 @@
 </footer>
 
 <!-- PRODUCT DETAIL MODAL -->
+<!-- CART POPOVER (ASOS-style "just added" mini cart) -->
+<div id="cart-popover" role="dialog" aria-label="Added to cart">
+  <div class="cart-pop-header">
+    <span id="cart-pop-title">My Bag, 1 item</span>
+    <button class="cart-pop-close" onclick="closePopover()" aria-label="Close">✕</button>
+  </div>
+  <div class="cart-pop-success">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    It's in the bag
+  </div>
+  <div id="cart-pop-item" class="cart-pop-item"></div>
+  <div class="cart-pop-subtotal">
+    <span>Sub-total</span>
+    <span id="cart-pop-subtotal">$0 AUD</span>
+  </div>
+  <div class="cart-pop-actions">
+    <button class="cart-pop-btn cart-pop-btn-view" onclick="closePopover();openCart()">VIEW BAG</button>
+    <button class="cart-pop-btn cart-pop-btn-checkout" onclick="checkout()">CHECKOUT</button>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div id="cart-overlay" onclick="closeCart()"></div>
+<aside id="cart-drawer" aria-label="Shopping cart">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" onclick="closeCart()" aria-label="Close cart">✕</button>
+  </div>
+  <div id="cart-items" class="cart-items">
+    <p class="cart-empty">Your cart is empty</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span id="cart-subtotal">$0 AUD</span>
+    </div>
+    <p class="cart-shipping-note">Shipping calculated at checkout · Free on orders over $80 AUD</p>
+    <button class="cart-checkout-btn" onclick="checkout()" id="cart-checkout-btn" disabled>Checkout</button>
+    <p class="cart-secure">🔒 Secure checkout by Shopify</p>
+  </div>
+</aside>
+
 <div id="pdp-modal" onclick="if(event.target===this)closeProduct()">
   <div class="pdp-inner">
     <button class="pdp-close" onclick="closeProduct()">✕</button>
@@ -1044,7 +1332,7 @@
           <button class="size-btn" type="button" onclick="selectSize(this)">2XL</button>
         </div>
       </div>
-      <a id="pdp-buy" href="#" target="_blank" class="pdp-buy-btn">Add to Cart →</a>
+      <button id="pdp-buy" class="pdp-buy-btn" onclick="addToCart()">Add to Cart →</button>
       <p class="pdp-shipping">Free shipping on orders over $80 AUD · Printed in Australia</p>
     </div>
   </div>
@@ -1063,6 +1351,7 @@
       images: ["images-clean/f5000-front.jpg","images-clean/f5000-back.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com/products/jesus-feeding-the-5000-tee",
+      variantId: "47995627667715",
       colorways: [
         { label:'Black', hex:'#111111', mainImage:'images-clean/model-f5000.jpg', images:['images-clean/f5000-front.jpg','images-clean/f5000-back.jpg'], labels:['Front','Back'] },
         { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-fishjesus.jpg', images:['images-clean/f5000-white-front.jpg','images-clean/f5000-white-back.jpg'], labels:['Front','Back'] }
@@ -1079,6 +1368,7 @@
       images: ["images-clean/fishjesus-front.jpg","images-clean/fishjesus-back.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com/products/jesus-fish-tee",
+      variantId: "47942234112259",
       colorways: [
         { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-fishjesus.jpg', images:['images-clean/fishjesus-front.jpg','images-clean/fishjesus-back.jpg'], labels:['Front','Back'] },
         { label:'Black', hex:'#111111', mainImage:'images-clean/model-f5000.jpg', images:['images-clean/fishjesus-black-front.jpg','images-clean/fishjesus-black-back.jpg'], labels:['Front','Back'] }
@@ -1095,6 +1385,7 @@
       images: ["images-clean/sb-front.jpg","images-clean/sb-back.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com/products/inspirit-original-tee",
+      variantId: "47995751891203",
       colorways: [
         { label:'Black', hex:'#111111', mainImage:'images-clean/model-sb.jpg', images:['images-clean/sb-front.jpg','images-clean/sb-back.jpg'], labels:['Hanger Front','Hanger Back'] },
         { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-sb-white.jpg', images:['images-clean/sb-white-front.jpg','images-clean/sb-white-back.jpg'], labels:['Hanger Front','Hanger Back'] }
@@ -1111,6 +1402,7 @@
       images: ["images-clean/womensheart-front.jpg","images-clean/womensheart-back.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com/products/womens-heart-tee",
+      variantId: "47995790917891",
       colorways: [
         { label:'Black', hex:'#111111', mainImage:'images-clean/model-womensheart.jpg', images:['images-clean/womensheart-front.jpg','images-clean/womensheart-back.jpg'], labels:['Hanger Front','Hanger Back'] },
         { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-womensheart-white.jpg', images:['images-clean/womensheart-white-front.jpg','images-clean/womensheart-white-back.jpg'], labels:['Hanger Front','Hanger Back'] }
@@ -1126,7 +1418,8 @@
       mainImage: "images-clean/hoodie-inspirit-model-front.jpg",
       images: ["images-clean/hoodie-inspirit-hanger-front.jpg","images-clean/hoodie-inspirit-hanger-back.jpg","images-clean/hoodie-inspirit-model-front.jpg","images-clean/hoodie-inspirit-model-back.jpg"],
       labels: ["Hanger Front","Hanger Back","Model Front","Model Back"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com/products/inspirit-hoodie"
+      shopifyUrl: "https://inspirit-8346.myshopify.com/products/inspirit-hoodie",
+      variantId: "47942350209283"
     },
     { // 5 — WINTER: Crewneck
       name: "Inspirit Crewneck",
@@ -1162,7 +1455,8 @@
       mainImage: "images-clean/hoodie-pink-model-front-closeup.jpg",
       images: ["images-clean/hoodie-pink-hanger-front.jpg","images-clean/hoodie-pink-hanger-back.jpg","images-clean/hoodie-pink-model-front-closeup.jpg","images-clean/hoodie-pink-model-back.jpg"],
       labels: ["Hanger Front","Hanger Back","Model Front","Model Back"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com/products/inspirit-womens-hoodie"
+      shopifyUrl: "https://inspirit-8346.myshopify.com/products/inspirit-womens-hoodie",
+      variantId: "47995724431619"
     },
     { // 8 — WINTER: Jesus Fish Jumper
       name: "Jesus Fish Jumper",
@@ -1174,7 +1468,8 @@
       mainImage: "images-clean/jumper-fishjesus-model-front.jpg",
       images: ["images-clean/jumper-fishjesus-hanger-front.jpg","images-clean/jumper-fishjesus-hanger-back.jpg","images-clean/jumper-fishjesus-model-front.jpg","images-clean/jumper-fishjesus-model-back.jpg"],
       labels: ["Hanger Front","Hanger Back","Model Front","Model Back"],
-      shopifyUrl: "https://inspirit-8346.myshopify.com/products/jesus-fish-jumper"
+      shopifyUrl: "https://inspirit-8346.myshopify.com/products/jesus-fish-jumper",
+      variantId: "47997160358147"
     },
     { // 9 — HATS: Inspirit Bucket Hat
       name: "Inspirit Bucket Hat",
@@ -1351,7 +1646,8 @@
     document.getElementById('pdp-desc').textContent = p.desc;
     document.getElementById('pdp-detail').textContent = p.detail;
     document.getElementById('pdp-fit').textContent = p.fit;
-    document.getElementById('pdp-buy').href = p.shopifyUrl;
+    window._currentProductIdx = idx;
+    document.getElementById('pdp-buy').textContent = 'Add to Cart →';
 
     const mainImg = document.getElementById('pdp-main-img');
     mainImg.alt = p.name;
@@ -1449,6 +1745,236 @@
     b.textContent = "You're In ✝"; b.style.background='var(--near)'; b.style.color='var(--gold)';
     e.target.querySelector('input').value='';
   }
+
+  /* ═══════════════════════════════════════════════════════════════
+     CART SYSTEM
+     Customers add items on YOUR site, then checkout redirects to
+     Shopify's checkout URL with all items pre-added as line items.
+     Sizes are collected here and attached as line-item properties.
+     ═══════════════════════════════════════════════════════════════ */
+
+  const SHOPIFY_DOMAIN = 'inspirit-8346.myshopify.com';
+  const CART_KEY = 'inspirit_cart_v1';
+
+  // Load cart from localStorage
+  function loadCart() {
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch { return []; }
+  }
+
+  function saveCart(cart) {
+    try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {}
+    updateCartBadge(cart);
+  }
+
+  function updateCartBadge(cart) {
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const badge = document.getElementById('cart-count');
+    const mobileBadge = document.getElementById('cart-count-mobile');
+    if (badge) {
+      badge.textContent = count;
+      badge.classList.toggle('hidden', count === 0);
+    }
+    if (mobileBadge) mobileBadge.textContent = count;
+  }
+
+  // Add current product (from modal) to cart
+  function addToCart() {
+    const idx = window._currentProductIdx;
+    if (idx === undefined || idx === null) return;
+    const p = PRODUCTS[idx];
+    if (!p.variantId) {
+      toast('Coming soon – not yet on Shopify');
+      return;
+    }
+
+    // Check size selection (only if product has sizes)
+    const hasSize = !p.oneSize;
+    let size = null;
+    if (hasSize) {
+      const selected = document.querySelector('.size-btn.selected');
+      if (!selected) { toast('Pick a size first'); return; }
+      size = selected.textContent.trim();
+    }
+
+    // Get active colour (if product has colorways)
+    let colour = null;
+    if (p.colorways && p.colorways.length) {
+      const activeSwatch = document.querySelector('.pdp-swatch.active');
+      if (activeSwatch) {
+        const cwIdx = Array.from(document.querySelectorAll('.pdp-swatch')).indexOf(activeSwatch);
+        if (cwIdx >= 0 && p.colorways[cwIdx]) colour = p.colorways[cwIdx].label;
+      }
+    }
+
+    const cart = loadCart();
+    const key = `${p.variantId}|${size || ''}|${colour || ''}`;
+    const existing = cart.find(item => item.key === key);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({
+        key,
+        variantId: p.variantId,
+        productIdx: idx,
+        name: p.name,
+        price: p.price,
+        priceNum: parseInt(p.price.replace(/[^0-9]/g,'')) || 0,
+        image: (p.colorways && p.colorways[0]) ? p.colorways[0].mainImage : p.mainImage,
+        size,
+        colour,
+        qty: 1,
+      });
+    }
+    saveCart(cart);
+    renderCart();
+    showPopover(cart, key);
+    // Change button text briefly to confirm action
+    const btn = document.getElementById('pdp-buy');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Added';
+    btn.style.background = '#7bca7e';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = '';
+    }, 1200);
+  }
+
+  function showPopover(cart, lastKey) {
+    const pop = document.getElementById('cart-popover');
+    const item = cart.find(i => i.key === lastKey);
+    if (!item) return;
+    const totalItems = cart.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cart-pop-title').textContent = `My Bag, ${totalItems} item${totalItems !== 1 ? 's' : ''}`;
+    const metaBits = [];
+    if (item.colour) metaBits.push(item.colour);
+    if (item.size) metaBits.push(`Size ${item.size}`);
+    metaBits.push(`Qty: ${item.qty}`);
+    document.getElementById('cart-pop-item').innerHTML = `
+      <div class="cart-pop-item-img"><img src="${item.image}" alt="${item.name}" /></div>
+      <div class="cart-pop-item-info">
+        <span class="cart-pop-item-price">$${item.priceNum * item.qty} AUD</span>
+        <span class="cart-pop-item-name">${item.name}</span>
+        <div class="cart-pop-item-meta">${metaBits.map(b => `<span>${b}</span>`).join('')}</div>
+      </div>
+    `;
+    const subtotal = cart.reduce((s, i) => s + (i.priceNum * i.qty), 0);
+    document.getElementById('cart-pop-subtotal').textContent = `$${subtotal} AUD`;
+    pop.classList.add('open');
+    // Auto-dismiss after 6s
+    clearTimeout(window._popTimer);
+    window._popTimer = setTimeout(() => pop.classList.remove('open'), 6000);
+  }
+
+  function closePopover() {
+    document.getElementById('cart-popover').classList.remove('open');
+    clearTimeout(window._popTimer);
+  }
+
+  function removeFromCart(key) {
+    const cart = loadCart().filter(item => item.key !== key);
+    saveCart(cart);
+    renderCart();
+  }
+
+  function changeQty(key, delta) {
+    const cart = loadCart();
+    const item = cart.find(i => i.key === key);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) return removeFromCart(key);
+    saveCart(cart);
+    renderCart();
+  }
+
+  function renderCart() {
+    const cart = loadCart();
+    const itemsEl = document.getElementById('cart-items');
+    const subtotalEl = document.getElementById('cart-subtotal');
+    const btn = document.getElementById('cart-checkout-btn');
+
+    if (!cart.length) {
+      itemsEl.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
+      subtotalEl.textContent = '$0 AUD';
+      btn.disabled = true;
+      return;
+    }
+
+    itemsEl.innerHTML = cart.map(item => `
+      <div class="cart-line">
+        <div class="cart-line-img"><img src="${item.image}" alt="${item.name}" /></div>
+        <div class="cart-line-info">
+          <p class="cart-line-name">${item.name}</p>
+          ${item.colour ? `<p class="cart-line-meta">${item.colour}${item.size ? ' · Size '+item.size : ''}</p>` : (item.size ? `<p class="cart-line-meta">Size ${item.size}</p>` : '')}
+          <div class="cart-line-qty">
+            <button class="cart-qty-btn" onclick="changeQty('${item.key}', -1)" aria-label="Decrease quantity">−</button>
+            <span class="cart-qty-val">${item.qty}</span>
+            <button class="cart-qty-btn" onclick="changeQty('${item.key}', 1)" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+        <div class="cart-line-right">
+          <span class="cart-line-price">$${item.priceNum * item.qty}</span>
+          <button class="cart-line-remove" onclick="removeFromCart('${item.key}')">Remove</button>
+        </div>
+      </div>
+    `).join('');
+
+    const subtotal = cart.reduce((sum, i) => sum + (i.priceNum * i.qty), 0);
+    subtotalEl.textContent = `$${subtotal} AUD`;
+    btn.disabled = false;
+  }
+
+  function openCart() {
+    renderCart();
+    document.getElementById('cart-overlay').classList.add('open');
+    document.getElementById('cart-drawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart() {
+    document.getElementById('cart-overlay').classList.remove('open');
+    document.getElementById('cart-drawer').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Build Shopify cart permalink URL. Format:
+  //   https://<shop>.myshopify.com/cart/<variantId>:<qty>,<variantId>:<qty>?attributes[Size]=...
+  // Line-item properties aren't supported on /cart/<permalinks>, so we pass
+  // size/colour info as cart-level attributes via ?attributes[...]=...
+  function checkout() {
+    const cart = loadCart();
+    if (!cart.length) return;
+    const pairs = cart.map(i => `${i.variantId}:${i.qty}`).join(',');
+    // Build attributes string: one per line item (Item 1 Size = M, Item 2 Size = L ...)
+    const attrs = [];
+    cart.forEach((item, i) => {
+      const label = item.name;
+      if (item.size) attrs.push(`attributes[${encodeURIComponent(label + ' Size')}]=${encodeURIComponent(item.size)}`);
+      if (item.colour) attrs.push(`attributes[${encodeURIComponent(label + ' Colour')}]=${encodeURIComponent(item.colour)}`);
+    });
+    const url = `https://${SHOPIFY_DOMAIN}/cart/${pairs}${attrs.length ? '?' + attrs.join('&') : ''}`;
+    window.location.href = url;
+  }
+
+  // Toast notifications
+  let toastTimeout;
+  function toast(msg) {
+    let t = document.getElementById('cart-toast-el');
+    if (!t) {
+      t = document.createElement('div');
+      t.id = 'cart-toast-el';
+      t.className = 'cart-toast';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    requestAnimationFrame(() => t.classList.add('show'));
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  // Init badge on load
+  updateCartBadge(loadCart());
 </script>
 </body>
 </html>
