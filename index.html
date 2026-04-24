@@ -1799,14 +1799,25 @@
       size = selected.textContent.trim();
     }
 
-    // Get active colour (if product has colorways)
+    // Get active colour (if product has colorways) + its matching image
     let colour = null;
+    let cartImage = p.mainImage; // default fallback
     if (p.colorways && p.colorways.length) {
       const activeSwatch = document.querySelector('.pdp-swatch.active');
+      let cwIdx = 0; // fallback to first colour if none active
       if (activeSwatch) {
-        const cwIdx = Array.from(document.querySelectorAll('.pdp-swatch')).indexOf(activeSwatch);
-        if (cwIdx >= 0 && p.colorways[cwIdx]) colour = p.colorways[cwIdx].label;
+        cwIdx = Array.from(document.querySelectorAll('.pdp-swatch')).indexOf(activeSwatch);
+        if (cwIdx < 0) cwIdx = 0;
       }
+      const cw = p.colorways[cwIdx];
+      if (cw) {
+        colour = cw.label;
+        // Prefer a front hanger shot if available, else mainImage
+        cartImage = (cw.images && cw.images[0]) ? cw.images[0] : cw.mainImage;
+      }
+    } else {
+      // No colorways — use product's first image if available
+      cartImage = (p.images && p.images[0]) ? p.images[0] : p.mainImage;
     }
 
     const cart = loadCart();
@@ -1822,7 +1833,7 @@
         name: p.name,
         price: p.price,
         priceNum: parseInt(p.price.replace(/[^0-9]/g,'')) || 0,
-        image: (p.colorways && p.colorways[0]) ? p.colorways[0].mainImage : p.mainImage,
+        image: cartImage,
         size,
         colour,
         qty: 1,
