@@ -1279,25 +1279,46 @@
   (function buildSocialStrip() {
     const tiles = document.querySelectorAll('.s-tile.fade-tile');
     if (!tiles.length) return;
-    const shuffled = shuffle(SOCIAL_POOL);
-    let idx = 0;
+
+    // Start each tile with 2 different random images
+    const initial = shuffle(SOCIAL_POOL);
+    let poolIdx = 0;
     tiles.forEach((tile) => {
-      const a = shuffled[idx % shuffled.length]; idx++;
-      const b = shuffled[idx % shuffled.length]; idx++;
+      const a = initial[poolIdx % initial.length]; poolIdx++;
+      const b = initial[poolIdx % initial.length]; poolIdx++;
       tile.innerHTML = `
         <img src="${a}" alt="Inspirit" class="active" />
         <img src="${b}" alt="Inspirit" />
       `;
     });
 
+    // Each tile: fade the currently-hidden image into view, then swap
+    // the inactive one out for a NEW random image from the pool.
+    // This means all 44 images keep rotating through, not just 10.
     tiles.forEach((tile, i) => {
-      const imgs = tile.querySelectorAll('img');
-      let current = 0;
+      let nextPoolIdx = poolIdx + i;
       setTimeout(() => {
         setInterval(() => {
-          imgs[current].classList.remove('active');
-          current = (current + 1) % imgs.length;
-          imgs[current].classList.add('active');
+          const imgs = tile.querySelectorAll('img');
+          const activeImg = tile.querySelector('img.active');
+          const hiddenImg = activeImg.nextElementSibling || imgs[0];
+
+          // Fade: active → hidden, hidden → active
+          activeImg.classList.remove('active');
+          hiddenImg.classList.add('active');
+
+          // After the fade settles, swap the (now hidden) old image for a fresh random one
+          setTimeout(() => {
+            // pick a fresh image that isn't currently shown
+            const shownSrc = hiddenImg.src.split('/').slice(-2).join('/');
+            let next;
+            let tries = 0;
+            do {
+              next = SOCIAL_POOL[Math.floor(Math.random() * SOCIAL_POOL.length)];
+              tries++;
+            } while (next === shownSrc && tries < 10);
+            activeImg.src = next;
+          }, 1100); // wait for CSS opacity transition (1s) to finish
         }, 5000);
       }, i * 900);
     });
