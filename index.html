@@ -960,8 +960,8 @@
       <img src="images-clean/jumper-fishjesus-model-back.jpg" alt="Jesus Fish Jumper back" />
     </div>
     <div class="s-tile fade-tile">
-      <img src="images-clean/hoodie-pink-model-front.jpg" alt="Spiritual Badass Pink Hoodie" class="active" />
-      <img src="images-clean/hoodie-pink-model-back.jpg" alt="Spiritual Badass Pink Hoodie back" />
+      <img src="images-clean/hoodie-pink-model-front-closeup.jpg" alt="Spiritual Badass Pink Hoodie" class="active" />
+      <img src="images-clean/hoodie-pink-model-back-alt.jpg" alt="Spiritual Badass Pink Hoodie back" />
     </div>
   </div>
 </div>
@@ -1209,32 +1209,67 @@
     btn.classList.add('selected');
   }
 
-  const target = new Date(Date.now() + 7*24*60*60*1000);
-  function tick() {
-    const cdD = document.getElementById('cd-d');
-    if (!cdD) return;
-    const d = target - Date.now();
-    if (d <= 0) { const cd = document.getElementById('countdown'); if(cd) cd.innerHTML='<p style="font-family:\'Bebas Neue\',sans-serif;font-size:26px;letter-spacing:3px;color:var(--gold)">LIVE NOW ✝</p>'; return; }
-    const p = n => String(Math.floor(n)).padStart(2,'0');
-    cdD.textContent = p(d/86400000);
-    document.getElementById('cd-h').textContent = p(d%86400000/3600000);
-    document.getElementById('cd-m').textContent = p(d%3600000/60000);
-    document.getElementById('cd-s').textContent = p(d%60000/1000);
-  }
-  setInterval(tick,1000); tick();
+  // ── RANDOMIZED SOCIAL STRIP ──
+  // Pool of all "journey-worthy" product shots. On every page load, 5 get picked
+  // at random, each tile gets 2 random images that fade between each other.
+  const SOCIAL_POOL = [
+    'images-clean/model-sb.jpg',
+    'images-clean/model-sb-white.jpg',
+    'images-clean/model-fishjesus.jpg',
+    'images-clean/model-f5000.jpg',
+    'images-clean/model-womensheart.jpg',
+    'images-clean/model-womensheart-white.jpg',
+    'images-clean/hoodie-inspirit-model-front.jpg',
+    'images-clean/hoodie-inspirit-model-back.jpg',
+    'images-clean/hoodie-inspirit-model-back-alt.jpg',
+    'images-clean/hoodie-pink-model-front-closeup.jpg',
+    'images-clean/hoodie-pink-model-back-alt.jpg',
+    'images-clean/jumper-fishjesus-model-front.jpg',
+    'images-clean/jumper-fishjesus-model-back.jpg',
+    'images-clean/jumper-fishjesus-model-back-alt.jpg',
+    'images-clean/hero-feeding5000.jpg',
+    'images-clean/hero-fish-jesus.jpg',
+    'images-clean/hero-sb.jpg',
+    'images-clean/hero-womens-heart.jpg',
+  ];
 
-  // Fade cycling for social strip tiles
-  document.querySelectorAll('.fade-tile').forEach((tile, i) => {
-    const imgs = tile.querySelectorAll('img');
-    let current = 0;
-    setTimeout(() => {
-      setInterval(() => {
-        imgs[current].classList.remove('active');
-        current = (current + 1) % imgs.length;
-        imgs[current].classList.add('active');
-      }, 5000);
-    }, i * 1000); // stagger each tile by 1s so they don't all switch at once
-  });
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  (function buildSocialStrip() {
+    const tiles = document.querySelectorAll('.s-tile.fade-tile');
+    if (!tiles.length) return;
+    const shuffled = shuffle(SOCIAL_POOL);
+    let idx = 0;
+    tiles.forEach((tile) => {
+      // grab 2 images per tile, wrapping if we run out
+      const a = shuffled[idx % shuffled.length]; idx++;
+      const b = shuffled[idx % shuffled.length]; idx++;
+      tile.innerHTML = `
+        <img src="${a}" alt="Inspirit" class="active" />
+        <img src="${b}" alt="Inspirit" />
+      `;
+    });
+
+    // Fade cycling — staggered so they don't all switch in sync
+    tiles.forEach((tile, i) => {
+      const imgs = tile.querySelectorAll('img');
+      let current = 0;
+      setTimeout(() => {
+        setInterval(() => {
+          imgs[current].classList.remove('active');
+          current = (current + 1) % imgs.length;
+          imgs[current].classList.add('active');
+        }, 5000);
+      }, i * 900);
+    });
+  })();
 
   /* ── PRODUCT MODAL ── */
   function renderThumbs(images, labels, mainImg) {
