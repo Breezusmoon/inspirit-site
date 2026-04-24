@@ -1210,27 +1210,61 @@
   }
 
   // ── RANDOMIZED SOCIAL STRIP ──
-  // Pool of all "journey-worthy" product shots. On every page load, 5 get picked
-  // at random, each tile gets 2 random images that fade between each other.
+  // Pool of every real product shot in the catalog — hangers, models, heroes, hats.
+  // On every page load, 5 tiles pick 2 random images each from this pool and fade between them.
   const SOCIAL_POOL = [
+    // Feeding 5000 — black + white
+    'images-clean/f5000-front.jpg',
+    'images-clean/f5000-back.jpg',
+    'images-clean/f5000-white-front.jpg',
+    'images-clean/f5000-white-back.jpg',
+    'images-clean/model-f5000.jpg',
+    'images-clean/hero-feeding5000.jpg',
+    // Jesus Fish — white + black
+    'images-clean/fishjesus-front.jpg',
+    'images-clean/fishjesus-back.jpg',
+    'images-clean/fishjesus-black-front.jpg',
+    'images-clean/fishjesus-black-back.jpg',
+    'images-clean/model-fishjesus.jpg',
+    'images-clean/hero-fish-jesus.jpg',
+    // Spiritual Badass — black + white
+    'images-clean/sb-front.jpg',
+    'images-clean/sb-back.jpg',
+    'images-clean/sb-white-front.jpg',
+    'images-clean/sb-white-back.jpg',
     'images-clean/model-sb.jpg',
     'images-clean/model-sb-white.jpg',
-    'images-clean/model-fishjesus.jpg',
-    'images-clean/model-f5000.jpg',
+    'images-clean/hero-sb.jpg',
+    // Heart Tee — black + white
+    'images-clean/womensheart-front.jpg',
+    'images-clean/womensheart-back.jpg',
+    'images-clean/womensheart-white-front.jpg',
+    'images-clean/womensheart-white-back.jpg',
     'images-clean/model-womensheart.jpg',
     'images-clean/model-womensheart-white.jpg',
+    'images-clean/hero-womens-heart.jpg',
+    // Inspirit Hoodie
+    'images-clean/hoodie-inspirit-hanger-front.jpg',
+    'images-clean/hoodie-inspirit-hanger-back.jpg',
     'images-clean/hoodie-inspirit-model-front.jpg',
     'images-clean/hoodie-inspirit-model-back.jpg',
     'images-clean/hoodie-inspirit-model-back-alt.jpg',
+    // Spiritual Badass Pink Hoodie (skipped rooftop shot)
+    'images-clean/hoodie-pink-hanger-front.jpg',
+    'images-clean/hoodie-pink-hanger-back.jpg',
     'images-clean/hoodie-pink-model-front-closeup.jpg',
     'images-clean/hoodie-pink-model-back-alt.jpg',
+    // Jesus Fish Jumper
+    'images-clean/jumper-fishjesus-hanger-front.jpg',
+    'images-clean/jumper-fishjesus-hanger-back.jpg',
     'images-clean/jumper-fishjesus-model-front.jpg',
     'images-clean/jumper-fishjesus-model-back.jpg',
     'images-clean/jumper-fishjesus-model-back-alt.jpg',
-    'images-clean/hero-feeding5000.jpg',
-    'images-clean/hero-fish-jesus.jpg',
-    'images-clean/hero-sb.jpg',
-    'images-clean/hero-womens-heart.jpg',
+    // Bucket Hats
+    'images-clean/inspirit-bucket-hat-model.jpg',
+    'images-clean/inspirit-bucket-hat-real.jpg',
+    'images-clean/spiritual-badass-bucket-hat-model.jpg',
+    'images-clean/spiritual-badass-bucket-hat-real.jpg',
   ];
 
   function shuffle(arr) {
@@ -1248,7 +1282,6 @@
     const shuffled = shuffle(SOCIAL_POOL);
     let idx = 0;
     tiles.forEach((tile) => {
-      // grab 2 images per tile, wrapping if we run out
       const a = shuffled[idx % shuffled.length]; idx++;
       const b = shuffled[idx % shuffled.length]; idx++;
       tile.innerHTML = `
@@ -1257,7 +1290,6 @@
       `;
     });
 
-    // Fade cycling — staggered so they don't all switch in sync
     tiles.forEach((tile, i) => {
       const imgs = tile.querySelectorAll('img');
       let current = 0;
