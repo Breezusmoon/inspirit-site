@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <title>Inspirit Clothing Co | Living Inspirit</title>
   <meta name="description" content="Inspirit Clothing Co — Christian urban streetwear. Wear your faith. Walk in purpose. Limited drops, handprinted in Australia." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -301,6 +303,7 @@
       background:rgba(200,164,90,.07);
     }
     .product-grid.grid-4 { grid-template-columns:repeat(4,1fr); }
+    .product-grid.winter-grid { grid-template-columns:repeat(3,1fr); }
     /* For 5 cards: use auto-flow */
     .card { background:var(--black); display:flex; flex-direction:column; cursor:pointer; overflow:hidden; }
     .card-img { position:relative; overflow:hidden; background:var(--grey); aspect-ratio:3/4; }
@@ -375,7 +378,7 @@
     .email-sec h2 em { font-style:italic; color:var(--gold); }
     .email-sec p { font-size:14px; color:var(--muted); margin-bottom:28px; position:relative; z-index:2; }
     .email-form { display:flex; max-width:480px; margin:0 auto 12px; position:relative; z-index:2; }
-    .email-input { flex:1; background:rgba(255,255,255,.04); border:1px solid rgba(200,164,90,.22); border-right:none; color:var(--white); padding:15px 20px; font-family:var(--fb); font-size:14px; outline:none; transition:border-color .2s; }
+    .email-input { flex:1; background:rgba(255,255,255,.04); border:1px solid rgba(200,164,90,.22); border-right:none; color:var(--white); padding:15px 20px; font-family:var(--fb); font-size:16px; outline:none; transition:border-color .2s; }
     .email-input:focus { border-color:var(--gold); }
     .email-input::placeholder { color:#444; }
     .email-sub { background:var(--gold); color:var(--black); border:none; padding:15px 28px; font-family:var(--fh); font-size:18px; letter-spacing:2px; cursor:pointer; transition:background .2s; }
@@ -413,7 +416,7 @@
     .soc:hover { border-color:var(--gold); color:var(--gold); }
 
     /* ── RESPONSIVE ── */
-    @media(max-width:1024px) { .product-grid { grid-template-columns:repeat(2,1fr); } .product-grid.grid-4 { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:1024px) { .product-grid { grid-template-columns:repeat(2,1fr); } .product-grid.grid-4 { grid-template-columns:repeat(2,1fr); } .winter-grid { grid-template-columns:repeat(2,1fr) !important; } }
     @media(max-width:900px) {
       nav { padding:0 20px; } .nav-links { display:none; } .ham { display:flex; }
       .hero { padding:100px 24px 88px; }
@@ -435,13 +438,21 @@
       .footer-bottom { flex-direction:column; gap:14px; }
     }
     @media(max-width:600px) {
-      .product-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
-      .product-grid.grid-4 { grid-template-columns:repeat(2,1fr); }
+      /* All product grids: 2 columns on mobile, matching aspect ratio */
+      .product-grid { grid-template-columns:repeat(2,1fr) !important; gap:10px; }
+      .product-grid.grid-4 { grid-template-columns:repeat(2,1fr) !important; }
+      .winter-grid { grid-template-columns:repeat(2,1fr) !important; }
+      /* Force consistent aspect ratio across ALL product cards on mobile */
+      .card-img { aspect-ratio:3/4 !important; height:auto !important; }
+      .card-img.dual-shot { aspect-ratio:3/4 !important; height:auto !important; grid-template-columns:1fr !important; }
+      .card-img.dual-shot .dual-thumb { display:none !important; }
+      /* Card text sizing */
       .card-info { padding:12px 10px 14px; gap:6px; }
       .card-name { font-size:13px; }
       .card-desc { font-size:11px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
       .card-price { font-size:14px; }
       .card-btn { font-size:11px; padding:7px 12px; }
+      /* Forms + section heads */
       .email-form { flex-direction:column; }
       .email-input { border-right:1px solid rgba(200,164,90,.22); }
       .social-grid { grid-template-columns:repeat(2,1fr); }
@@ -450,6 +461,25 @@
       .section-h { font-size:32px; }
       .products { padding:48px 16px; }
       .hero h1 { font-size:clamp(36px,11vw,72px); }
+      /* PDP modal — full screen on mobile, no awkward sizing */
+      .pdp { padding:0; }
+      .pdp-inner { max-width:100vw; width:100vw; height:100dvh; max-height:100dvh; border-radius:0; flex-direction:column; }
+      .pdp-main-wrap { min-height:50vh; }
+      .pdp-thumbs { flex-direction:row; padding:12px; gap:8px; overflow-x:auto; }
+      .pdp-thumb { flex:0 0 60px; min-width:60px; }
+      .pdp-info { padding:20px; max-height:50vh; overflow-y:auto; }
+      .pdp-close { top:12px; right:12px; width:36px; height:36px; }
+      /* Tap targets — minimum 44px for accessibility */
+      .size-btn { min-height:44px; min-width:44px; }
+      .card-btn { min-height:36px; }
+      /* Better mobile menu */
+      .mobile-nav-link { padding:18px 24px; }
+    }
+    @media(max-width:380px) {
+      /* Tiny phones — bump grid to single col so cards aren't cramped */
+      .hero h1 { font-size:34px; }
+      .card-desc { -webkit-line-clamp:1; }
+      .section-h { font-size:26px; }
     }
   </style>
 </head>
@@ -550,7 +580,7 @@
 
     <!-- 0: Feeding 5000 — BLACK -->
     <div class="card" onclick="openProduct(0)">
-      <div class="card-img" style="background:#111;aspect-ratio:2/3;">
+      <div class="card-img" style="background:#111;aspect-ratio:3/4;">
         <span class="badge bn">New Drop</span>
         <img src="images-clean/f5000-back.jpg" alt="Feeding 5000 Tee back" loading="lazy" />
         <img src="images-clean/model-f5000.jpg" class="card-hover-img" alt="Feeding 5000 model" />
@@ -572,7 +602,7 @@
 
     <!-- 1: Jesus Fish — WHITE -->
     <div class="card" onclick="openProduct(1)">
-      <div class="card-img" style="background:#e8e4dc;aspect-ratio:2/3;">
+      <div class="card-img" style="background:#e8e4dc;aspect-ratio:3/4;">
         <span class="badge bn">New Drop</span>
         <img src="images-clean/fishjesus-back.jpg" alt="Jesus Fish Tee back" loading="lazy" />
         <img src="images-clean/model-fishjesus.jpg" class="card-hover-img" alt="Jesus Fish model" />
@@ -594,7 +624,7 @@
 
     <!-- 2: Spiritual Badass — BLACK -->
     <div class="card" onclick="openProduct(2)">
-      <div class="card-img" style="background:#111;aspect-ratio:2/3;">
+      <div class="card-img" style="background:#111;aspect-ratio:3/4;">
         <span class="badge bn">New Drop</span>
         <img src="images-clean/sb-back.jpg" alt="Spiritual Badass back" loading="lazy" />
         <img src="images-clean/model-sb.jpg" class="card-hover-img" alt="Spiritual Badass model" />
@@ -616,7 +646,7 @@
 
     <!-- 3: Womens Heart — BLACK -->
     <div class="card" onclick="openProduct(3)">
-      <div class="card-img" style="background:#111;aspect-ratio:2/3;">
+      <div class="card-img" style="background:#111;aspect-ratio:3/4;">
         <span class="badge bw">Women's</span>
         <img src="images-clean/womensheart-back.jpg" alt="Heart Tee back" loading="lazy" />
         <img src="images-clean/model-womensheart.jpg" class="card-hover-img" alt="Heart Tee model" />
@@ -649,11 +679,11 @@
     <a href="#winter" class="view-all">Shop Winter →</a>
   </div>
   <!-- Row 1: 3 hoodies/jumper -->
-  <div class="product-grid" style="grid-template-columns:repeat(3,1fr);">
+  <div class="product-grid winter-grid">
 
     <!-- Inspirit Hoodie -->
     <div class="card" onclick="openProduct(4)">
-      <div class="card-img" style="background:#111;aspect-ratio:2/3;">
+      <div class="card-img" style="background:#111;">
         <span class="badge bg">Winter Drop</span>
         <img src="images-clean/hoodie-inspirit-hanger-back.jpg" alt="Inspirit Hoodie back" loading="lazy" />
         <img src="images-clean/hoodie-inspirit-model-front.jpg" class="card-hover-img" alt="Inspirit Hoodie model" />
@@ -675,7 +705,7 @@
 
     <!-- Spiritual Badass Pink Hoodie -->
     <div class="card" onclick="openProduct(7)">
-      <div class="card-img" style="background:#111;aspect-ratio:2/3;">
+      <div class="card-img" style="background:#111;">
         <span class="badge bg">Winter Drop</span>
         <img src="images-clean/hoodie-pink-hanger-back.jpg" alt="Spiritual Badass Pink Hoodie back" loading="lazy" />
         <img src="images-clean/hoodie-pink-model-front-closeup.jpg" class="card-hover-img" alt="Spiritual Badass Pink Hoodie model" />
@@ -697,7 +727,7 @@
 
     <!-- Jesus Fish Jumper -->
     <div class="card" onclick="openProduct(8)">
-      <div class="card-img" style="background:#111;aspect-ratio:2/3;">
+      <div class="card-img" style="background:#111;">
         <span class="badge bg">Winter Drop</span>
         <img src="images-clean/jumper-fishjesus-hanger-back.jpg" alt="Jesus Fish Jumper back" loading="lazy" />
         <img src="images-clean/jumper-fishjesus-model-front.jpg" class="card-hover-img" alt="Jesus Fish Jumper model" />
@@ -720,11 +750,11 @@
   </div>
 
   <!-- Row 2: Beanie -->
-  <div class="product-grid" style="grid-template-columns:repeat(3,1fr);margin-top:1px;">
+  <div class="product-grid winter-grid" style="margin-top:1px;">
     <div class="card" onclick="openProduct(6)">
-      <div class="card-img" style="aspect-ratio:3/4;background:#efefed;overflow:hidden;">
+      <div class="card-img" style="background:#efefed;">
         <span class="badge bg">Winter Drop</span>
-        <img src="images-clean/winter-beanie-hanger.jpg" alt="Inspirit Beanie" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;" />
+        <img src="images-clean/winter-beanie-hanger.jpg" alt="Inspirit Beanie" loading="lazy" style="object-position:center 15%;" />
       </div>
       <div class="card-info">
         <div>
@@ -757,7 +787,7 @@
   <div class="hats-grid">
 
     <!-- Hat 1: Inspirit Cross Bucket Hat -->
-    <div class="hat-card">
+    <div class="hat-card" onclick="openProduct(9)" style="cursor:pointer;">
       <div class="hat-shots">
         <div class="hat-main">
           <img src="images-clean/inspirit-bucket-hat-model.jpg" alt="Inspirit Bucket Hat" loading="lazy" />
@@ -781,7 +811,7 @@
     </div>
 
     <!-- Hat 2: Spiritual Badass Bucket Hat -->
-    <div class="hat-card">
+    <div class="hat-card" onclick="openProduct(10)" style="cursor:pointer;">
       <div class="hat-shots">
         <div class="hat-main">
           <img src="images-clean/spiritual-badass-bucket-hat-model.jpg" alt="Spiritual Badass Bucket Hat" loading="lazy" />
@@ -943,14 +973,16 @@
       <p id="pdp-desc" class="pdp-desc"></p>
       <p id="pdp-detail" class="pdp-sub"></p>
       <p id="pdp-fit" class="pdp-sub pdp-fit-line"></p>
-      <div class="pdp-size-label">Select Size</div>
-      <div class="pdp-sizes">
-        <button class="size-btn" onclick="selectSize(this)">XS</button>
-        <button class="size-btn" onclick="selectSize(this)">S</button>
-        <button class="size-btn" onclick="selectSize(this)">M</button>
-        <button class="size-btn" onclick="selectSize(this)">L</button>
-        <button class="size-btn" onclick="selectSize(this)">XL</button>
-        <button class="size-btn" onclick="selectSize(this)">2XL</button>
+      <div id="pdp-size-wrap">
+        <div class="pdp-size-label">Select Size</div>
+        <div class="pdp-sizes" id="pdp-sizes-row">
+          <button class="size-btn" type="button" onclick="selectSize(this)">XS</button>
+          <button class="size-btn" type="button" onclick="selectSize(this)">S</button>
+          <button class="size-btn" type="button" onclick="selectSize(this)">M</button>
+          <button class="size-btn" type="button" onclick="selectSize(this)">L</button>
+          <button class="size-btn" type="button" onclick="selectSize(this)">XL</button>
+          <button class="size-btn" type="button" onclick="selectSize(this)">2XL</button>
+        </div>
       </div>
       <a id="pdp-buy" href="#" target="_blank" class="pdp-buy-btn">Add to Cart →</a>
       <p class="pdp-shipping">Free shipping on orders over $80 AUD · Printed in Australia</p>
@@ -1084,6 +1116,32 @@
       labels: ["Hanger Front","Hanger Back","Model Front","Model Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
+    { // 9 — HATS: Inspirit Bucket Hat
+      name: "Inspirit Bucket Hat",
+      badge: "New",
+      price: "$35 AUD",
+      desc: "The cross logo bucket hat — reversible black and white. Wear it both ways. Faith either side.",
+      detail: "100% cotton twill. Reversible design. Cross logo embroidered on both sides. Crown height 9cm.",
+      fit: "One size fits most. 58cm circumference.",
+      oneSize: true,
+      mainImage: "images-clean/inspirit-bucket-hat-model.jpg",
+      images: ["images-clean/inspirit-bucket-hat-model.jpg","images-clean/inspirit-bucket-hat-real.jpg"],
+      labels: ["On Model","Detail"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 10 — HATS: Spiritual Badass Bucket Hat
+      name: "Spiritual Badass Bucket Hat",
+      badge: "Limited",
+      price: "$35 AUD",
+      desc: "Spiritual Badass on black, clean white reverse. The hat that says everything without saying a word.",
+      detail: "100% cotton twill. Reversible design. 'Spiritual Badass' embroidered on one side, minimal clean reverse. Crown height 9cm.",
+      fit: "One size fits most. 58cm circumference.",
+      oneSize: true,
+      mainImage: "images-clean/spiritual-badass-bucket-hat-model.jpg",
+      images: ["images-clean/spiritual-badass-bucket-hat-model.jpg","images-clean/spiritual-badass-bucket-hat-real.jpg"],
+      labels: ["On Model","Detail"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
   ];
 
   function selectSize(btn) {
@@ -1186,6 +1244,23 @@
     }
 
     document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+
+    // Handle one-size products (hats, accessories)
+    const sizesRow = document.getElementById('pdp-sizes-row');
+    const sizeLabel = document.querySelector('#pdp-size-wrap .pdp-size-label');
+    if (p.oneSize) {
+      sizeLabel.textContent = 'Size';
+      sizesRow.innerHTML = '<button class="size-btn selected" type="button" style="min-width:120px;" onclick="selectSize(this)">One Size</button>';
+    } else {
+      sizeLabel.textContent = 'Select Size';
+      sizesRow.innerHTML = '<button class="size-btn" type="button" onclick="selectSize(this)">XS</button>'
+        + '<button class="size-btn" type="button" onclick="selectSize(this)">S</button>'
+        + '<button class="size-btn" type="button" onclick="selectSize(this)">M</button>'
+        + '<button class="size-btn" type="button" onclick="selectSize(this)">L</button>'
+        + '<button class="size-btn" type="button" onclick="selectSize(this)">XL</button>'
+        + '<button class="size-btn" type="button" onclick="selectSize(this)">2XL</button>';
+    }
+
     m.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
