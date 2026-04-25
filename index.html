@@ -783,6 +783,25 @@
       .section-h { font-size:26px; }
     }
   </style>
+<script>
+(function(){
+  var s = localStorage.getItem('inspirit_ssid');
+  if (!s) {
+    s = 's_' + Math.random().toString(36).slice(2, 12);
+    localStorage.setItem('inspirit_ssid', s);
+  }
+  fetch('https://inspirit-os.breezusmoon.workers.dev/api/track', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      type: 'pageview',
+      session: s,
+      path: location.pathname,
+      ref: document.referrer || 'direct'
+    })
+  }).catch(function(){});
+})();
+</script>
 </head>
 <body>
 
