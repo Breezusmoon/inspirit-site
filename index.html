@@ -56,6 +56,10 @@
     .nav-links { display:flex; list-style:none; align-items:center; gap:32px; }
     .nav-links a { color:rgba(255,255,255,0.65); text-decoration:none; font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; transition:color .2s; }
     .nav-links a:hover { color:var(--gold); }
+    .nav-socials { display:flex; align-items:center; gap:8px; }
+    .nav-soc { width:32px; height:32px; border:1px solid rgba(200,164,90,.35); color:var(--gold); display:flex; align-items:center; justify-content:center; text-decoration:none; border-radius:50%; transition:all .2s; }
+    .nav-soc svg { width:16px; height:16px; fill:currentColor; }
+    .nav-soc:hover { background:var(--gold); color:var(--black); border-color:var(--gold); transform:translateY(-1px); }
     .nav-cta { background:var(--gold) !important; color:var(--black) !important; padding:10px 24px; font-weight:700 !important; }
     .nav-cta:hover { background:var(--gold-lt) !important; }
     .ham { display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:1001; }
@@ -804,8 +808,9 @@
     .footer-bottom { border-top:1px solid rgba(255,255,255,.04); padding-top:22px; display:flex; justify-content:space-between; align-items:center; }
     .footer-bottom p { font-size:11px; color:#2a2a2a; }
     .socials { display:flex; gap:10px; }
-    .soc { width:36px; height:36px; border:1px solid rgba(200,164,90,.18); color:rgba(255,255,255,.4); display:flex; align-items:center; justify-content:center; text-decoration:none; font-size:11px; font-weight:700; transition:all .2s; }
-    .soc:hover { border-color:var(--gold); color:var(--gold); }
+    .soc { width:38px; height:38px; border:1px solid rgba(200,164,90,.32); color:var(--gold); background:rgba(8,8,8,.75); display:flex; align-items:center; justify-content:center; text-decoration:none; border-radius:50%; transition:all .2s; }
+    .soc svg { width:18px; height:18px; fill:currentColor; }
+    .soc:hover { border-color:var(--gold); color:var(--black); background:var(--gold); transform:translateY(-1px); }
 
     /* ── RESPONSIVE ── */
     @media(max-width:1024px) { .product-grid { grid-template-columns:repeat(2,1fr); } .product-grid.grid-4 { grid-template-columns:repeat(2,1fr); } .winter-grid { grid-template-columns:repeat(2,1fr) !important; } }
@@ -1232,9 +1237,18 @@
   <ul class="nav-links">
     <li><a href="#shop">Tees</a></li>
     <li><a href="#hats">Hats</a></li>
-    <li><a href="#story">Our Story</a></li>
     <li><a href="#winter">Winter Collection</a></li>
     <li><a href="#shop" class="nav-cta">Shop Now</a></li>
+    <li>
+      <div class="nav-socials" aria-label="Social links">
+        <a class="nav-soc" href="https://instagram.com/inspirit_clothing_co" target="_blank" rel="noopener noreferrer" aria-label="Follow Inspirit Clothing Co on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 1.8A3.96 3.96 0 0 0 3.8 7.75v8.5a3.96 3.96 0 0 0 3.95 3.95h8.5a3.96 3.96 0 0 0 3.95-3.95v-8.5a3.96 3.96 0 0 0-3.95-3.95h-8.5Zm8.9 1.35a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z"/></svg>
+        </a>
+        <a class="nav-soc" href="https://tiktok.com/@inspiritclothingco" target="_blank" rel="noopener noreferrer" aria-label="Follow Inspirit Clothing Co on TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 3c.2 1.76 1.22 3.2 2.96 3.96.88.39 1.83.58 2.79.58v3.2c-1.44.01-2.87-.3-4.19-.91v5.29a6.92 6.92 0 1 1-6.93-6.92c.42 0 .84.04 1.25.11v3.36a3.57 3.57 0 0 0-1.25-.23 3.68 3.68 0 1 0 3.69 3.68V3h1.68Z"/></svg>
+        </a>
+      </div>
+    </li>
     <li><button class="cart-btn" onclick="openCart()" aria-label="Cart">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
       <span class="cart-count" id="cart-count">0</span>
@@ -1253,9 +1267,10 @@
 <div class="mobile-nav" id="mobile-nav">
   <a href="#shop" onclick="closeMobileNav()">Tees</a>
   <a href="#hats" onclick="closeMobileNav()">Hats</a>
-  <a href="#story" onclick="closeMobileNav()">Our Story</a>
   <a href="#winter" onclick="closeMobileNav()">Winter Collection</a>
   <a href="#shop" class="nav-cta" onclick="closeMobileNav()">Shop Now</a>
+  <a href="https://instagram.com/inspirit_clothing_co" target="_blank" rel="noopener noreferrer">Instagram</a>
+  <a href="https://tiktok.com/@inspiritclothingco" target="_blank" rel="noopener noreferrer">TikTok</a>
   <a href="#" onclick="event.preventDefault();closeMobileNav();openCart();">Cart (<span id="cart-count-mobile">0</span>)</a>
 </div>
 
@@ -1734,19 +1749,20 @@
     <div class="footer-col">
       <h4>Find Us</h4>
       <ul>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">TikTok</a></li>
-        <li><a href="#">X (Twitter)</a></li>
-        <li><a href="#">Etsy Store</a></li>
+        <li><a href="https://instagram.com/inspirit_clothing_co" target="_blank" rel="noopener noreferrer">Instagram · @inspirit_clothing_co</a></li>
+        <li><a href="https://tiktok.com/@inspiritclothingco" target="_blank" rel="noopener noreferrer">TikTok · @inspiritclothingco</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
     <p>© 2026 Inspirit Clothing Co. All rights reserved.</p>
-    <div class="socials">
-      <a href="#" class="soc">IG</a>
-      <a href="#" class="soc">TT</a>
-      <a href="#" class="soc">𝕏</a>
+    <div class="socials" aria-label="Footer social links">
+      <a href="https://instagram.com/inspirit_clothing_co" target="_blank" rel="noopener noreferrer" class="soc" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 1.8A3.96 3.96 0 0 0 3.8 7.75v8.5a3.96 3.96 0 0 0 3.95 3.95h8.5a3.96 3.96 0 0 0 3.95-3.95v-8.5a3.96 3.96 0 0 0-3.95-3.95h-8.5Zm8.9 1.35a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8A3.2 3.2 0 1 0 12 15.2 3.2 3.2 0 0 0 12 8.8Z"/></svg>
+      </a>
+      <a href="https://tiktok.com/@inspiritclothingco" target="_blank" rel="noopener noreferrer" class="soc" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 3c.2 1.76 1.22 3.2 2.96 3.96.88.39 1.83.58 2.79.58v3.2c-1.44.01-2.87-.3-4.19-.91v5.29a6.92 6.92 0 1 1-6.93-6.92c.42 0 .84.04 1.25.11v3.36a3.57 3.57 0 0 0-1.25-.23 3.68 3.68 0 1 0 3.69 3.68V3h1.68Z"/></svg>
+      </a>
     </div>
   </div>
 </footer>
