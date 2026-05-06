@@ -482,6 +482,57 @@
       font-size:11px; color:var(--muted); text-align:center;
       letter-spacing:.5px; line-height:1.5; margin:0;
     }
+
+    /* ── AFTERPAY BANNER ── */
+    .afterpay-banner {
+      background:rgba(200,164,90,0.08); 
+      border:1px solid rgba(200,164,90,0.2);
+      border-radius:2px;
+      padding:10px 16px;
+      text-align:center;
+      margin:12px 0;
+    }
+    .afterpay-banner-inner {
+      display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;
+    }
+    .afterpay-logo {
+      height:18px; width:auto; vertical-align:middle; display:inline-block;
+    }
+    .afterpay-banner-text {
+      font-family:var(--fb); 
+      font-size:11px; 
+      font-weight:600;
+      letter-spacing:0.5px; 
+      color:var(--cream);
+      line-height:1.4;
+    }
+    .afterpay-banner-text strong {
+      color:var(--gold);
+      font-weight:700;
+    }
+
+    /* ── AFTERPAY TOP STRIP ── */
+    .afterpay-top-strip {
+      background:linear-gradient(135deg, #b2fce4 0%, #96f7d2 50%, #b2fce4 100%);
+      padding:9px 48px;
+      text-align:center;
+      position:relative; z-index:1000;
+      border-bottom:1px solid rgba(0,0,0,0.08);
+    }
+    .afterpay-top-inner {
+      display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    }
+    .afterpay-top-logo { height:20px; width:auto; }
+    .afterpay-top-text {
+      font-family:var(--fb); font-size:12px; font-weight:600;
+      color:#080808; letter-spacing:0.3px;
+    }
+    .afterpay-top-text strong { font-weight:800; }
+    @media(max-width:600px) {
+      .afterpay-top-strip { padding:8px 16px; }
+      .afterpay-top-text { font-size:11px; }
+      .afterpay-top-logo { height:16px; }
+    }
     @media(max-width:720px) {
       /* ── PDP MODAL — full screen mobile, no overlaps ── */
       #pdp-modal {
@@ -809,6 +860,14 @@
 <div class="announce-bar" id="announcebar">
   ✝ Welcome to Inspirit Clothing Co — Use code <strong class="announce-code">INSPIRIT10</strong> for 10% off your first order <span>·</span> Free shipping on orders over $80 AUD
   <button class="announce-close" onclick="document.getElementById('announcebar').style.display='none'">✕</button>
+</div>
+
+<!-- AFTERPAY TOP BANNER -->
+<div class="afterpay-top-strip">
+  <div class="afterpay-top-inner">
+    <img src="https://static.afterpay.com/button/checkout-with-afterpay/black-on-mint.svg" alt="Afterpay" class="afterpay-top-logo" />
+    <span class="afterpay-top-text">Buy now, pay later — <strong>4 interest-free payments</strong> on all orders</span>
+  </div>
 </div>
 
 <!-- NAV -->
@@ -1315,6 +1374,12 @@
       <span id="cart-subtotal">$0 AUD</span>
     </div>
     <p class="cart-shipping-note">Shipping calculated at checkout · Free on orders over $80 AUD</p>
+    <div class="afterpay-banner">
+      <div class="afterpay-banner-inner">
+        <img src="https://static.afterpay.com/button/checkout-with-afterpay/black-on-mint.svg" alt="Afterpay" class="afterpay-logo" />
+        <p class="afterpay-banner-text">Pay in <strong>4 interest-free installments</strong> with Afterpay</p>
+      </div>
+    </div>
     <button class="cart-checkout-btn" onclick="checkout()" id="cart-checkout-btn" disabled>Checkout</button>
     <p class="cart-secure">🔒 Secure checkout by Shopify</p>
   </div>
@@ -1349,6 +1414,12 @@
           <button class="size-btn" type="button" onclick="selectSize(this)">L</button>
           <button class="size-btn" type="button" onclick="selectSize(this)">XL</button>
           <button class="size-btn" type="button" onclick="selectSize(this)">2XL</button>
+        </div>
+      </div>
+      <div class="afterpay-banner">
+        <div class="afterpay-banner-inner">
+          <img src="https://static.afterpay.com/button/checkout-with-afterpay/black-on-mint.svg" alt="Afterpay" class="afterpay-logo" />
+          <p class="afterpay-banner-text">Pay in <strong>4 interest-free installments</strong> with Afterpay</p>
         </div>
       </div>
       <button id="pdp-buy" class="pdp-buy-btn" onclick="addToCart()">Add to Cart →</button>
@@ -2006,5 +2077,6 @@
   // Init badge on load
   updateCartBadge(loadCart());
 </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
