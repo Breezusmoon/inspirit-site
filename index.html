@@ -267,16 +267,24 @@
       padding:20px 24px 24px; border-top:1px solid rgba(200,164,90,0.15);
       flex-shrink:0; background:var(--black);
     }
-    .cart-subtotal {
+    .cart-summary-row {
       display:flex; justify-content:space-between; align-items:baseline;
       margin-bottom:6px;
     }
-    .cart-subtotal span:first-child {
+    .cart-summary-row span:first-child {
       font-family:var(--fb); font-size:13px; letter-spacing:2px;
       text-transform:uppercase; color:var(--muted);
     }
-    .cart-subtotal span:last-child {
-      font-family:var(--fh); font-size:22px; color:var(--gold);
+    .cart-summary-row span:last-child {
+      font-family:var(--fh); font-size:20px; color:var(--gold);
+    }
+    .cart-total-row { margin-top:2px; margin-bottom:8px; }
+    .cart-total-row span:first-child,
+    .cart-total-row span:last-child { color:var(--white); }
+    .cart-discount-row span:last-child { color:#7bca7e; }
+    .cart-bundle-note {
+      font-size:11px; color:var(--muted); margin:0 0 10px 0;
+      text-align:center; line-height:1.5;
     }
     .cart-shipping-note {
       font-size:11px; color:var(--muted); margin:0 0 14px 0;
@@ -738,6 +746,7 @@
     .hat-card:hover .hat-thumb img { filter:brightness(1); }
     .hat-info { padding:22px 26px 28px; flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:12px; }
     .hat-detail { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-top:4px; margin-bottom:6px; }
+    .sold-out-chip { display:inline-block; background:#2a2a2a; color:#bbbbbb; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; padding:5px 10px; border:1px solid rgba(255,255,255,0.15); }
     @media(max-width:900px) { .hats-section { padding:64px 24px; } .hats-grid { grid-template-columns:1fr; } }
     @media(max-width:600px) { .hat-shots { grid-template-columns:1fr; } .hat-thumb { display:none; } }
 
@@ -754,18 +763,6 @@
     .verse-block { padding:18px 22px; border-left:2px solid var(--gold); background:var(--gold-dim); margin-bottom:32px; }
     .verse-block p { font-family:var(--fs); font-style:italic; font-size:14px; color:var(--cream); line-height:1.7; }
     .verse-ref { font-family:var(--fb); font-style:normal !important; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--gold) !important; margin-top:6px; display:block; }
-
-    /* ── DROP CTA ── */
-    .drop-cta { background:var(--cream); color:var(--black); padding:68px 48px; display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center; }
-    .drop-cta h2 { font-family:var(--fh); font-size:clamp(36px,5vw,64px); letter-spacing:3px; text-transform:uppercase; line-height:.95; margin-bottom:10px; }
-    .drop-cta h2 span { color:var(--gold); }
-    .drop-cta p { font-size:14px; color:#555; max-width:380px; line-height:1.7; }
-    .cd-row { display:flex; align-items:center; gap:4px; }
-    .cd-box { background:var(--black); padding:14px 16px; text-align:center; min-width:68px; }
-    .cd-n { font-family:var(--fh); font-size:38px; color:var(--gold); line-height:1; letter-spacing:1px; }
-    .cd-l { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#888; margin-top:3px; }
-    .cd-sep { font-family:var(--fh); font-size:28px; color:var(--black); opacity:.25; }
-
     /* ── EMAIL ── */
     .email-sec { padding:96px 48px; background:var(--grey); text-align:center; position:relative; overflow:hidden; }
     .email-sec::before { content:'INSPIRIT'; position:absolute; font-family:var(--fh); font-size:clamp(100px,22vw,260px); color:rgba(255,255,255,.02); top:50%; left:50%; transform:translate(-50%,-50%); letter-spacing:20px; pointer-events:none; white-space:nowrap; }
@@ -1039,13 +1036,6 @@
       .verse-block { padding:14px 16px; }
       .verse-block p { font-size:13px; }
     }
-
-    /* ── DROP CTA — mobile ── */
-    @media(max-width:600px) {
-      .drop-cta { padding:40px 16px; }
-      .drop-cta p { font-size:13px; }
-    }
-
     /* ── iOS safe area support for bottom-anchored elements ── */
     @supports(padding: max(0px)) {
       .cart-footer {
@@ -1075,7 +1065,7 @@
     }
 
     .urgency-row {
-      display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+      display:grid; grid-template-columns:1fr; gap:1px;
       background:rgba(200,164,90,0.12); margin-top:1px;
     }
     .urgency-item {
@@ -1095,15 +1085,6 @@
     .bundle-points { list-style:none; display:grid; gap:8px; }
     .bundle-points li { font-size:12px; color:var(--muted); letter-spacing:.4px; }
     .bundle-cta { display:inline-block; margin-top:16px; text-decoration:none; font-family:var(--fh); letter-spacing:2px; text-transform:uppercase; background:var(--gold); color:var(--black); padding:12px 24px; }
-
-    .limited-drop { padding:64px 48px; background:var(--black); }
-    .limited-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(200,164,90,0.1); }
-    .limited-item { background:var(--near); padding:22px; }
-    .limited-badge { display:inline-block; border:1px solid rgba(200,164,90,0.5); color:var(--gold); font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:5px 9px; margin-bottom:10px; }
-    .limited-item h4 { font-family:var(--fh); font-size:24px; letter-spacing:1px; margin-bottom:8px; }
-    .limited-item p { font-size:13px; color:var(--muted); line-height:1.6; }
-    .sold-out-chip { display:inline-block; margin-top:14px; background:#2a2a2a; color:#bbbbbb; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; padding:5px 10px; border:1px solid rgba(255,255,255,0.15); }
-
     .fomo-inline {
       margin:8px 0 2px; display:flex; flex-wrap:wrap; gap:8px;
     }
@@ -1174,9 +1155,8 @@
 
     @media(max-width:900px) {
       .urgency-row, .trust-badges { grid-template-columns:1fr 1fr; }
-      .bundle-section, .limited-drop, .instagram-feed { padding:40px 20px; }
+      .bundle-section, .instagram-feed { padding:40px 20px; }
       .bundle-card { grid-template-columns:1fr; padding:22px; }
-      .limited-grid { grid-template-columns:1fr; }
       .insta-grid { grid-template-columns:1fr 1fr; }
       .offer-form { flex-direction:column; }
     }
@@ -1224,7 +1204,7 @@
     <p class="offer-copy">Join the list for early drop access, exclusive restock alerts, and your instant discount code.</p>
     <form class="offer-form" onsubmit="handleOfferSignup(event)">
       <input type="email" class="offer-input" placeholder="your@email.com" required />
-      <button type="submit" class="offer-btn">Unlock 10% Off</button>
+      <button type="submit" class="offer-btn">Get 10% Off</button>
     </form>
     <p class="offer-note">Use code <strong>INSPIRIT10</strong> at checkout · No spam, ever.</p>
   </div>
@@ -1253,7 +1233,7 @@
     <li><a href="#shop">Tees</a></li>
     <li><a href="#hats">Hats</a></li>
     <li><a href="#story">Our Story</a></li>
-    <li><a href="#drop">New Drop</a></li>
+    <li><a href="#winter">Winter Collection</a></li>
     <li><a href="#shop" class="nav-cta">Shop Now</a></li>
     <li><button class="cart-btn" onclick="openCart()" aria-label="Cart">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
@@ -1274,7 +1254,7 @@
   <a href="#shop" onclick="closeMobileNav()">Tees</a>
   <a href="#hats" onclick="closeMobileNav()">Hats</a>
   <a href="#story" onclick="closeMobileNav()">Our Story</a>
-  <a href="#drop" onclick="closeMobileNav()">New Drop</a>
+  <a href="#winter" onclick="closeMobileNav()">Winter Collection</a>
   <a href="#shop" class="nav-cta" onclick="closeMobileNav()">Shop Now</a>
   <a href="#" onclick="event.preventDefault();closeMobileNav();openCart();">Cart (<span id="cart-count-mobile">0</span>)</a>
 </div>
@@ -1338,9 +1318,7 @@
 </div>
 
 <div class="urgency-row">
-  <div class="urgency-item"><h4 id="global-stock-left">Only 27 left</h4><p>Across this drop</p></div>
-  <div class="urgency-item"><h4><span id="global-viewers">18</span> viewing now</h4><p>Live shopper activity</p></div>
-  <div class="urgency-item"><h4 id="drop-countdown">03:12:41</h4><p>Until this week's price lock ends</p></div>
+  <div class="urgency-item"><h4 id="global-stock-left">Only 27 left in stock</h4><p>Across the current collection</p></div>
 </div>
 
 <!-- PRODUCTS -->
@@ -1366,7 +1344,7 @@
         <div>
           <p class="card-name">Feeding 5000 Tee</p>
           <p class="card-desc">Jesus feeding the 5000 bold on the back. Fish logo on the chest. Faith in action for the streets.</p>
-          <div class="fomo-inline"><span class="fomo-pill">Only 11 Left</span><span class="fomo-pill"><span class="live-viewing">17</span> Viewing</span></div>
+          <div class="fomo-inline"><span class="fomo-pill">Only 11 Left</span></div>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
@@ -1389,7 +1367,7 @@
         <div>
           <p class="card-name">Jesus Fish Tee — White</p>
           <p class="card-desc">Fish logo on the chest. JESUS bold in the fish on the back. Clean white, hard message.</p>
-          <div class="fomo-inline"><span class="fomo-pill">Only 7 Left</span><span class="fomo-pill"><span class="live-viewing">12</span> Viewing</span></div>
+          <div class="fomo-inline"><span class="fomo-pill">Only 7 Left</span></div>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-w"></div></div>
@@ -1412,7 +1390,7 @@
         <div>
           <p class="card-name">Spiritual Badass Tee</p>
           <p class="card-desc">Inspirit logo chest. SPIRITUAL BADASS hits hard on the back. The statement piece for believers who move bold.</p>
-          <div class="fomo-inline"><span class="fomo-pill">Only 9 Left</span><span class="fomo-pill"><span class="live-viewing">14</span> Viewing</span></div>
+          <div class="fomo-inline"><span class="fomo-pill">Only 9 Left</span></div>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
@@ -1560,46 +1538,17 @@
     <div>
       <p class="bundle-kicker">Bundle Deal</p>
       <h3 class="bundle-title">Buy 2 Save 20%</h3>
-      <p class="bundle-copy">Pick any 2 tees, hoodies, or jumpers and unlock an instant 20% bundle discount at checkout. Stack your faith fits and save more.</p>
+      <p class="bundle-copy">Pick any 2 tees, hoodies, or jumpers and get an instant 20% bundle discount at checkout. Stack your faith fits and save more.</p>
       <a href="#shop" class="bundle-cta">Build My Bundle</a>
     </div>
     <ul class="bundle-points">
       <li>✔ Mix sizes and colours across products</li>
       <li>✔ Perfect for gifts, couples, and church crews</li>
-      <li>✔ Limited-time bundle pricing this week only</li>
+      <li>✔ 20% bundle savings applies automatically in your cart</li>
       <li>✔ Free shipping still applies over $80 AUD</li>
     </ul>
   </div>
 </section>
-
-<!-- LIMITED EDITION / FOMO -->
-<section class="limited-drop">
-  <div class="products-head" style="margin-bottom:20px;">
-    <div>
-      <p class="section-eyebrow">Limited Edition</p>
-      <h2 class="section-h">Low Stock. No Reprints.</h2>
-    </div>
-  </div>
-  <div class="limited-grid">
-    <div class="limited-item">
-      <span class="limited-badge">Nearly Gone</span>
-      <h4>Spiritual Badass Tee</h4>
-      <p>This signature piece is moving fast. Once this print run sells out, it won't be reprinted in this exact style.</p>
-    </div>
-    <div class="limited-item">
-      <span class="limited-badge">Selling Fast</span>
-      <h4>Inspirit Hoodie</h4>
-      <p>Heavyweight winter essential with statement branding. Popular sizes are disappearing first every evening.</p>
-    </div>
-    <div class="limited-item">
-      <span class="limited-badge">Drop Timer</span>
-      <h4>Next Micro-Drop In</h4>
-      <p><strong id="limited-countdown">02:18:00</strong><br />Join the list now to get first access before public release.</p>
-      <span class="sold-out-chip">Last drop sold out in 43 hours</span>
-    </div>
-  </div>
-</section>
-
 
 <!-- HATS -->
 <section class="hats-section" id="hats">
@@ -1680,14 +1629,6 @@
       <p>"I can do all things through Christ who strengthens me."<span class="verse-ref">— Philippians 4:13</span></p>
     </div>
     <a href="#shop" class="btn btn-gold" style="align-self:flex-start;">Shop The Range</a>
-  </div>
-</section>
-
-<!-- DROP COUNTDOWN -->
-<section class="drop-cta" id="drop">
-  <div>
-    <h2>Winter Drop<br><span>Coming Soon ✝</span></h2>
-    <p>Limited pieces. First access goes to the list. This is your sign — don't sleep on it.</p>
   </div>
 </section>
 
@@ -1856,10 +1797,19 @@
     <p class="cart-empty">Your cart is empty</p>
   </div>
   <div class="cart-footer">
-    <div class="cart-subtotal">
+    <div class="cart-summary-row">
       <span>Subtotal</span>
       <span id="cart-subtotal">$0 AUD</span>
     </div>
+    <div class="cart-summary-row cart-discount-row" id="cart-discount-row" style="display:none;">
+      <span>Bundle Discount (20%)</span>
+      <span id="cart-discount">-$0 AUD</span>
+    </div>
+    <div class="cart-summary-row cart-total-row">
+      <span>Total</span>
+      <span id="cart-total">$0 AUD</span>
+    </div>
+    <p id="cart-bundle-note" class="cart-bundle-note">Add 2+ items to get 20% bundle savings.</p>
     <p class="cart-shipping-note">Shipping calculated at checkout · Free on orders over $80 AUD</p>
     <div class="afterpay-banner">
       <div class="afterpay-banner-inner">
@@ -1893,9 +1843,7 @@
       <p id="pdp-detail" class="pdp-sub"></p>
       <p id="pdp-fit" class="pdp-sub pdp-fit-line"></p>
       <div class="pdp-urgency">
-        <div>Only <strong id="pdp-stock">12</strong> left in this drop</div>
-        <div><strong id="pdp-viewing">16</strong> people are viewing this right now</div>
-        <div>Price lock ends in <strong id="pdp-timer">02:59:00</strong></div>
+        <div>Only <strong id="pdp-stock">12</strong> left in stock</div>
       </div>
       <div id="pdp-size-wrap">
         <div class="pdp-size-label">Select Size</div>
@@ -2367,10 +2315,7 @@
     }
 
     const stock = p.stockLeft || Math.max(4, 22 - idx);
-    const viewers = p.viewers || (8 + (idx % 7) * 2);
     document.getElementById('pdp-stock').textContent = stock;
-    document.getElementById('pdp-viewing').textContent = viewers;
-    startPdpTimer(2, 59, 0);
 
     m.classList.add('open');
     lockScroll();
@@ -2405,37 +2350,6 @@
     document.getElementById('mobile-nav').classList.remove('open');
     unlockScroll();
   }
-
-  // Live urgency counters
-  setInterval(() => {
-    const gv = document.getElementById('global-viewers');
-    if (gv) gv.textContent = String(12 + Math.floor(Math.random() * 18));
-    document.querySelectorAll('.live-viewing').forEach(el => { el.textContent = String(9 + Math.floor(Math.random() * 14)); });
-  }, 5000);
-
-  function startTimer(elId, totalSeconds) {
-    const el = document.getElementById(elId);
-    if (!el) return;
-    let s = totalSeconds;
-    clearInterval(el._timer);
-    const tick = () => {
-      const h = String(Math.floor(s / 3600)).padStart(2, '0');
-      const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
-      const sec = String(s % 60).padStart(2, '0');
-      el.textContent = `${h}:${m}:${sec}`;
-      s = s > 0 ? s - 1 : totalSeconds;
-    };
-    tick();
-    el._timer = setInterval(tick, 1000);
-  }
-
-  function startPdpTimer(h, m, sec) {
-    startTimer('pdp-timer', h * 3600 + m * 60 + sec);
-  }
-
-  startTimer('drop-countdown', 3 * 3600 + 12 * 60 + 41);
-  startTimer('limited-countdown', 2 * 3600 + 18 * 60);
-
   // Exit intent + delayed popup for 10% offer
   function openOfferPopup() {
     if (localStorage.getItem('inspirit_offer_closed') === '1') return;
@@ -2449,7 +2363,7 @@
   window.handleOfferSignup = function(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button');
-    btn.textContent = 'Code Unlocked ✓';
+    btn.textContent = 'Thanks! Check your inbox ✓';
     btn.style.background = '#7bca7e';
     localStorage.setItem('inspirit_offer_closed', '1');
     setTimeout(closeOfferPopup, 900);
@@ -2495,6 +2409,22 @@
 
   const SHOPIFY_DOMAIN = 'inspirit-8346.myshopify.com';
   const CART_KEY = 'inspirit_cart_v1';
+  const BUNDLE_DISCOUNT_RATE = 0.20;
+  const BUNDLE_DISCOUNT_MIN_ITEMS = 2;
+  const BUNDLE_DISCOUNT_CODE = 'BUNDLE20';
+
+  function formatAud(amount) {
+    return `$${amount} AUD`;
+  }
+
+  function getCartPricing(cart) {
+    const subtotal = cart.reduce((sum, item) => sum + (item.priceNum * item.qty), 0);
+    const itemCount = cart.reduce((sum, item) => sum + item.qty, 0);
+    const bundleEligible = itemCount >= BUNDLE_DISCOUNT_MIN_ITEMS;
+    const discount = bundleEligible ? Math.round(subtotal * BUNDLE_DISCOUNT_RATE) : 0;
+    const total = Math.max(0, subtotal - discount);
+    return { subtotal, itemCount, bundleEligible, discount, total };
+  }
 
   // Load cart from localStorage
   function loadCart() {
@@ -2616,8 +2546,10 @@
         <div class="cart-pop-item-meta">${metaBits.map(b => `<span>${b}</span>`).join('')}</div>
       </div>
     `;
-    const subtotal = cart.reduce((s, i) => s + (i.priceNum * i.qty), 0);
-    document.getElementById('cart-pop-subtotal').textContent = `$${subtotal} AUD`;
+    const pricing = getCartPricing(cart);
+    document.getElementById('cart-pop-subtotal').textContent = pricing.bundleEligible
+      ? `${formatAud(pricing.total)} (after bundle)`
+      : formatAud(pricing.subtotal);
     pop.classList.add('open');
     // Auto-dismiss after 6s
     clearTimeout(window._popTimer);
@@ -2649,12 +2581,21 @@
     const cart = loadCart();
     const itemsEl = document.getElementById('cart-items');
     const subtotalEl = document.getElementById('cart-subtotal');
+    const discountEl = document.getElementById('cart-discount');
+    const discountRow = document.getElementById('cart-discount-row');
+    const totalEl = document.getElementById('cart-total');
+    const bundleNoteEl = document.getElementById('cart-bundle-note');
     const btn = document.getElementById('cart-checkout-btn');
 
     if (!cart.length) {
       itemsEl.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
-      subtotalEl.textContent = '$0 AUD';
+      subtotalEl.textContent = formatAud(0);
+      discountEl.textContent = '-$0 AUD';
+      totalEl.textContent = formatAud(0);
+      discountRow.style.display = 'none';
+      bundleNoteEl.textContent = 'Add 2+ items to get 20% bundle savings.';
       btn.disabled = true;
+      btn.textContent = 'Checkout';
       return;
     }
 
@@ -2677,9 +2618,16 @@
       </div>
     `).join('');
 
-    const subtotal = cart.reduce((sum, i) => sum + (i.priceNum * i.qty), 0);
-    subtotalEl.textContent = `$${subtotal} AUD`;
+    const pricing = getCartPricing(cart);
+    subtotalEl.textContent = formatAud(pricing.subtotal);
+    discountEl.textContent = `-$${pricing.discount} AUD`;
+    totalEl.textContent = formatAud(pricing.total);
+    discountRow.style.display = pricing.bundleEligible ? 'flex' : 'none';
+    bundleNoteEl.textContent = pricing.bundleEligible
+      ? `Bundle savings applied: you saved $${pricing.discount} AUD.`
+      : 'Add 2+ items to get 20% bundle savings.';
     btn.disabled = false;
+    btn.textContent = `Checkout · ${formatAud(pricing.total)}`;
   }
 
   function openCart() {
@@ -2704,15 +2652,25 @@
   function checkout() {
     const cart = loadCart();
     if (!cart.length) return;
+
+    const pricing = getCartPricing(cart);
     const pairs = cart.map(i => `${i.variantId}:${i.qty}`).join(',');
-    // Build attributes string: one per line item (Item 1 Size = M, Item 2 Size = L ...)
-    const attrs = [];
-    cart.forEach((item, i) => {
+    const params = new URLSearchParams();
+
+    cart.forEach((item) => {
       const label = item.name;
-      if (item.size) attrs.push(`attributes[${encodeURIComponent(label + ' Size')}]=${encodeURIComponent(item.size)}`);
-      if (item.colour) attrs.push(`attributes[${encodeURIComponent(label + ' Colour')}]=${encodeURIComponent(item.colour)}`);
+      if (item.size) params.append(`attributes[${label} Size]`, item.size);
+      if (item.colour) params.append(`attributes[${label} Colour]`, item.colour);
     });
-    const url = `https://${SHOPIFY_DOMAIN}/cart/${pairs}${attrs.length ? '?' + attrs.join('&') : ''}`;
+
+    if (pricing.bundleEligible) {
+      params.append('discount', BUNDLE_DISCOUNT_CODE);
+      params.append('attributes[Bundle Offer]', 'Buy 2 Save 20%');
+      params.append('attributes[Bundle Savings AUD]', String(pricing.discount));
+    }
+
+    const query = params.toString();
+    const url = `https://${SHOPIFY_DOMAIN}/cart/${pairs}${query ? '?' + query : ''}`;
     window.location.href = url;
   }
 
