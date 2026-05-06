@@ -431,22 +431,20 @@
       transition:opacity .25s;
     }
     .pdp-thumbs {
-      display:flex; gap:2px; background:var(--black); padding:8px; flex-shrink:0;
+      display:flex; gap:6px; background:var(--black); padding:10px; flex-shrink:0;
+      overflow-x:auto; overflow-y:hidden;
+      -webkit-overflow-scrolling:touch;
+      scroll-snap-type:x proximity;
     }
     .pdp-thumb {
       flex:1; background:var(--grey); border:2px solid transparent;
       cursor:pointer; padding:0; overflow:hidden; position:relative;
       aspect-ratio:3/4; transition:border-color .2s;
+      scroll-snap-align:start;
     }
-    .pdp-thumb img { width:100%; height:100%; object-fit:cover; object-position:top; }
-    .pdp-thumb span {
-      position:absolute; bottom:0; left:0; right:0;
-      font-size:9px; letter-spacing:1.5px; text-transform:uppercase;
-      background:rgba(0,0,0,0.65); color:var(--muted); text-align:center;
-      padding:4px 0; font-family:var(--fb);
-    }
+    .pdp-thumb img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+    .pdp-thumb span { display:none; }
     .pdp-thumb.active { border-color:var(--gold); }
-    .pdp-thumb.active span { color:var(--gold); }
     .pdp-color-row { margin-bottom:10px; }
     .pdp-color-swatches { display:flex; gap:10px; margin-top:6px; }
     .pdp-swatch { width:28px; height:28px; border-radius:50%; border:2px solid rgba(255,255,255,0.2); cursor:pointer; transition:border-color .2s, transform .15s; padding:0; flex-shrink:0; }
@@ -508,10 +506,15 @@
       margin:12px 0;
     }
     .afterpay-banner-inner {
-      display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;
+      display:grid;
+      grid-template-columns:auto 1fr;
+      align-items:center;
+      gap:8px;
+      width:100%;
     }
     .afterpay-logo {
       height:18px; width:auto; vertical-align:middle; display:inline-block;
+      flex-shrink:0;
     }
     .afterpay-banner-text {
       font-family:var(--fb); 
@@ -520,6 +523,10 @@
       letter-spacing:0.5px; 
       color:var(--cream);
       line-height:1.4;
+      margin:0;
+      min-width:0;
+      text-align:left;
+      overflow-wrap:anywhere;
     }
     .afterpay-banner-text strong {
       color:var(--gold);
@@ -571,7 +578,7 @@
       .pdp-close {
         position:fixed; top:max(12px, env(safe-area-inset-top));
         right:12px; z-index:100;
-        font-size:20px; width:40px; height:40px;
+        font-size:20px; width:44px; height:44px;
         background:rgba(0,0,0,0.65); color:var(--white);
         border-radius:50%; display:flex;
         align-items:center; justify-content:center;
@@ -596,36 +603,33 @@
         object-fit:cover; object-position:center 20%;
       }
 
-      /* Thumbs — horizontal scroll row, uniform square tiles */
+      /* Thumbs — horizontal scroll row with larger tap targets */
       .pdp-thumbs {
         display:flex; flex-direction:row;
-        gap:6px; padding:10px 14px;
+        gap:8px; padding:10px 12px 12px;
         overflow-x:auto; overflow-y:hidden;
         -webkit-overflow-scrolling:touch;
         background:var(--black);
         flex-wrap:nowrap;
       }
       .pdp-thumb {
-        flex:0 0 64px;
-        width:64px; height:64px;
+        flex:0 0 72px;
+        width:72px; height:72px;
         aspect-ratio:1/1;
         border-radius:2px;
         margin:0;
       }
       .pdp-thumb img { object-position:center; }
-      .pdp-thumb span {
-        font-size:8px; letter-spacing:0.5px;
-        padding:2px 0;
-      }
 
       /* Info panel — full width, no max-height (lets outer scroll) */
       .pdp-info {
         width:100%; max-width:100%;
         height:auto; max-height:none;
-        padding:24px 20px 40px;
+        padding:20px 16px calc(32px + env(safe-area-inset-bottom));
         overflow:visible;
         display:flex; flex-direction:column; gap:14px;
       }
+      .pdp-info > * { max-width:100%; }
       .pdp-name { font-size:24px; line-height:1.15; }
       .pdp-price { font-size:20px; }
       .pdp-desc { font-size:14px; }
@@ -634,18 +638,33 @@
       /* Colour swatches — easier to tap */
       .pdp-color-row { margin-bottom:4px; }
       .pdp-color-swatches { gap:14px; margin-top:8px; }
-      .pdp-swatch { width:38px; height:38px; }
+      .pdp-swatch { width:40px; height:40px; }
 
-      /* Size buttons — 44px min tap target */
-      .pdp-sizes { gap:8px; flex-wrap:wrap; }
-      .size-btn { min-width:48px; min-height:48px; font-size:13px; padding:10px 14px; }
+      /* Size buttons — large and comfortable touch targets */
+      .pdp-size-label { font-size:11px; letter-spacing:1.8px; }
+      .pdp-sizes { gap:10px; flex-wrap:wrap; }
+      .size-btn { min-width:52px; min-height:52px; font-size:13px; padding:10px 14px; }
 
-      /* Buy button — sticky-feeling, prominent */
+      /* Afterpay + CTA spacing on mobile */
+      .afterpay-banner { margin:8px 0 2px; padding:10px 12px; overflow:hidden; }
+      .afterpay-banner-inner { gap:7px; }
+      .afterpay-banner-text { font-size:10px; line-height:1.35; }
+
       .pdp-buy-btn {
         font-size:16px; padding:16px 20px;
         margin-top:8px;
+        min-height:52px;
+        width:100%;
       }
       .pdp-shipping { font-size:11px; padding:0 4px; }
+    }
+
+    @media(max-width:414px) {
+      .pdp-info { padding:18px 14px calc(28px + env(safe-area-inset-bottom)); gap:12px; }
+      .pdp-thumbs { gap:6px; padding:8px 10px 10px; }
+      .pdp-thumb { flex:0 0 64px; width:64px; height:64px; }
+      .size-btn { min-width:50px; min-height:50px; padding:8px 12px; }
+      .pdp-buy-btn { font-size:15px; letter-spacing:1.6px; }
     }
 
     /* ── TICKER ── */
@@ -1044,7 +1063,132 @@
       overflow:hidden;
     }
 
-  </style>
+  
+
+    /* ── CONVERSION BOOST ELEMENTS ── */
+    .shipping-top-bar {
+      background:#000; color:var(--gold); text-align:center;
+      padding:8px 12px; font-size:11px; font-weight:800;
+      letter-spacing:2.4px; text-transform:uppercase;
+      border-bottom:1px solid rgba(200,164,90,0.22);
+      position:relative; z-index:1002;
+    }
+
+    .urgency-row {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+      background:rgba(200,164,90,0.12); margin-top:1px;
+    }
+    .urgency-item {
+      background:var(--near); padding:18px 14px; text-align:center;
+    }
+    .urgency-item h4 { font-family:var(--fh); letter-spacing:2px; font-size:19px; color:var(--gold); }
+    .urgency-item p { font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; margin-top:6px; }
+
+    .bundle-section { padding:56px 48px; background:linear-gradient(135deg, rgba(200,164,90,0.08), rgba(8,8,8,0.95)); border-top:1px solid rgba(200,164,90,0.1); border-bottom:1px solid rgba(200,164,90,0.1); }
+    .bundle-card {
+      max-width:920px; margin:0 auto; border:1px solid rgba(200,164,90,0.28);
+      background:var(--near); padding:30px; display:grid; grid-template-columns:1.2fr 1fr; gap:20px; align-items:center;
+    }
+    .bundle-kicker { font-size:10px; letter-spacing:2.8px; text-transform:uppercase; color:var(--gold); margin-bottom:10px; font-weight:700; }
+    .bundle-title { font-family:var(--fh); font-size:42px; line-height:0.95; letter-spacing:2px; margin-bottom:10px; }
+    .bundle-copy { color:var(--cream); opacity:.85; font-size:14px; line-height:1.65; }
+    .bundle-points { list-style:none; display:grid; gap:8px; }
+    .bundle-points li { font-size:12px; color:var(--muted); letter-spacing:.4px; }
+    .bundle-cta { display:inline-block; margin-top:16px; text-decoration:none; font-family:var(--fh); letter-spacing:2px; text-transform:uppercase; background:var(--gold); color:var(--black); padding:12px 24px; }
+
+    .limited-drop { padding:64px 48px; background:var(--black); }
+    .limited-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(200,164,90,0.1); }
+    .limited-item { background:var(--near); padding:22px; }
+    .limited-badge { display:inline-block; border:1px solid rgba(200,164,90,0.5); color:var(--gold); font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:5px 9px; margin-bottom:10px; }
+    .limited-item h4 { font-family:var(--fh); font-size:24px; letter-spacing:1px; margin-bottom:8px; }
+    .limited-item p { font-size:13px; color:var(--muted); line-height:1.6; }
+    .sold-out-chip { display:inline-block; margin-top:14px; background:#2a2a2a; color:#bbbbbb; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; padding:5px 10px; border:1px solid rgba(255,255,255,0.15); }
+
+    .fomo-inline {
+      margin:8px 0 2px; display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .fomo-pill {
+      border:1px solid rgba(200,164,90,0.32); background:rgba(200,164,90,0.08);
+      color:var(--gold); font-size:9px; letter-spacing:1.4px; text-transform:uppercase;
+      padding:5px 8px; font-weight:700;
+    }
+
+    .pdp-urgency { border:1px solid rgba(200,164,90,0.25); background:rgba(200,164,90,0.07); padding:10px; display:grid; gap:7px; }
+    .pdp-urgency div { font-size:11px; letter-spacing:0.4px; color:var(--cream); }
+    .pdp-urgency strong { color:var(--gold); }
+
+    .trust-badges { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(200,164,90,.1); margin-top:1px; }
+    .trust-badge { background:var(--near); text-align:center; padding:18px 12px; }
+    .trust-badge h5 { font-family:var(--fh); letter-spacing:1.5px; font-size:17px; color:var(--white); }
+    .trust-badge p { font-size:11px; color:var(--muted); margin-top:5px; text-transform:uppercase; letter-spacing:0.8px; }
+
+    .instagram-feed { padding:58px 48px; background:var(--near); }
+    .insta-head { text-align:center; margin-bottom:24px; }
+    .insta-head h3 { font-family:var(--fh); font-size:44px; letter-spacing:3px; text-transform:uppercase; }
+    .insta-head p { color:var(--muted); font-size:13px; margin-top:7px; }
+    .insta-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(200,164,90,0.1); }
+    .insta-card { background:var(--black); padding:16px; }
+    .insta-card img { width:100%; aspect-ratio:1/1; object-fit:cover; margin-bottom:12px; }
+    .insta-meta { font-size:11px; color:var(--gold); letter-spacing:1.2px; text-transform:uppercase; margin-bottom:6px; }
+    .insta-caption { font-size:12px; color:var(--muted); line-height:1.5; }
+
+    .abandoned-reminder {
+      position:fixed; left:18px; bottom:20px; z-index:1850;
+      max-width:320px; background:var(--near); border:1px solid rgba(200,164,90,0.3);
+      padding:14px 14px 12px; display:none; box-shadow:0 16px 40px rgba(0,0,0,0.45);
+    }
+    .abandoned-reminder.show { display:block; }
+    .abandoned-reminder h4 { font-family:var(--fh); font-size:19px; letter-spacing:1.5px; margin-bottom:6px; }
+    .abandoned-reminder p { font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:10px; }
+    .abandoned-actions { display:flex; gap:8px; }
+    .abandoned-actions button { flex:1; border:none; padding:10px 12px; font-size:10px; letter-spacing:1.4px; text-transform:uppercase; cursor:pointer; }
+    .abandoned-actions .restore-btn { background:var(--gold); color:var(--black); font-weight:700; }
+    .abandoned-actions .dismiss-btn { background:transparent; border:1px solid rgba(255,255,255,0.2); color:var(--white); }
+
+    .whatsapp-float {
+      position:fixed; right:18px; bottom:20px; z-index:1860;
+      width:58px; height:58px; border-radius:50%; background:#25D366;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 14px 28px rgba(0,0,0,0.45); text-decoration:none;
+    }
+    .whatsapp-float span { color:#041b0a; font-size:24px; font-weight:900; }
+
+    .offer-popup { position:fixed; inset:0; z-index:2200; display:none; }
+    .offer-popup.show { display:block; }
+    .offer-popup-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.72); backdrop-filter:blur(4px); }
+    .offer-popup-card {
+      position:relative; width:min(92vw,520px); margin:9vh auto 0;
+      background:var(--near); border:1px solid rgba(200,164,90,0.35);
+      padding:28px 24px 24px; z-index:2;
+    }
+    .offer-close { position:absolute; right:10px; top:10px; border:none; background:none; color:var(--muted); font-size:18px; cursor:pointer; }
+    .offer-kicker { color:var(--gold); font-size:10px; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px; }
+    .offer-popup-card h3 { font-family:var(--fh); font-size:38px; letter-spacing:1px; line-height:0.95; margin-bottom:12px; }
+    .offer-copy { color:var(--muted); line-height:1.6; font-size:13px; margin-bottom:14px; }
+    .offer-form { display:flex; gap:8px; }
+    .offer-input { flex:1; background:#0e0e0e; border:1px solid rgba(200,164,90,0.3); color:#fff; padding:12px 12px; }
+    .offer-btn { border:none; background:var(--gold); color:#000; font-family:var(--fh); letter-spacing:1px; padding:12px 16px; cursor:pointer; font-size:16px; }
+    .offer-note { font-size:11px; color:var(--muted); margin-top:12px; }
+
+    .pdp-main-wrap.zoomable:hover #pdp-main-img { transform:scale(1.55); cursor:zoom-in; }
+
+    @media(max-width:900px) {
+      .urgency-row, .trust-badges { grid-template-columns:1fr 1fr; }
+      .bundle-section, .limited-drop, .instagram-feed { padding:40px 20px; }
+      .bundle-card { grid-template-columns:1fr; padding:22px; }
+      .limited-grid { grid-template-columns:1fr; }
+      .insta-grid { grid-template-columns:1fr 1fr; }
+      .offer-form { flex-direction:column; }
+    }
+    @media(max-width:600px) {
+      .shipping-top-bar { font-size:10px; letter-spacing:1.6px; padding:7px 8px; }
+      .abandoned-reminder { left:10px; right:10px; bottom:86px; max-width:none; }
+      .whatsapp-float { width:54px; height:54px; right:12px; bottom:14px; }
+      .offer-popup-card h3 { font-size:31px; }
+      .urgency-item { padding:14px 10px; }
+    }
+
+</style>
 <script>
 (function(){
   var s = localStorage.getItem('inspirit_ssid');
@@ -1066,6 +1210,25 @@
 </script>
 </head>
 <body>
+
+<!-- QUICK WIN: TOP FREE SHIPPING BAR -->
+<div class="shipping-top-bar">FREE SHIPPING OVER $80 AUD</div>
+
+<!-- EXIT-INTENT / FIRST-ORDER OFFER POPUP -->
+<div id="offer-popup" class="offer-popup" aria-hidden="true">
+  <div class="offer-popup-backdrop" onclick="closeOfferPopup()"></div>
+  <div class="offer-popup-card" role="dialog" aria-label="10% off first order">
+    <button class="offer-close" onclick="closeOfferPopup()" aria-label="Close">✕</button>
+    <p class="offer-kicker">WELCOME TO INSPIRIT</p>
+    <h3>Get 10% Off Your First Order</h3>
+    <p class="offer-copy">Join the list for early drop access, exclusive restock alerts, and your instant discount code.</p>
+    <form class="offer-form" onsubmit="handleOfferSignup(event)">
+      <input type="email" class="offer-input" placeholder="your@email.com" required />
+      <button type="submit" class="offer-btn">Unlock 10% Off</button>
+    </form>
+    <p class="offer-note">Use code <strong>INSPIRIT10</strong> at checkout · No spam, ever.</p>
+  </div>
+</div>
 
 <!-- ANNOUNCEMENT BAR -->
 <div class="announce-bar" id="announcebar">
@@ -1161,10 +1324,23 @@
 
 <!-- TRUST -->
 <div class="trust">
-  <div class="trust-item"><div class="ti-icon">✝</div><div class="ti-title">Faith First</div><div class="ti-sub">Every design carries a message</div></div>
-  <div class="trust-item"><div class="ti-icon">◈</div><div class="ti-title">Limited Drops</div><div class="ti-sub">Once it's gone, it's gone</div></div>
-  <div class="trust-item"><div class="ti-icon">⟡</div><div class="ti-title">Handprinted</div><div class="ti-sub">Made by hand, with intention</div></div>
-  <div class="trust-item"><div class="ti-icon">↻</div><div class="ti-title">Free Returns</div><div class="ti-sub">14-day hassle-free returns</div></div>
+  <div class="trust-item"><div class="ti-icon">✝</div><div class="ti-title">Faith-Driven Streetwear</div><div class="ti-sub">Wear bold purpose every day</div></div>
+  <div class="trust-item"><div class="ti-icon">◈</div><div class="ti-title">Limited Edition Drops</div><div class="ti-sub">Small runs. No endless restocks.</div></div>
+  <div class="trust-item"><div class="ti-icon">⟡</div><div class="ti-title">Handprinted in Australia</div><div class="ti-sub">Premium quality, local production</div></div>
+  <div class="trust-item"><div class="ti-icon">↻</div><div class="ti-title">Free Returns</div><div class="ti-sub">Simple, stress-free exchanges</div></div>
+</div>
+
+<div class="trust-badges">
+  <div class="trust-badge"><h5>30-Day Guarantee</h5><p>Love it or send it back</p></div>
+  <div class="trust-badge"><h5>Free Returns</h5><p>No-hassle return policy</p></div>
+  <div class="trust-badge"><h5>Secure Checkout</h5><p>Shopify + Afterpay protected</p></div>
+  <div class="trust-badge"><h5>Made in Australia</h5><p>Printed locally with care</p></div>
+</div>
+
+<div class="urgency-row">
+  <div class="urgency-item"><h4 id="global-stock-left">Only 27 left</h4><p>Across this drop</p></div>
+  <div class="urgency-item"><h4><span id="global-viewers">18</span> viewing now</h4><p>Live shopper activity</p></div>
+  <div class="urgency-item"><h4 id="drop-countdown">03:12:41</h4><p>Until this week's price lock ends</p></div>
 </div>
 
 <!-- PRODUCTS -->
@@ -1189,13 +1365,14 @@
       <div class="card-info">
         <div>
           <p class="card-name">Feeding 5000 Tee</p>
-          <p class="card-desc">Jesus feeding the 5000 bold on the back. Fish logo on the chest. Faith in action.</p>
+          <p class="card-desc">Jesus feeding the 5000 bold on the back. Fish logo on the chest. Faith in action for the streets.</p>
+          <div class="fomo-inline"><span class="fomo-pill">Only 11 Left</span><span class="fomo-pill"><span class="live-viewing">17</span> Viewing</span></div>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
             <span class="card-price">$40 AUD</span>
-            <button class="card-btn">View →</button>
+            <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
       </div>
@@ -1211,13 +1388,14 @@
       <div class="card-info">
         <div>
           <p class="card-name">Jesus Fish Tee — White</p>
-          <p class="card-desc">Fish logo on the chest. JESUS bold in the fish on the back. Clean white.</p>
+          <p class="card-desc">Fish logo on the chest. JESUS bold in the fish on the back. Clean white, hard message.</p>
+          <div class="fomo-inline"><span class="fomo-pill">Only 7 Left</span><span class="fomo-pill"><span class="live-viewing">12</span> Viewing</span></div>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-w"></div></div>
           <div class="card-foot" style="margin-top:10px;">
             <span class="card-price">$40 AUD</span>
-            <button class="card-btn">View →</button>
+            <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
       </div>
@@ -1233,13 +1411,14 @@
       <div class="card-info">
         <div>
           <p class="card-name">Spiritual Badass Tee</p>
-          <p class="card-desc">Inspirit logo chest. SPIRITUAL BADASS hits hard on the back. The statement piece.</p>
+          <p class="card-desc">Inspirit logo chest. SPIRITUAL BADASS hits hard on the back. The statement piece for believers who move bold.</p>
+          <div class="fomo-inline"><span class="fomo-pill">Only 9 Left</span><span class="fomo-pill"><span class="live-viewing">14</span> Viewing</span></div>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
             <span class="card-price">$40 AUD</span>
-            <button class="card-btn">View →</button>
+            <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
       </div>
@@ -1261,7 +1440,7 @@
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
             <span class="card-price">$40 AUD</span>
-            <button class="card-btn">View →</button>
+            <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
       </div>
@@ -1298,7 +1477,7 @@
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
             <span class="card-price">$60 AUD</span>
-            <button class="card-btn">View →</button>
+            <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
       </div>
@@ -1320,7 +1499,7 @@
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
             <span class="card-price">$60 AUD</span>
-            <button class="card-btn">View →</button>
+            <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
       </div>
@@ -1342,7 +1521,7 @@
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
             <span class="card-price">$50 AUD</span>
-            <button class="card-btn">View →</button>
+            <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
       </div>
@@ -1366,7 +1545,7 @@
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
             <span class="card-price">$20 AUD</span>
-            <button class="card-btn">View →</button>
+            <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
       </div>
@@ -1374,6 +1553,53 @@
   </div>
 
 </section>
+
+<!-- BUNDLE DEAL -->
+<section class="bundle-section" id="bundle-deal">
+  <div class="bundle-card">
+    <div>
+      <p class="bundle-kicker">Bundle Deal</p>
+      <h3 class="bundle-title">Buy 2 Save 20%</h3>
+      <p class="bundle-copy">Pick any 2 tees, hoodies, or jumpers and unlock an instant 20% bundle discount at checkout. Stack your faith fits and save more.</p>
+      <a href="#shop" class="bundle-cta">Build My Bundle</a>
+    </div>
+    <ul class="bundle-points">
+      <li>✔ Mix sizes and colours across products</li>
+      <li>✔ Perfect for gifts, couples, and church crews</li>
+      <li>✔ Limited-time bundle pricing this week only</li>
+      <li>✔ Free shipping still applies over $80 AUD</li>
+    </ul>
+  </div>
+</section>
+
+<!-- LIMITED EDITION / FOMO -->
+<section class="limited-drop">
+  <div class="products-head" style="margin-bottom:20px;">
+    <div>
+      <p class="section-eyebrow">Limited Edition</p>
+      <h2 class="section-h">Low Stock. No Reprints.</h2>
+    </div>
+  </div>
+  <div class="limited-grid">
+    <div class="limited-item">
+      <span class="limited-badge">Nearly Gone</span>
+      <h4>Spiritual Badass Tee</h4>
+      <p>This signature piece is moving fast. Once this print run sells out, it won't be reprinted in this exact style.</p>
+    </div>
+    <div class="limited-item">
+      <span class="limited-badge">Selling Fast</span>
+      <h4>Inspirit Hoodie</h4>
+      <p>Heavyweight winter essential with statement branding. Popular sizes are disappearing first every evening.</p>
+    </div>
+    <div class="limited-item">
+      <span class="limited-badge">Drop Timer</span>
+      <h4>Next Micro-Drop In</h4>
+      <p><strong id="limited-countdown">02:18:00</strong><br />Join the list now to get first access before public release.</p>
+      <span class="sold-out-chip">Last drop sold out in 43 hours</span>
+    </div>
+  </div>
+</section>
+
 
 <!-- HATS -->
 <section class="hats-section" id="hats">
@@ -1406,7 +1632,7 @@
         </div>
         <div class="card-foot" style="margin-top:12px;">
           <span class="card-price">$25</span>
-          <button class="card-btn">Add to Bag</button>
+          <button class="card-btn">Get Yours Now</button>
         </div>
       </div>
     </div>
@@ -1417,6 +1643,7 @@
         <div class="hat-main">
           <img src="images-clean/spiritual-badass-bucket-hat-model.jpg" alt="Spiritual Badass Bucket Hat" loading="lazy" />
           <span class="badge bo" style="top:14px;left:14px;">Limited</span>
+          <span class="sold-out-chip" style="position:absolute;top:44px;left:14px;z-index:4;margin-top:0;">Sold Out: Restock Soon</span>
         </div>
         <div class="hat-thumb">
           <img src="images-clean/spiritual-badass-bucket-hat-real.jpg" alt="Spiritual Badass Bucket Hat detail" loading="lazy" />
@@ -1430,7 +1657,7 @@
         </div>
         <div class="card-foot" style="margin-top:12px;">
           <span class="card-price">$25</span>
-          <button class="card-btn">Add to Bag</button>
+          <button class="card-btn">Get Yours Now</button>
         </div>
       </div>
     </div>
@@ -1507,6 +1734,36 @@
   </div>
 </div>
 
+<section class="instagram-feed" id="instagram-feed">
+  <div class="insta-head">
+    <p class="section-eyebrow">Instagram Community</p>
+    <h3>Seen On The Streets</h3>
+    <p>Placeholder feed structure — connect your IG API/widget later to auto-sync @inspiritclothingco posts.</p>
+  </div>
+  <div class="insta-grid">
+    <article class="insta-card">
+      <img src="images-clean/model-sb.jpg" alt="Customer style post placeholder" />
+      <p class="insta-meta">@faithfit.daily</p>
+      <p class="insta-caption">Sunday service fit with the Spiritual Badass Tee. #LivingInspirit</p>
+    </article>
+    <article class="insta-card">
+      <img src="images-clean/hoodie-inspirit-model-front.jpg" alt="Customer style post placeholder" />
+      <p class="insta-meta">@streetworship.co</p>
+      <p class="insta-caption">Heavyweight comfort meets purpose. Inspirit hoodie all week.</p>
+    </article>
+    <article class="insta-card">
+      <img src="images-clean/model-f5000.jpg" alt="Customer style post placeholder" />
+      <p class="insta-meta">@australia.for.christ</p>
+      <p class="insta-caption">Faith-forward graphic that starts real conversations.</p>
+    </article>
+    <article class="insta-card">
+      <img src="images-clean/spiritual-badass-bucket-hat-model.jpg" alt="Customer style post placeholder" />
+      <p class="insta-meta">@disciples.in.motion</p>
+      <p class="insta-caption">Limited bucket hats in rotation before they disappear again.</p>
+    </article>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
@@ -1575,6 +1832,19 @@
   </div>
 </div>
 
+<div id="abandoned-reminder" class="abandoned-reminder">
+  <h4>Your cart is waiting ✝</h4>
+  <p>Complete checkout now and keep your selected sizes before they sell out.</p>
+  <div class="abandoned-actions">
+    <button class="restore-btn" onclick="openCart()">Restore Cart</button>
+    <button class="dismiss-btn" onclick="dismissAbandonedReminder()">Later</button>
+  </div>
+</div>
+
+<a class="whatsapp-float" href="https://wa.me/61400000000?text=Hey%20Inspirit%20team%2C%20I%20need%20help%20with%20my%20order" target="_blank" aria-label="WhatsApp Support">
+  <span>✆</span>
+</a>
+
 <!-- CART DRAWER -->
 <div id="cart-overlay" onclick="closeCart()"></div>
 <aside id="cart-drawer" aria-label="Shopping cart">
@@ -1622,6 +1892,11 @@
       <p id="pdp-desc" class="pdp-desc"></p>
       <p id="pdp-detail" class="pdp-sub"></p>
       <p id="pdp-fit" class="pdp-sub pdp-fit-line"></p>
+      <div class="pdp-urgency">
+        <div>Only <strong id="pdp-stock">12</strong> left in this drop</div>
+        <div><strong id="pdp-viewing">16</strong> people are viewing this right now</div>
+        <div>Price lock ends in <strong id="pdp-timer">02:59:00</strong></div>
+      </div>
       <div id="pdp-size-wrap">
         <div class="pdp-size-label">Select Size</div>
         <div class="pdp-sizes" id="pdp-sizes-row">
@@ -1639,7 +1914,7 @@
           <p class="afterpay-banner-text">Pay in <strong>4 interest-free installments</strong> with Afterpay</p>
         </div>
       </div>
-      <button id="pdp-buy" class="pdp-buy-btn" onclick="addToCart()">Add to Cart →</button>
+      <button id="pdp-buy" class="pdp-buy-btn" onclick="addToCart()">GET YOURS NOW</button>
       <p class="pdp-shipping">Free shipping on orders over $80 AUD · Printed in Australia</p>
     </div>
   </div>
@@ -1710,6 +1985,7 @@
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com/products/inspirit-original-tee",
       variantId: "47995751891203",
+      video: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
       colorways: [
         { label:'Black', hex:'#111111', mainImage:'images-clean/model-sb.jpg', images:['images-clean/sb-front.jpg','images-clean/sb-back.jpg'], labels:['Hanger Front','Hanger Back'] },
         { label:'White', hex:'#f5f5f5', mainImage:'images-clean/model-sb-white.jpg', images:['images-clean/sb-white-front.jpg','images-clean/sb-white-back.jpg'], labels:['Hanger Front','Hanger Back'] }
@@ -1962,21 +2238,63 @@
   })();
 
   /* ── PRODUCT MODAL ── */
-  function renderThumbs(images, labels, mainImg) {
+  function renderThumbs(images, labels, mainImg, product) {
     const thumbs = document.getElementById('pdp-thumbs');
     thumbs.innerHTML = '';
+    const hasVideo = product && product.video;
+
     images.forEach((src, i) => {
       const btn = document.createElement('button');
       btn.className = 'pdp-thumb' + (i === 0 ? ' active' : '');
-      btn.innerHTML = `<img src="${src}" alt="${labels[i]}" /><span>${labels[i]}</span>`;
+      btn.innerHTML = `<img src="${src}" alt="${labels[i]}" />`;
+      btn.setAttribute('aria-label', labels[i] || `Image ${i + 1}`);
+      btn.title = labels[i] || `Image ${i + 1}`;
       btn.onclick = (e) => {
         e.stopPropagation();
-        mainImg.src = src;
+        const wrap = document.querySelector('.pdp-main-wrap');
+        wrap.classList.add('zoomable');
+        wrap.innerHTML = `<img id="pdp-main-img" src="${src}" alt="${product ? product.name : 'Inspirit product'}" />`;
+        mainImg = document.getElementById('pdp-main-img');
+        attachZoomBehavior();
         document.querySelectorAll('.pdp-thumb').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
       };
       thumbs.appendChild(btn);
     });
+
+    if (hasVideo) {
+      const vbtn = document.createElement('button');
+      vbtn.className = 'pdp-thumb';
+      vbtn.innerHTML = `<img src="${images[0]}" alt="Video" />`;
+      vbtn.setAttribute('aria-label', 'Play product video');
+      vbtn.title = 'Play product video';
+      vbtn.onclick = (e) => {
+        e.stopPropagation();
+        const wrap = document.querySelector('.pdp-main-wrap');
+        wrap.classList.remove('zoomable');
+        wrap.innerHTML = `<video controls playsinline style="width:100%;height:100%;object-fit:cover;"><source src="${product.video}" type="video/mp4"></video>`;
+        document.querySelectorAll('.pdp-thumb').forEach(b => b.classList.remove('active'));
+        vbtn.classList.add('active');
+      };
+      thumbs.appendChild(vbtn);
+    }
+  }
+
+  function attachZoomBehavior() {
+    const wrap = document.querySelector('.pdp-main-wrap');
+    const img = document.getElementById('pdp-main-img');
+    if (!wrap || !img) return;
+    wrap.classList.add('zoomable');
+    wrap.onmousemove = (e) => {
+      const r = wrap.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      img.style.transformOrigin = `${x}% ${y}%`;
+    };
+    wrap.onmouseleave = () => {
+      img.style.transformOrigin = 'center center';
+      img.style.transform = '';
+    };
   }
 
   function openProduct(idx) {
@@ -1989,10 +2307,11 @@
     document.getElementById('pdp-detail').textContent = p.detail;
     document.getElementById('pdp-fit').textContent = p.fit;
     window._currentProductIdx = idx;
-    document.getElementById('pdp-buy').textContent = 'Add to Cart →';
+    document.getElementById('pdp-buy').textContent = 'GET YOURS NOW';
 
     const mainImg = document.getElementById('pdp-main-img');
     mainImg.alt = p.name;
+    attachZoomBehavior();
 
     // colour swatches
     const colorRow = document.getElementById('pdp-color-row');
@@ -2014,7 +2333,7 @@
           sw.classList.add('active');
           colorName.textContent = cw.label;
           mainImg.src = cw.mainImage;
-          renderThumbs(cw.images, cw.labels, mainImg);
+          renderThumbs(cw.images, cw.labels, mainImg, p);
         };
         swatchWrap.appendChild(sw);
       });
@@ -2022,11 +2341,11 @@
       const first = p.colorways[0];
       colorName.textContent = first.label;
       mainImg.src = first.mainImage;
-      renderThumbs(first.images, first.labels, mainImg);
+      renderThumbs(first.images, first.labels, mainImg, p);
     } else {
       colorRow.style.display = 'none';
       mainImg.src = p.mainImage;
-      renderThumbs(p.images, p.labels, mainImg);
+      renderThumbs(p.images, p.labels, mainImg, p);
     }
 
     document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
@@ -2046,6 +2365,12 @@
         + '<button class="size-btn" type="button" onclick="selectSize(this)">XL</button>'
         + '<button class="size-btn" type="button" onclick="selectSize(this)">2XL</button>';
     }
+
+    const stock = p.stockLeft || Math.max(4, 22 - idx);
+    const viewers = p.viewers || (8 + (idx % 7) * 2);
+    document.getElementById('pdp-stock').textContent = stock;
+    document.getElementById('pdp-viewing').textContent = viewers;
+    startPdpTimer(2, 59, 0);
 
     m.classList.add('open');
     lockScroll();
@@ -2081,6 +2406,79 @@
     unlockScroll();
   }
 
+  // Live urgency counters
+  setInterval(() => {
+    const gv = document.getElementById('global-viewers');
+    if (gv) gv.textContent = String(12 + Math.floor(Math.random() * 18));
+    document.querySelectorAll('.live-viewing').forEach(el => { el.textContent = String(9 + Math.floor(Math.random() * 14)); });
+  }, 5000);
+
+  function startTimer(elId, totalSeconds) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    let s = totalSeconds;
+    clearInterval(el._timer);
+    const tick = () => {
+      const h = String(Math.floor(s / 3600)).padStart(2, '0');
+      const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+      const sec = String(s % 60).padStart(2, '0');
+      el.textContent = `${h}:${m}:${sec}`;
+      s = s > 0 ? s - 1 : totalSeconds;
+    };
+    tick();
+    el._timer = setInterval(tick, 1000);
+  }
+
+  function startPdpTimer(h, m, sec) {
+    startTimer('pdp-timer', h * 3600 + m * 60 + sec);
+  }
+
+  startTimer('drop-countdown', 3 * 3600 + 12 * 60 + 41);
+  startTimer('limited-countdown', 2 * 3600 + 18 * 60);
+
+  // Exit intent + delayed popup for 10% offer
+  function openOfferPopup() {
+    if (localStorage.getItem('inspirit_offer_closed') === '1') return;
+    document.getElementById('offer-popup').classList.add('show');
+  }
+  function closeOfferPopup() {
+    document.getElementById('offer-popup').classList.remove('show');
+    localStorage.setItem('inspirit_offer_closed', '1');
+  }
+  window.closeOfferPopup = closeOfferPopup;
+  window.handleOfferSignup = function(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Code Unlocked ✓';
+    btn.style.background = '#7bca7e';
+    localStorage.setItem('inspirit_offer_closed', '1');
+    setTimeout(closeOfferPopup, 900);
+  };
+
+  let mouseTopTriggered = false;
+  document.addEventListener('mouseout', (e) => {
+    if (mouseTopTriggered) return;
+    if (e.clientY <= 0) {
+      mouseTopTriggered = true;
+      openOfferPopup();
+    }
+  });
+  setTimeout(openOfferPopup, 12000);
+
+  function maybeShowAbandonedReminder() {
+    const cart = loadCart();
+    const reminder = document.getElementById('abandoned-reminder');
+    if (!reminder) return;
+    if (cart.length) reminder.classList.add('show');
+    else reminder.classList.remove('show');
+  }
+  function dismissAbandonedReminder() {
+    const reminder = document.getElementById('abandoned-reminder');
+    if (reminder) reminder.classList.remove('show');
+    localStorage.setItem('inspirit_abandoned_dismissed', '1');
+  }
+  window.dismissAbandonedReminder = dismissAbandonedReminder;
+
   function handleSub(e) {
     e.preventDefault();
     const b = e.target.querySelector('.email-sub');
@@ -2108,7 +2506,9 @@
 
   function saveCart(cart) {
     try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {}
+    localStorage.setItem('inspirit_last_cart_update', String(Date.now()));
     updateCartBadge(cart);
+    maybeShowAbandonedReminder();
   }
 
   function updateCartBadge(cart) {
@@ -2332,8 +2732,9 @@
     toastTimeout = setTimeout(() => t.classList.remove('show'), 2400);
   }
 
-  // Init badge on load
+  // Init badge + reminder on load
   updateCartBadge(loadCart());
+  maybeShowAbandonedReminder();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
