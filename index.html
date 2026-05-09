@@ -47,7 +47,7 @@
       position:fixed; inset:0 0 auto 0; z-index:999;
       height:88px; display:flex; align-items:center; justify-content:space-between;
       padding:0 48px;
-      background:rgba(8,8,8,0.96); backdrop-filter:blur(20px);
+      background:rgba(8,8,8,0.96); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
       border-bottom:1px solid rgba(200,164,90,0.15);
     }
     .logo { text-decoration:none; display:flex; align-items:center; }
@@ -84,7 +84,7 @@
     .ham.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
     .mobile-nav {
       display:none; position:fixed; inset:88px 0 0 0; z-index:998;
-      background:rgba(8,8,8,0.98); backdrop-filter:blur(20px);
+      background:rgba(8,8,8,0.98); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
       flex-direction:column; align-items:center; justify-content:center; gap:36px;
       border-top:1px solid rgba(200,164,90,0.15);
     }
@@ -181,7 +181,7 @@
 
     #cart-overlay {
       display:none; position:fixed; inset:0; z-index:1900;
-      background:rgba(0,0,0,0.6); backdrop-filter:blur(4px);
+      background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
     }
     #cart-overlay.open { display:block; }
 
@@ -414,7 +414,7 @@
     /* ── PRODUCT DETAIL MODAL ── */
     #pdp-modal {
       display:none; position:fixed; inset:0; z-index:2000;
-      background:rgba(0,0,0,0.88); backdrop-filter:blur(12px);
+      background:rgba(0,0,0,0.88); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
       align-items:center; justify-content:center; padding:20px;
     }
     #pdp-modal.open { display:flex; animation:pdpIn .28s ease; }
@@ -585,115 +585,173 @@
       .afterpay-top-logo { height:16px; }
     }
     @media(max-width:720px) {
-      /* ── PDP MODAL — full screen mobile, no overlaps ── */
+      /* ── PDP MODAL — Android/iOS safe, no dvh ── */
+
+      /* Modal backdrop: fixed full screen, MODAL itself scrolls */
       #pdp-modal {
         padding:0;
-        align-items:stretch;
-        justify-content:stretch;
+        align-items:flex-start;
+        justify-content:flex-start;
+        overflow-y:auto;
+        overflow-x:hidden;
+        -webkit-overflow-scrolling:touch;
       }
       @keyframes pdpIn { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:none} }
 
+      /* Inner: column, natural height — NO fixed height, NO overflow scroll */
       .pdp-inner {
         flex-direction:column;
-        width:100%; max-width:100%;
-        height:100dvh; max-height:100dvh;
+        width:100%;
+        max-width:100%;
+        height:auto;
+        min-height:100%;
+        max-height:none;
+        overflow:visible;
         border-radius:0;
         border:none;
-        overflow-y:auto;        /* the whole modal scrolls as one piece — no dual scrollbars */
-        overflow-x:hidden;
       }
 
-      /* Close button — floating on top */
+      /* Close button — fixed to viewport top-right */
       .pdp-close {
-        position:fixed; top:max(12px, env(safe-area-inset-top));
-        right:12px; z-index:100;
-        font-size:20px; width:44px; height:44px;
-        background:rgba(0,0,0,0.65); color:var(--white);
-        border-radius:50%; display:flex;
+        position:fixed;
+        top:max(12px, env(safe-area-inset-top));
+        right:12px;
+        z-index:9999;
+        font-size:20px;
+        width:44px; height:44px;
+        background:rgba(0,0,0,0.75);
+        color:var(--white);
+        border-radius:50%;
+        display:flex;
         align-items:center; justify-content:center;
         backdrop-filter:blur(6px);
+        -webkit-backdrop-filter:blur(6px);
       }
 
-      /* Gallery — natural height, no competing vh values */
+      /* Gallery: full width, stacks naturally above info */
       .pdp-gallery {
         width:100%;
-        height:auto; max-height:none; min-height:0;
         flex-shrink:0;
-        display:block;
+        display:flex;
+        flex-direction:column;
+        height:auto;
+        max-height:none;
+        min-height:0;
       }
+
+      /* Main image: fixed height on mobile — avoids aspect-ratio calculation issues */
       .pdp-main-wrap {
         width:100%;
-        aspect-ratio:3/4;
-        min-height:0; max-height:none;
+        height:72vw;
+        min-height:260px;
+        max-height:420px;
         flex:none;
+        overflow:hidden;
+        position:relative;
       }
       #pdp-main-img {
         width:100%; height:100%;
-        object-fit:cover; object-position:center 20%;
+        object-fit:cover;
+        object-position:center 15%;
       }
 
-      /* Thumbs — horizontal scroll row with larger tap targets */
+      /* Thumbs — horizontal scroll strip below image */
       .pdp-thumbs {
-        display:flex; flex-direction:row;
-        gap:8px; padding:10px 12px 12px;
-        overflow-x:auto; overflow-y:hidden;
+        display:flex;
+        flex-direction:row;
+        gap:6px;
+        padding:8px 12px 10px;
+        overflow-x:auto;
+        overflow-y:hidden;
         -webkit-overflow-scrolling:touch;
         background:var(--black);
         flex-wrap:nowrap;
+        flex-shrink:0;
       }
       .pdp-thumb {
-        flex:0 0 72px;
-        width:72px; height:72px;
+        flex:0 0 64px;
+        width:64px; height:64px;
         aspect-ratio:1/1;
         border-radius:2px;
         margin:0;
       }
-      .pdp-thumb img { object-position:center; }
+      .pdp-thumb img { object-position:center top; }
 
-      /* Info panel — full width, no max-height (lets outer scroll) */
+      /* Info panel: full width below gallery, no overlap */
       .pdp-info {
-        width:100%; max-width:100%;
-        height:auto; max-height:none;
-        padding:20px 16px calc(32px + env(safe-area-inset-bottom));
+        width:100%;
+        max-width:100%;
+        height:auto;
+        max-height:none;
         overflow:visible;
-        display:flex; flex-direction:column; gap:14px;
+        padding:18px 16px calc(env(safe-area-inset-bottom) + 24px);
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+        position:relative;
+        z-index:1;
+        background:var(--near);
       }
       .pdp-info > * { max-width:100%; }
-      .pdp-name { font-size:24px; line-height:1.15; }
+
+      /* Typography */
+      .pdp-badge { font-size:10px; }
+      .pdp-name { font-size:22px; line-height:1.15; }
       .pdp-price { font-size:20px; }
-      .pdp-desc { font-size:14px; }
-      .pdp-sub { font-size:12px; }
+      .pdp-desc { font-size:13px; line-height:1.6; }
+      .pdp-sub { font-size:11px; }
 
-      /* Colour swatches — easier to tap */
-      .pdp-color-row { margin-bottom:4px; }
-      .pdp-color-swatches { gap:14px; margin-top:8px; }
-      .pdp-swatch { width:40px; height:40px; }
+      /* Colour swatches */
+      .pdp-color-row { margin-bottom:2px; }
+      .pdp-color-swatches { gap:12px; margin-top:8px; }
+      .pdp-swatch { width:36px; height:36px; }
 
-      /* Size buttons — large and comfortable touch targets */
-      .pdp-size-label { font-size:11px; letter-spacing:1.8px; }
-      .pdp-sizes { gap:10px; flex-wrap:wrap; }
-      .size-btn { min-width:52px; min-height:52px; font-size:13px; padding:10px 14px; }
+      /* Size buttons */
+      .pdp-size-label { font-size:11px; letter-spacing:1.5px; }
+      .pdp-sizes { gap:8px; flex-wrap:wrap; }
+      .size-btn {
+        min-width:48px; min-height:48px;
+        font-size:13px; font-weight:700;
+        padding:10px 12px;
+        position:relative; z-index:2;
+        pointer-events:auto !important;
+      }
 
-      /* Afterpay + CTA spacing on mobile */
-      .afterpay-banner { margin:8px 0 2px; padding:10px 12px; overflow:hidden; }
-      .afterpay-banner-inner { gap:7px; }
-      .afterpay-banner-text { font-size:10px; line-height:1.35; }
+      /* Afterpay */
+      .afterpay-banner { margin:4px 0; padding:8px 10px; overflow:hidden; }
+      .afterpay-banner-inner { gap:6px; }
+      .afterpay-banner-text { font-size:10px; line-height:1.3; }
+      .afterpay-logo { height:14px; }
 
+      /* Buy button */
       .pdp-buy-btn {
         font-size:16px; padding:16px 20px;
-        margin-top:8px;
+        margin-top:4px;
         min-height:52px;
         width:100%;
+        position:relative; z-index:2;
+        pointer-events:auto !important;
       }
-      .pdp-shipping { font-size:11px; padding:0 4px; }
+
+      /* Shipping note */
+      .pdp-shipping { font-size:10px; padding:0 2px; text-align:center; }
+
+      /* Bundle deal */
+      .pdp-bundle-deal { padding:10px 10px; gap:8px; }
+      .pdp-bundle-text strong { font-size:14px; }
+      .pdp-bundle-text span { font-size:10px; }
+
+      /* Urgency box */
+      .pdp-urgency { padding:8px; }
+      .pdp-urgency div { font-size:11px; }
     }
 
     @media(max-width:414px) {
-      .pdp-info { padding:18px 14px calc(28px + env(safe-area-inset-bottom)); gap:12px; }
-      .pdp-thumbs { gap:6px; padding:8px 10px 10px; }
-      .pdp-thumb { flex:0 0 64px; width:64px; height:64px; }
-      .size-btn { min-width:50px; min-height:50px; padding:8px 12px; }
-      .pdp-buy-btn { font-size:15px; letter-spacing:1.6px; }
+      .pdp-main-wrap { height:80vw; }
+      .pdp-info { padding:14px 14px calc(env(safe-area-inset-bottom) + 20px); gap:10px; }
+      .pdp-name { font-size:20px; }
+      .size-btn { min-width:44px; min-height:44px; font-size:12px; }
+      .pdp-buy-btn { font-size:15px; letter-spacing:1.4px; }
     }
 
     /* ── TICKER ── */
@@ -1193,7 +1251,7 @@
 
     .offer-popup { position:fixed; inset:0; z-index:2200; display:none; }
     .offer-popup.show { display:block; }
-    .offer-popup-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.72); backdrop-filter:blur(4px); }
+    .offer-popup-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.72); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); }
     .offer-popup-card {
       position:relative; width:min(92vw,520px); margin:9vh auto 0;
       background:var(--near); border:1px solid rgba(200,164,90,0.35);
@@ -1220,7 +1278,7 @@
     @media(max-width:600px) {
       .shipping-top-bar { font-size:10px; letter-spacing:1.6px; padding:7px 8px; }
       .abandoned-reminder { left:10px; right:10px; bottom:86px; max-width:none; }
-      .whatsapp-float { width:54px; height:54px; right:12px; bottom:14px; }
+      .whatsapp-float { width:54px; height:54px; right:12px; bottom:210px; }
       .offer-popup-card h3 { font-size:31px; }
       .urgency-item { padding:14px 10px; }
     }
@@ -1254,7 +1312,7 @@
       .afterpay-top-logo { height:14px !important; }
 
       /* ── HERO ── */
-      .hero { padding:88px 16px 56px !important; min-height:100svh !important; }
+      .hero { padding:88px 16px 56px !important; min-height:100vh !important; min-height:100svh !important; }
       .hero-btns { gap:10px !important; }
       .hero-btns .btn { padding:12px 24px !important; font-size:15px !important; letter-spacing:1.5px !important; width:100% !important; text-align:center !important; }
 
@@ -1268,6 +1326,9 @@
       .product-grid,
       .product-grid.grid-4,
       .winter-grid { grid-template-columns:repeat(2,1fr) !important; gap:8px !important; }
+      /* Last item alone in row — span full width */
+      .winter-grid .card:last-child:nth-child(odd) { grid-column:1 / -1 !important; }
+      .winter-grid .card:last-child:nth-child(odd) .card-img { aspect-ratio:16/9 !important; max-height:280px; }
       .card-info { padding:10px 10px 12px !important; gap:6px !important; }
       .card-name { font-size:12px !important; letter-spacing:.5px !important; }
       .card-price { font-size:14px !important; }
@@ -1334,8 +1395,8 @@
       .footer-brand { grid-column:span 1 !important; }
 
       /* ── FLOATING ELEMENTS ── */
-      /* WhatsApp above abandoned reminder */
-      .whatsapp-float { right:12px !important; bottom:90px !important; width:50px !important; height:50px !important; }
+      /* WhatsApp sits well above abandoned reminder (reminder ~180px tall + 16px bottom = 196px) */
+      .whatsapp-float { right:12px !important; bottom:210px !important; width:50px !important; height:50px !important; }
       .abandoned-reminder { left:10px !important; right:10px !important; bottom:16px !important; max-width:none !important; }
 
       /* ── OFFER POPUP ── */
