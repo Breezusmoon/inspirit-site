@@ -525,6 +525,28 @@
       font-size:11px; color:var(--cream); opacity:.8; line-height:1.5;
     }
 
+    /* ── CART BUNDLE BANNER ── */
+    .cart-bundle-banner {
+      background:linear-gradient(135deg, rgba(200,164,90,0.18), rgba(200,164,90,0.08));
+      border:1px solid rgba(200,164,90,0.5);
+      border-radius:2px; margin:8px 0; padding:12px 14px;
+    }
+    .cart-bundle-banner-inner { display:flex; align-items:center; gap:10px; }
+    .cart-bundle-banner-icon { font-size:22px; flex-shrink:0; }
+    .cart-bundle-banner-title {
+      font-family:var(--fh); font-size:16px; letter-spacing:1px;
+      color:var(--gold); margin:0 0 2px;
+    }
+    .cart-bundle-banner-sub { font-size:11px; color:var(--cream); opacity:.8; margin:0; }
+    .cart-bundle-promo {
+      background:rgba(200,164,90,0.07); border:1px dashed rgba(200,164,90,0.35);
+      border-radius:2px; padding:10px 12px; margin:6px 0;
+    }
+    .cart-bundle-promo-text {
+      font-size:12px; color:var(--cream); line-height:1.5; margin:0; text-align:center;
+    }
+    .cart-bundle-promo-text strong { color:var(--gold); }
+
     /* ── CART UPSELL ── */
     .cart-upsell {
       border-top:1px solid rgba(200,164,90,0.15);
@@ -2073,7 +2095,7 @@
 
   <!-- CART UPSELL OFFER -->
   <div id="cart-upsell" class="cart-upsell" style="display:none;">
-    <p class="cart-upsell-label">⚡ Add-On Offer — Limited Time</p>
+    <p class="cart-upsell-label">⚡ Add-On Offer — Only $15 Each</p>
     <div class="cart-upsell-items">
       <div class="cart-upsell-item" id="upsell-hat">
         <img src="images-clean/hat-inspirit-indoor.jpg" alt="Inspirit Bucket Hat" class="cart-upsell-img" />
@@ -2092,7 +2114,7 @@
           <p class="cart-upsell-name">Inspirit Beanie</p>
           <div class="cart-upsell-pricing">
             <span class="cart-upsell-was">$20</span>
-            <span class="cart-upsell-now">$10 AUD</span>
+            <span class="cart-upsell-now">$15 AUD</span>
           </div>
         </div>
         <button class="cart-upsell-add" onclick="addUpsellItem('beanie')">ADD +</button>
@@ -2112,7 +2134,19 @@
       <span>Total</span>
       <span id="cart-total">$0 AUD</span>
     </div>
-    <p id="cart-bundle-note" class="cart-bundle-note">Add any Hoodie + any Tee to get the bundle for $80.</p>
+    <div id="cart-bundle-banner" class="cart-bundle-banner" style="display:none;">
+      <div class="cart-bundle-banner-inner">
+        <span class="cart-bundle-banner-icon">🔥</span>
+        <div>
+          <p class="cart-bundle-banner-title">Bundle Deal Active — Hoodie + Tee = $80</p>
+          <p class="cart-bundle-banner-sub">$20 saved — applied at checkout</p>
+        </div>
+      </div>
+    </div>
+    <div id="cart-bundle-promo" class="cart-bundle-promo" style="display:none;">
+      <p id="cart-bundle-promo-text" class="cart-bundle-promo-text"></p>
+    </div>
+    <p id="cart-bundle-note" class="cart-bundle-note" style="display:none;"></p>
     <p class="cart-shipping-note">Shipping calculated at checkout · Free on orders over $80 AUD</p>
     <div class="afterpay-banner">
       <div class="afterpay-banner-inner">
@@ -2827,16 +2861,17 @@
     }
     saveCart(cart);
     renderCart();
-    showPopover(cart, key);
-    // Change button text briefly to confirm action
+    updateCartBadge(cart);
+
+    // Flash button green, then close PDP and open cart
     const btn = document.getElementById('pdp-buy');
-    const orig = btn.textContent;
-    btn.textContent = '✓ Added';
-    btn.style.background = '#7bca7e';
+    btn.textContent = '✓ Added to Cart';
+    btn.style.background = '#2e7d32';
+    btn.style.color = '#fff';
     setTimeout(() => {
-      btn.textContent = orig;
-      btn.style.background = '';
-    }, 1200);
+      closeProduct();
+      setTimeout(() => openCart(), 150);
+    }, 700);
   }
 
   function showPopover(cart, lastKey) {
@@ -2904,9 +2939,13 @@
       discountEl.textContent = '-$0 AUD';
       totalEl.textContent = formatAud(0);
       discountRow.style.display = 'none';
-      bundleNoteEl.textContent = 'Add any Hoodie + any Tee to get the bundle for $80.';
       btn.disabled = true;
       btn.textContent = 'Checkout';
+      const b = document.getElementById('cart-bundle-banner');
+      const p = document.getElementById('cart-bundle-promo');
+      if (b) b.style.display = 'none';
+      if (p) p.style.display = 'none';
+      updateCartUpsell();
       return;
     }
 
@@ -2939,6 +2978,24 @@
       : 'Add any Hoodie + any Tee to get the bundle for $80.';
     btn.disabled = false;
     btn.textContent = `Checkout · ${formatAud(pricing.total)}`;
+
+    // Bundle banner
+    const banner = document.getElementById('cart-bundle-banner');
+    const promo = document.getElementById('cart-bundle-promo');
+    const promoText = document.getElementById('cart-bundle-promo-text');
+    const hasHoodie = cart.some(i => i.name && i.name.toLowerCase().includes('hoodie'));
+    const hasTee = cart.some(i => i.name && i.name.toLowerCase().includes('tee'));
+    if (banner) banner.style.display = pricing.bundleEligible ? 'block' : 'none';
+    if (promo && promoText) {
+      if (!pricing.bundleEligible && (hasHoodie || hasTee)) {
+        const missing = hasHoodie ? '<strong>a Tee ($40)</strong>' : '<strong>a Hoodie ($60)</strong>';
+        promoText.innerHTML = `🔥 Add ${missing} to unlock the Hoodie + Tee bundle for <strong>$80</strong> — save $20!`;
+        promo.style.display = 'block';
+      } else {
+        promo.style.display = 'none';
+      }
+    }
+
     updateCartUpsell();
   }
 
@@ -2959,7 +3016,7 @@
   function addUpsellItem(type) {
     const items = {
       hat: { name:'Inspirit Bucket Hat', price:'$15 AUD', priceNum:15, image:'images-clean/hat-inspirit-indoor.jpg', variantId:'REPLACE_HAT_VARIANT_ID', size:'One Size', colour:null },
-      beanie: { name:'Inspirit Beanie', price:'$10 AUD', priceNum:10, image:'images-clean/hat-beanie-model.jpg', variantId:'REPLACE_BEANIE_VARIANT_ID', size:'One Size', colour:null }
+      beanie: { name:'Inspirit Beanie', price:'$15 AUD', priceNum:15, image:'images-clean/hat-beanie-model.jpg', variantId:'REPLACE_BEANIE_VARIANT_ID', size:'One Size', colour:null }
     };
     const p = items[type];
     if (!p) return;
