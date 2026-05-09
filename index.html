@@ -2075,7 +2075,7 @@
 
   <!-- CART UPSELL OFFER -->
   <div id="cart-upsell" class="cart-upsell" style="display:none;">
-    <p class="cart-upsell-label">⚡ Add-On — Only $10 Each</p>
+    <p class="cart-upsell-label">⚡ Add-On Offer — Limited Time</p>
     <div class="cart-upsell-items">
       <div class="cart-upsell-item" id="upsell-hat">
         <img src="images-clean/hat-inspirit-indoor.jpg" alt="Inspirit Bucket Hat" class="cart-upsell-img" />
@@ -2083,7 +2083,7 @@
           <p class="cart-upsell-name">Inspirit Bucket Hat</p>
           <div class="cart-upsell-pricing">
             <span class="cart-upsell-was">$25</span>
-            <span class="cart-upsell-now">$10 AUD</span>
+            <span class="cart-upsell-now">$15 AUD</span>
           </div>
         </div>
         <button class="cart-upsell-add" onclick="addUpsellItem('hat')">ADD +</button>
@@ -2107,14 +2107,14 @@
       <span id="cart-subtotal">$0 AUD</span>
     </div>
     <div class="cart-summary-row cart-discount-row" id="cart-discount-row" style="display:none;">
-      <span>Bundle Discount (20%)</span>
+      <span>Hoodie + Tee Bundle</span>
       <span id="cart-discount">-$0 AUD</span>
     </div>
     <div class="cart-summary-row cart-total-row">
       <span>Total</span>
       <span id="cart-total">$0 AUD</span>
     </div>
-    <p id="cart-bundle-note" class="cart-bundle-note">Add 2+ items to get 20% bundle savings.</p>
+    <p id="cart-bundle-note" class="cart-bundle-note">Add any Hoodie + any Tee to get the bundle for $80.</p>
     <p class="cart-shipping-note">Shipping calculated at checkout · Free on orders over $80 AUD</p>
     <div class="afterpay-banner">
       <div class="afterpay-banner-inner">
@@ -2168,10 +2168,10 @@
         </div>
       </div>
       <div class="pdp-bundle-deal">
-        <div class="pdp-bundle-icon">🤙</div>
+        <div class="pdp-bundle-icon">🔥</div>
         <div class="pdp-bundle-text">
-          <strong>Buy 2, Save 20%</strong>
-          <span>Add any 2 items and your bundle discount applies automatically at checkout.</span>
+          <strong>Hoodie + Tee = $80</strong>
+          <span>Add any hoodie to your order and get the bundle for $80. Saves you $20.</span>
         </div>
       </div>
       <button id="pdp-buy" class="pdp-buy-btn" onclick="addToCart()">GET YOURS NOW</button>
@@ -2721,9 +2721,7 @@
 
   const SHOPIFY_DOMAIN = 'inspirit-8346.myshopify.com';
   const CART_KEY = 'inspirit_cart_v1';
-  const BUNDLE_DISCOUNT_RATE = 0.20;
-  const BUNDLE_DISCOUNT_MIN_ITEMS = 2;
-  const BUNDLE_DISCOUNT_CODE = 'BUNDLE20';
+  const BUNDLE_DISCOUNT_CODE = 'HOODIETEE80';
 
   function formatAud(amount) {
     return `$${amount} AUD`;
@@ -2732,8 +2730,11 @@
   function getCartPricing(cart) {
     const subtotal = cart.reduce((sum, item) => sum + (item.priceNum * item.qty), 0);
     const itemCount = cart.reduce((sum, item) => sum + item.qty, 0);
-    const bundleEligible = itemCount >= BUNDLE_DISCOUNT_MIN_ITEMS;
-    const discount = bundleEligible ? Math.round(subtotal * BUNDLE_DISCOUNT_RATE) : 0;
+    // Bundle = has at least 1 hoodie AND at least 1 tee
+    const hasHoodie = cart.some(i => i.name && i.name.toLowerCase().includes('hoodie'));
+    const hasTee = cart.some(i => i.name && i.name.toLowerCase().includes('tee'));
+    const bundleEligible = hasHoodie && hasTee;
+    const discount = bundleEligible ? 20 : 0;
     const total = Math.max(0, subtotal - discount);
     return { subtotal, itemCount, bundleEligible, discount, total };
   }
@@ -2905,7 +2906,7 @@
       discountEl.textContent = '-$0 AUD';
       totalEl.textContent = formatAud(0);
       discountRow.style.display = 'none';
-      bundleNoteEl.textContent = 'Add 2+ items to get 20% bundle savings.';
+      bundleNoteEl.textContent = 'Add any Hoodie + any Tee to get the bundle for $80.';
       btn.disabled = true;
       btn.textContent = 'Checkout';
       return;
@@ -2936,8 +2937,8 @@
     totalEl.textContent = formatAud(pricing.total);
     discountRow.style.display = pricing.bundleEligible ? 'flex' : 'none';
     bundleNoteEl.textContent = pricing.bundleEligible
-      ? `Bundle savings applied: you saved $${pricing.discount} AUD.`
-      : 'Add 2+ items to get 20% bundle savings.';
+      ? `🔥 Bundle deal applied — you saved $${pricing.discount} AUD!`
+      : 'Add any Hoodie + any Tee to get the bundle for $80.';
     btn.disabled = false;
     btn.textContent = `Checkout · ${formatAud(pricing.total)}`;
     updateCartUpsell();
@@ -2959,7 +2960,7 @@
 
   function addUpsellItem(type) {
     const items = {
-      hat: { name:'Inspirit Bucket Hat', price:'$10 AUD', priceNum:10, image:'images-clean/hat-inspirit-indoor.jpg', variantId:'REPLACE_HAT_VARIANT_ID', size:'One Size', colour:null },
+      hat: { name:'Inspirit Bucket Hat', price:'$15 AUD', priceNum:15, image:'images-clean/hat-inspirit-indoor.jpg', variantId:'REPLACE_HAT_VARIANT_ID', size:'One Size', colour:null },
       beanie: { name:'Inspirit Beanie', price:'$10 AUD', priceNum:10, image:'images-clean/hat-beanie-model.jpg', variantId:'REPLACE_BEANIE_VARIANT_ID', size:'One Size', colour:null }
     };
     const p = items[type];
@@ -3010,8 +3011,8 @@
     });
 
     if (pricing.bundleEligible) {
-      params.append('discount', BUNDLE_DISCOUNT_CODE);
-      params.append('attributes[Bundle Offer]', 'Buy 2 Save 20%');
+      // TODO: add 'params.append('discount', 'HOODIETEE80')' once set up in Shopify
+      params.append('attributes[Bundle Offer]', 'Hoodie + Tee $80');
       params.append('attributes[Bundle Savings AUD]', String(pricing.discount));
     }
 
