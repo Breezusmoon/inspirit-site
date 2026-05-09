@@ -1225,6 +1225,109 @@
       .urgency-item { padding:14px 10px; }
     }
 
+    /* ══════════════════════════════════════════════════════════
+       MOBILE FIX v2 — Full audit pass
+       ══════════════════════════════════════════════════════════ */
+
+    /* 1. HATS GRID — 3-col class, overrides inline style on mobile */
+    .hats-grid-3 { grid-template-columns:repeat(3,1fr); }
+    @media(max-width:900px) {
+      .hats-grid-3 { grid-template-columns:1fr !important; }
+      .hats-section { padding:48px 16px; }
+      .hats-head { flex-direction:column; gap:8px; align-items:flex-start; }
+    }
+    @media(max-width:600px) {
+      .hats-grid-3 { grid-template-columns:1fr !important; }
+      /* Hat card images — portrait on mobile but not too tall */
+      .hat-card > div[style*="aspect-ratio"] { aspect-ratio:4/5 !important; max-height:480px; }
+      .hat-info { padding:14px 14px 18px; gap:10px; }
+    }
+
+    /* 2. TRUST BADGES — 2 col on mobile */
+    @media(max-width:600px) {
+      .trust-badges { grid-template-columns:1fr 1fr !important; }
+      .trust-badge { padding:14px 10px; }
+      .trust-badge h5 { font-size:14px; }
+      .trust-badge p { font-size:10px; }
+    }
+
+    /* 3. INSTAGRAM GRID — 2 col at 600px, 1 col at 400px */
+    @media(max-width:600px) {
+      .insta-grid { grid-template-columns:1fr 1fr !important; }
+      .instagram-feed { padding:36px 16px; }
+      .insta-head h3 { font-size:clamp(28px,8vw,44px); }
+    }
+    @media(max-width:400px) {
+      .insta-grid { grid-template-columns:1fr !important; }
+    }
+
+    /* 4. TOP BAR CLUTTER — hide shipping bar on mobile (announce bar covers it) */
+    @media(max-width:600px) {
+      .shipping-top-bar { display:none; }
+      /* Announce bar — tighter on mobile */
+      .announce-bar { font-size:10px; letter-spacing:1.5px; padding:9px 36px 9px 12px; line-height:1.6; }
+      /* Afterpay strip — tighter */
+      .afterpay-top-strip { padding:7px 12px; }
+      .afterpay-top-text { font-size:11px; }
+      .afterpay-top-logo { height:15px; }
+    }
+
+    /* 5. BUNDLE SECTION — stack cleanly on small screens */
+    @media(max-width:600px) {
+      .bundle-section { padding:28px 16px; }
+      .bundle-card { padding:18px 16px; gap:16px; }
+      .bundle-title { font-size:30px; }
+      .bundle-copy { font-size:13px; }
+      .bundle-cta { padding:10px 18px; font-size:14px; }
+    }
+
+    /* 6. BOTTOM FLOATING ELEMENTS — prevent overlap */
+    @media(max-width:600px) {
+      /* WhatsApp sits above abandoned reminder */
+      .whatsapp-float { bottom:96px !important; right:12px; }
+      .abandoned-reminder { left:10px; right:10px; bottom:16px !important; max-width:none; }
+    }
+
+    /* 7. SOCIAL HEAD — prevent overflow */
+    @media(max-width:480px) {
+      .social-head { padding:36px 16px 16px; }
+      .social-head .social-cta { font-size:clamp(24px,8vw,40px); }
+    }
+
+    /* 8. PRODUCTS SECTION — section heading on very small screens */
+    @media(max-width:380px) {
+      .section-h { font-size:26px; letter-spacing:1px; }
+      .section-eyebrow { font-size:9px; }
+      .trust-badges { grid-template-columns:1fr 1fr !important; }
+    }
+
+    /* 9. HERO — extra padding on mobile so content clears nav properly */
+    @media(max-width:600px) {
+      .hero { padding:96px 20px 60px; min-height:100svh; }
+      .hero-btns .btn { padding:13px 28px; font-size:15px; letter-spacing:2px; }
+    }
+
+    /* 10. URGENCY ROW — 1 col on mobile (was 1fr 1fr at 900px) */
+    @media(max-width:600px) {
+      .urgency-row { grid-template-columns:1fr !important; }
+      .urgency-item { padding:14px 16px; }
+    }
+
+    /* 11. PDP BUNDLE DEAL — compact on small screens */
+    @media(max-width:480px) {
+      .pdp-bundle-deal { padding:10px 10px; gap:8px; }
+      .pdp-bundle-text strong { font-size:14px; }
+      .pdp-bundle-text span { font-size:10px; }
+    }
+
+    /* 12. OFFER POPUP — fits small screens */
+    @media(max-width:480px) {
+      .offer-popup-card { margin:3vh auto 0; padding:20px 14px 16px; width:94vw; }
+      .offer-popup-card h3 { font-size:28px; }
+      .offer-form { flex-direction:column; gap:8px; }
+      .offer-btn { width:100%; }
+    }
+
 </style>
 <script>
 (function(){
@@ -1591,7 +1694,7 @@
     <a href="#" class="view-all">View All →</a>
   </div>
 
-  <div class="hats-grid" style="grid-template-columns:repeat(3,1fr);">
+  <div class="hats-grid hats-grid-3">
 
     <!-- Hat 1: Inspirit Bucket Hat -->
     <div class="hat-card" onclick="openProduct(9)" style="cursor:pointer;">
