@@ -1560,28 +1560,6 @@
 
   </div>
 
-  <!-- Row 2: Beanie -->
-  <div class="product-grid winter-grid" style="margin-top:1px;">
-    <div class="card" onclick="openProduct(6)">
-      <div class="card-img" style="background:#efefed;">
-        <span class="badge bg">Winter Drop</span>
-        <img src="images-clean/winter-beanie-hanger.jpg" alt="Inspirit Beanie" loading="lazy" style="object-position:center 15%;" />
-      </div>
-      <div class="card-info">
-        <div>
-          <p class="card-name">Inspirit Beanie</p>
-          <p class="card-desc">Black knit beanie. INSPIRIT† Clothing Co. embroidered logo. One size fits all.</p>
-        </div>
-        <div>
-          <div class="card-colors"><div class="cdot cdot-b"></div></div>
-          <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$20 AUD</span>
-            <button class="card-btn">Get Yours Now →</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </section>
 
@@ -1613,17 +1591,17 @@
     <a href="#" class="view-all">View All →</a>
   </div>
 
-  <div class="hats-grid">
+  <div class="hats-grid" style="grid-template-columns:repeat(3,1fr);">
 
-    <!-- Hat 1: Inspirit Cross Bucket Hat -->
+    <!-- Hat 1: Inspirit Bucket Hat -->
     <div class="hat-card" onclick="openProduct(9)" style="cursor:pointer;">
       <div class="hat-shots">
-        <div class="hat-main">
-          <img src="images-clean/inspirit-bucket-hat-model.jpg" alt="Inspirit Bucket Hat" loading="lazy" />
+        <div class="hat-main" style="aspect-ratio:3/4;">
+          <img src="images-clean/hat-inspirit-indoor.jpg" alt="Inspirit Bucket Hat" loading="lazy" />
           <span class="badge bg" style="top:14px;left:14px;">New</span>
         </div>
-        <div class="hat-thumb">
-          <img src="images-clean/inspirit-bucket-hat-real.jpg" alt="Inspirit Bucket Hat detail" loading="lazy" />
+        <div class="hat-thumb" style="aspect-ratio:3/4;">
+          <img src="images-clean/hat-dual-shot.jpg" alt="Inspirit + Spiritual Badass hats" loading="lazy" />
         </div>
       </div>
       <div class="hat-info">
@@ -1641,15 +1619,10 @@
 
     <!-- Hat 2: Spiritual Badass Bucket Hat -->
     <div class="hat-card" onclick="openProduct(10)" style="cursor:pointer;">
-      <div class="hat-shots">
-        <div class="hat-main">
-          <img src="images-clean/spiritual-badass-bucket-hat-model.jpg" alt="Spiritual Badass Bucket Hat" loading="lazy" />
-          <span class="badge bo" style="top:14px;left:14px;">Limited</span>
-          <span class="sold-out-chip" style="position:absolute;top:44px;left:14px;z-index:4;margin-top:0;">Sold Out: Restock Soon</span>
-        </div>
-        <div class="hat-thumb">
-          <img src="images-clean/spiritual-badass-bucket-hat-real.jpg" alt="Spiritual Badass Bucket Hat detail" loading="lazy" />
-        </div>
+      <div class="hat-main" style="aspect-ratio:3/4;overflow:hidden;position:relative;">
+        <img src="images-clean/hat-sb-model-new.jpg" alt="Spiritual Badass Bucket Hat" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center top;" />
+        <span class="badge bo" style="top:14px;left:14px;">Limited</span>
+        <span class="sold-out-chip" style="position:absolute;top:44px;left:14px;z-index:4;margin-top:0;">Sold Out: Restock Soon</span>
       </div>
       <div class="hat-info">
         <div>
@@ -1664,6 +1637,24 @@
       </div>
     </div>
 
+    <!-- Hat 3: Inspirit Beanie -->
+    <div class="hat-card" onclick="openProduct(6)" style="cursor:pointer;">
+      <div class="hat-main" style="aspect-ratio:3/4;overflow:hidden;position:relative;">
+        <img src="images-clean/hat-beanie-model.jpg" alt="Inspirit Beanie" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center top;" />
+        <span class="badge bg" style="top:14px;left:14px;">Winter Drop</span>
+      </div>
+      <div class="hat-info">
+        <div>
+          <p class="card-name">Inspirit Beanie</p>
+          <p class="hat-detail">One Size · Black Knit</p>
+          <p class="card-desc">Black knit beanie. INSPIRIT† Clothing Co. embroidered logo. Warm, clean, faith-forward.</p>
+        </div>
+        <div class="card-foot" style="margin-top:12px;">
+          <span class="card-price">$20</span>
+          <button class="card-btn">Get Yours Now</button>
+        </div>
+      </div>
+    </div>
 
   </div>
 </section>
