@@ -615,7 +615,7 @@
     }
     .afterpay-banner-inner {
       display:grid;
-      grid-template-columns:auto 1fr;
+      grid-template-columns:auto auto 1fr;
       align-items:center;
       gap:8px;
       width:100%;
@@ -653,6 +653,8 @@
       display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
     }
     .afterpay-top-logo { height:20px; width:auto; }
+    .paypal-top-logo { height:17px; width:auto; background:#fff; padding:2px 6px; border-radius:3px; }
+    .paypal-logo { height:16px; width:auto; background:#fff; padding:2px 6px; border-radius:3px; }
     .afterpay-top-text {
       font-family:var(--fb); font-size:12px; font-weight:600;
       color:#080808; letter-spacing:0.3px;
@@ -1528,7 +1530,7 @@
 <body>
 
 <!-- QUICK WIN: TOP FREE SHIPPING BAR -->
-<div class="shipping-top-bar">FREE SHIPPING OVER $150 AUD</div>
+<div class="shipping-top-bar">FREE SHIPPING OVER $100 AUD</div>
 
 <!-- EXIT-INTENT / FIRST-ORDER OFFER POPUP -->
 <div id="offer-popup" class="offer-popup" aria-hidden="true">
@@ -1548,7 +1550,7 @@
 
 <!-- ANNOUNCEMENT BAR -->
 <div class="announce-bar" id="announcebar">
-  ✝ Welcome to Inspirit Clothing Co — Use code <strong class="announce-code">INSPIRIT10</strong> for 10% off your first order <span>·</span> Free shipping on orders over $150 AUD
+  ✝ Welcome to Inspirit Clothing Co — Use code <strong class="announce-code">INSPIRIT10</strong> for 10% off your first order <span>·</span> Free shipping on orders over $100 AUD
   <button class="announce-close" onclick="document.getElementById('announcebar').style.display='none'">✕</button>
 </div>
 
@@ -1556,7 +1558,8 @@
 <div class="afterpay-top-strip">
   <div class="afterpay-top-inner">
     <img src="https://static.afterpay.com/button/checkout-with-afterpay/black-on-mint.svg" alt="Afterpay" class="afterpay-top-logo" />
-    <span class="afterpay-top-text">Buy now, pay later — <strong>4 interest-free payments</strong> on all orders</span>
+    <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png" alt="PayPal" class="paypal-top-logo" />
+    <span class="afterpay-top-text">Pay in <strong>4 interest-free payments</strong> with Afterpay, or check out with <strong>PayPal</strong></span>
   </div>
 </div>
 
@@ -2266,7 +2269,7 @@
         <span class="cart-bundle-banner-icon">🔥</span>
         <div>
           <p class="cart-bundle-banner-title">Free shipping unlocked</p>
-          <p class="cart-bundle-banner-sub">Orders over $150 ship free</p>
+          <p class="cart-bundle-banner-sub">Orders over $100 ship free</p>
         </div>
       </div>
     </div>
@@ -2274,11 +2277,12 @@
       <p id="cart-bundle-promo-text" class="cart-bundle-promo-text"></p>
     </div>
     <p id="cart-bundle-note" class="cart-bundle-note" style="display:none;"></p>
-    <p class="cart-shipping-note">Shipping calculated at checkout · Free on orders over $150 AUD</p>
+    <p class="cart-shipping-note">Shipping calculated at checkout · Free on orders over $100 AUD</p>
     <div class="afterpay-banner">
       <div class="afterpay-banner-inner">
         <img src="https://static.afterpay.com/button/checkout-with-afterpay/black-on-mint.svg" alt="Afterpay" class="afterpay-logo" />
-        <p class="afterpay-banner-text">Pay in <strong>4 interest-free installments</strong> with Afterpay</p>
+        <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png" alt="PayPal" class="paypal-logo" />
+        <p class="afterpay-banner-text">Pay in <strong>4</strong> with Afterpay, or check out with <strong>PayPal</strong></p>
       </div>
     </div>
     <button class="cart-checkout-btn" onclick="checkout()" id="cart-checkout-btn" disabled>Checkout</button>
@@ -2323,18 +2327,19 @@
       <div class="afterpay-banner">
         <div class="afterpay-banner-inner">
           <img src="https://static.afterpay.com/button/checkout-with-afterpay/black-on-mint.svg" alt="Afterpay" class="afterpay-logo" />
-          <p class="afterpay-banner-text">Pay in <strong>4 interest-free installments</strong> with Afterpay</p>
+          <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png" alt="PayPal" class="paypal-logo" />
+          <p class="afterpay-banner-text">Pay in <strong>4</strong> with Afterpay, or check out with <strong>PayPal</strong></p>
         </div>
       </div>
       <div class="pdp-bundle-deal">
         <div class="pdp-bundle-icon">🔥</div>
         <div class="pdp-bundle-text">
-          <strong>Free shipping over $150</strong>
+          <strong>Free shipping over $100</strong>
           <span>Two pieces gets you there. Printed and posted from the Gold Coast.</span>
         </div>
       </div>
       <button id="pdp-buy" class="pdp-buy-btn" onclick="addToCart()">GET YOURS NOW</button>
-      <p class="pdp-shipping">Free shipping on orders over $150 AUD · Printed in Australia</p>
+      <p class="pdp-shipping">Free shipping on orders over $100 AUD · Printed in Australia</p>
     </div>
   </div>
 </div>
