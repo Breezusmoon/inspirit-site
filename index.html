@@ -885,13 +885,16 @@
     .bo { border:1px solid var(--gold); color:var(--gold); background:transparent; }
     .bw { background:var(--white); color:var(--black); }
     .badge-xl { font-size:14px; letter-spacing:2.5px; padding:9px 18px; top:16px; left:16px; box-shadow:0 2px 14px rgba(0,0,0,.35); }
-    .sale-bar { background:var(--gold); color:var(--black); padding:24px 28px; margin:0 0 42px; }
-    .sale-bar-inner { max-width:1180px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:24px; flex-wrap:wrap; }
-    .sale-bar-pct { font-family:var(--fh); font-size:clamp(46px,6.5vw,72px); line-height:.82; letter-spacing:-1px; }
+    .sale-bar { background:var(--gold); color:var(--black); padding:44px 28px; margin:0 0 42px; }
+    .sale-bar-inner { max-width:1300px; flex-wrap:nowrap; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:40px; flex-wrap:wrap; }
+    .sale-bar-pct { font-family:var(--fh); font-size:clamp(110px,13vw,180px); line-height:.8; letter-spacing:-4px; white-space:nowrap; }
+    .sale-bar-pct small { font-size:.36em; letter-spacing:2px; margin-left:10px; }
     .sale-bar-pct sup { font-size:.42em; vertical-align:super; margin-left:3px; letter-spacing:0; }
-    .sale-bar-copy { display:flex; flex-direction:column; gap:6px; border-left:1px solid rgba(8,8,8,.28); padding-left:24px; }
-    .sale-bar-copy strong { font-family:var(--fh); font-weight:400; font-size:clamp(17px,2.2vw,24px); letter-spacing:3.5px; text-transform:uppercase; }
-    .sale-bar-copy em { font-style:normal; font-size:11.5px; letter-spacing:2px; text-transform:uppercase; opacity:.68; }
+    .sale-bar-copy { display:flex; flex-direction:column; gap:12px; border-left:2px solid rgba(8,8,8,.35); padding-left:40px; }
+    .sale-bar-copy strong { font-family:var(--fh); font-weight:400; font-size:clamp(24px,2.6vw,34px); letter-spacing:3px; text-transform:uppercase; line-height:1; }
+    .sale-bar-btn { align-self:flex-start; background:var(--black); color:var(--gold); border:0; font-family:inherit; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:14px 26px; cursor:pointer; margin-top:6px; }
+    .sale-bar-btn:hover { background:#1a1a1a; }
+    .sale-bar-copy em { font-style:normal; font-size:13px; letter-spacing:2.5px; text-transform:uppercase; opacity:.75; }
     /* ---- THE COLLECTION (archive grid) ---- */
     .collection { padding:110px 44px 120px; background:var(--black); }
     .coll-head { text-align:center; margin-bottom:62px; }
@@ -927,12 +930,13 @@
     }
     @media screen and (max-width:600px) {
       .badge-xl { font-size:11px; letter-spacing:2px; padding:7px 13px; top:12px; left:12px; }
-      .sale-bar { padding:18px 16px; margin-bottom:26px; }
-      .sale-bar-inner { gap:10px; flex-direction:column; align-items:flex-start; }
-      .sale-bar-pct { font-size:54px; }
+      .sale-bar { padding:30px 20px; margin-bottom:26px; }
+      .sale-bar-inner { gap:10px; flex-direction:column; align-items:flex-start; flex-wrap:wrap; }
+      .sale-bar-pct { font-size:120px; letter-spacing:-3px; }
       .sale-bar-copy { border-left:none; border-top:1px solid rgba(8,8,8,.28); padding-left:0; padding-top:10px; gap:4px; width:100%; }
       .sale-bar-copy strong { letter-spacing:2px; }
-      .sale-bar-copy em { font-size:9.5px; letter-spacing:1.2px; }
+      .sale-bar-copy em { font-size:11px; letter-spacing:1.5px; }
+      .sale-bar-copy strong { font-size:26px; }
     }
     .card-info { padding:18px 22px 22px; border-top:1px solid rgba(200,164,90,.08); flex:1; display:flex; flex-direction:column; justify-content:space-between; gap:10px; }
     .card-name { font-family:var(--fh); font-size:20px; letter-spacing:1.5px; text-transform:uppercase; color:var(--white); }
@@ -1905,10 +1909,11 @@
   </div>
   <div class="sale-bar">
     <div class="sale-bar-inner">
-      <span class="sale-bar-pct">50<sup>%</sup></span>
+      <span class="sale-bar-pct">50%<small>OFF</small></span>
       <span class="sale-bar-copy">
-        <strong>Off The Winter Range</strong>
-        <em>Final run &#183; Hoodies $40 &#183; Beanie $15 &#183; While stock lasts</em>
+        <strong>The Whole Winter Range</strong>
+        <em>Hoodies $40 &#183; Jumpers $35 &#183; Beanie $15 &#183; Final run</em>
+        <button type="button" class="sale-bar-btn" onclick="var b=document.querySelector('.coll-f[data-f=winter]');if(b)b.click();document.getElementById('coll-grid').scrollIntoView({behavior:'smooth',block:'start'});">Shop the sale &rarr;</button>
       </span>
     </div>
   </div>
