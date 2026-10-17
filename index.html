@@ -875,6 +875,8 @@
     .card:hover .card-img img { transform:scale(1.04); filter:brightness(1) contrast(1.04); }
     .card-img::after { content:'Shop Now'; position:absolute; inset:0; background:rgba(8,8,8,.5); display:flex; align-items:center; justify-content:center; font-family:var(--fh); font-size:18px; letter-spacing:4px; color:var(--gold); opacity:0; transition:opacity .3s; pointer-events:none; }
     .card:hover .card-img::after { opacity:1; }
+    .price-was { color:var(--muted); text-decoration:line-through; font-size:.72em; margin-right:8px; opacity:.75; font-weight:400; }
+    .pdp-price .price-was { font-size:.6em; }
     .badge { position:absolute; top:14px; left:14px; z-index:3; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:5px 12px; }
     .bg { background:var(--gold); color:var(--black); }
     .bn { background:var(--black); border:1px solid var(--gold); color:var(--gold); }
@@ -1925,7 +1927,7 @@
 <section class="products" id="winter" style="margin-top:1px;">
   <div class="products-head">
     <div>
-      <p class="section-eyebrow">Winter Drop 2026</p>
+      <p class="section-eyebrow">Final Run &#8212; Half Price</p>
       <h2 class="section-h">Stay Warm. Stay Faithful.</h2>
     </div>
     <a href="#winter" class="view-all">Shop Winter →</a>
@@ -1936,7 +1938,7 @@
     <!-- Inspirit Hoodie -->
     <div class="card" onclick="openProduct(4)">
       <div class="card-img" style="background:#111;">
-        <span class="badge bg">Winter Drop</span>
+        <span class="badge bg">50% Off</span>
         <img src="images-clean/hoodie-inspirit-hanger-back.jpg" alt="Inspirit Hoodie back" loading="lazy" />
         <img src="images-clean/hoodie-inspirit-model-front.jpg" class="card-hover-img" alt="Inspirit Hoodie model" />
       </div>
@@ -1948,7 +1950,7 @@
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$80 AUD</span>
+            <span class="card-price"><span class="price-was">$80</span>$40 AUD</span>
             <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
@@ -1958,7 +1960,7 @@
     <!-- Spiritual Badass Pink Hoodie -->
     <div class="card" onclick="openProduct(7)">
       <div class="card-img" style="background:#111;">
-        <span class="badge bg">Winter Drop</span>
+        <span class="badge bg">50% Off</span>
         <img src="images-clean/hoodie-pink-hanger-back.jpg" alt="Spiritual Badass Pink Hoodie back" loading="lazy" />
         <img src="images-clean/hoodie-pink-model-front-closeup.jpg" class="card-hover-img" alt="Spiritual Badass Pink Hoodie model" />
       </div>
@@ -1970,7 +1972,7 @@
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$80 AUD</span>
+            <span class="card-price"><span class="price-was">$80</span>$40 AUD</span>
             <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
@@ -1980,7 +1982,7 @@
     <!-- Jesus Fish Jumper -->
     <div class="card" onclick="openProduct(8)">
       <div class="card-img" style="background:#111;">
-        <span class="badge bg">Winter Drop</span>
+        <span class="badge bg">50% Off</span>
         <img src="images-clean/jumper-fishjesus-hanger-back.jpg" alt="Jesus Fish Jumper back" loading="lazy" />
         <img src="images-clean/jumper-fishjesus-model-front.jpg" class="card-hover-img" alt="Jesus Fish Jumper model" />
       </div>
@@ -1992,7 +1994,7 @@
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$70 AUD</span>
+            <span class="card-price"><span class="price-was">$70</span>$35 AUD</span>
             <button class="card-btn">Get Yours Now →</button>
           </div>
         </div>
@@ -2002,7 +2004,7 @@
     <!-- 6: Inspirit Beanie (moved from Hats) -->
     <div class="card" onclick="openProduct(6)">
       <div class="card-img" style="background:#111;aspect-ratio:3/4;">
-        <span class="badge bg">Final Run</span>
+        <span class="badge bg">50% Off</span>
         <img src="images-clean/hat-beanie-model.jpg" alt="Inspirit Beanie" loading="lazy" />
       </div>
       <div class="card-info">
@@ -2013,7 +2015,7 @@
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
           <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$30 AUD</span>
+            <span class="card-price"><span class="price-was">$30</span>$15 AUD</span>
             <button class="card-btn">Get Yours Now &#8594;</button>
           </div>
         </div>
@@ -2427,8 +2429,9 @@
     },
     { // 4 — WINTER: Inspirit Hoodie
       name: "Inspirit Hoodie",
-      badge: "Final Run",
-      price: "$80 AUD",
+      badge: "Half Price",
+      price: "$40 AUD",
+      was: "$80",
       desc: "Heavyweight pullover hoodie. INSPIRIT† Clothing Co. bold across the chest. Warm, oversized, faith-forward.",
       detail: "Premium 400gsm fleece. Pre-shrunk. Kangaroo pocket. Cross cuff detail. Unisex oversized cut.",
       fit: "Oversized unisex fit. Model wears size L.",
@@ -2452,8 +2455,9 @@
     },
     { // 6 — WINTER: Beanie
       name: "Inspirit Beanie",
-      badge: "Final Run",
-      price: "$30 AUD",
+      badge: "Half Price",
+      price: "$15 AUD",
+      was: "$30",
       desc: "Black knit beanie. INSPIRIT† Clothing Co. embroidered logo. One size fits all.",
       detail: "100% acrylic knit. Embroidered Inspirit logo. Stretchy one-size fit.",
       fit: "One size fits all.",
@@ -2464,8 +2468,9 @@
     },
     { // 7 — WINTER: Spiritual Badass Pink Hoodie
       name: "Spiritual Badass Hoodie",
-      badge: "Final Run",
-      price: "$80 AUD",
+      badge: "Half Price",
+      price: "$40 AUD",
+      was: "$80",
       desc: "Black oversized hoodie. Pink SPIRITUAL BADASS bold on the front. Heart cross graphic on the back. Made for her.",
       detail: "Premium 400gsm fleece. Pre-shrunk. Kangaroo pocket. Pink cross cuff detail. Women's oversized cut.",
       fit: "Oversized women's fit. Model wears size S.",
@@ -2477,8 +2482,9 @@
     },
     { // 8 — WINTER: Jesus Fish Jumper
       name: "Jesus Fish Jumper",
-      badge: "Final Run",
-      price: "$70 AUD",
+      badge: "Half Price",
+      price: "$35 AUD",
+      was: "$70",
       desc: "Black crewneck. Inspirit Clothing Co. chest logo. Bold JESUS fish graphic across the back. Walk in faith.",
       detail: "350gsm fleece blend. Pre-shrunk. Ribbed cuffs and hem. Cross cuff detail. Unisex fit.",
       fit: "Regular unisex fit. Model wears size L.",
@@ -2793,7 +2799,8 @@
     const m = document.getElementById('pdp-modal');
     document.getElementById('pdp-badge').textContent = p.badge;
     document.getElementById('pdp-name').textContent = p.name;
-    document.getElementById('pdp-price').textContent = p.price;
+    document.getElementById('pdp-price').innerHTML =
+      (p.was ? '<span class="price-was">' + p.was + '</span>' : '') + p.price;
     document.getElementById('pdp-desc').textContent = p.desc;
     document.getElementById('pdp-detail').textContent = p.detail;
     document.getElementById('pdp-fit').textContent = p.fit;
