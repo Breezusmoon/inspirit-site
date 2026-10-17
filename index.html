@@ -2248,9 +2248,6 @@
   <div class="trust-badge"><h5>Made in Australia</h5><p>Printed locally with care</p></div>
 </div>
 
-<div class="urgency-row">
-  <div class="urgency-item"><h4 id="global-stock-left">Only 27 left in stock</h4><p>Across the current collection</p></div>
-</div>
 
 <!-- FOOTER -->
 <footer>
@@ -2430,9 +2427,6 @@
       <p id="pdp-desc" class="pdp-desc"></p>
       <p id="pdp-detail" class="pdp-sub"></p>
       <p id="pdp-fit" class="pdp-sub pdp-fit-line"></p>
-      <div class="pdp-urgency">
-        <div>Only <strong id="pdp-stock">12</strong> left in stock</div>
-      </div>
       <div id="pdp-size-wrap">
         <div class="pdp-size-label">Select Size</div>
         <div class="pdp-sizes" id="pdp-sizes-row">
@@ -3051,9 +3045,6 @@
         + '<button class="size-btn" type="button" onclick="selectSize(this)">XL</button>'
         + '<button class="size-btn" type="button" onclick="selectSize(this)">2XL</button>';
     }
-
-    const stock = p.stockLeft || Math.max(4, 22 - idx);
-    document.getElementById('pdp-stock').textContent = stock;
 
     m.classList.add('open');
     lockScroll();
