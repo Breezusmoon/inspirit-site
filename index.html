@@ -1631,6 +1631,7 @@
       <a href="#summer">Summer Drop</a>
       <ul class="nav-drop-menu">
         <li><a href="#summer">All Summer Drop</a></li>
+        <li><a href="#summer" onclick="event.preventDefault();openProduct(18);">Inspirit Tee — White</a></li>
         <li><a href="#summer" onclick="event.preventDefault();openProduct(12);">Spiritual Badass Singlet</a></li>
         <li><a href="#summer" onclick="event.preventDefault();openProduct(14);">Jesus Fish Singlet</a></li>
         <li><a href="#summer" onclick="event.preventDefault();openProduct(13);">Womens Cami</a></li>
@@ -1737,6 +1738,28 @@
   </div>
 
   <div class="product-grid grid-4">
+
+    <!-- 18: Inspirit Tee (White) -->
+    <div class="card" onclick="openProduct(18)">
+      <div class="card-img" style="background:#111;aspect-ratio:3/4;">
+        <span class="badge bn">New Tee</span>
+        <img src="images-clean/tee-white-inspirit-model-front.jpg" alt="Inspirit Tee worn, front" loading="lazy" />
+        <img src="images-clean/tee-white-inspirit-hanger-front.jpg" class="card-hover-img" alt="Inspirit Tee front" />
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Inspirit Tee — White</p>
+          <p class="card-desc">White oversized tee. INSPIRIT&#8224; Clothing Co. bold on the chest, Jesus fish at the back neck.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-w"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$40 AUD</span>
+            <button class="card-btn">Get Yours Now &#8594;</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- 12: Spiritual Badass Singlet -->
     <div class="card" onclick="openProduct(12)">
@@ -2727,6 +2750,18 @@
       labels: ["Hanger Front","Hanger Back","On Model"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
+    { // 18 — SUMMER: Inspirit Tee (White)
+      name: "Inspirit Tee — White",
+      badge: "New Tee",
+      price: "$40 AUD",
+      desc: "White oversized tee. INSPIRIT† Clothing Co. bold on the chest, Jesus fish at the back neck, cross at the hem.",
+      detail: "220gsm heavyweight cotton. Pre-shrunk. Drop shoulder. Ribbed neck. Screen printed in Australia.",
+      fit: "Oversized unisex fit. Model wears size L.",
+      mainImage: "images-clean/tee-white-inspirit-model-front.jpg",
+      images: ["images-clean/tee-white-inspirit-hanger-front.jpg","images-clean/tee-white-inspirit-hanger-back.jpg","images-clean/tee-white-inspirit-model-front.jpg"],
+      labels: ["Hanger Front","Hanger Back","On Model"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
   ];
 
   function selectSize(btn) {
@@ -2932,7 +2967,7 @@
     { i:0,  c:'tees'     }, { i:1,  c:'tees'     }, { i:2,  c:'tees'     }, { i:3,  c:'tees' },
     { i:4,  c:'winter'   }, { i:7,  c:'winter'   }, { i:8,  c:'winter'   }, { i:5,  c:'winter' }, { i:17, c:'winter' },
     { i:6,  c:'winter', img:'images-clean/hat-beanie-model.jpg' },
-    { i:11, c:'summer'   }, { i:12, c:'summer'   }, { i:14, c:'summer'   }, { i:13, c:'summer' },
+    { i:18, c:'summer'   }, { i:11, c:'summer'   }, { i:12, c:'summer'   }, { i:14, c:'summer'   }, { i:13, c:'summer' },
     { i:15, c:'headwear' }, { i:16, c:'headwear' }
   ];
 
