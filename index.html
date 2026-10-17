@@ -62,6 +62,25 @@
     .nav-soc:hover { background:var(--gold); color:var(--black); border-color:var(--gold); transform:translateY(-1px); }
     .nav-cta { background:var(--gold) !important; color:var(--black) !important; padding:10px 24px; font-weight:700 !important; }
     .nav-cta:hover { background:var(--gold-lt) !important; }
+    /* ── SUMMER DROP NAV DROPDOWN ── */
+    .nav-drop { position:relative; }
+    .nav-drop > a::after { content:'\\25BE'; font-size:9px; margin-left:6px; opacity:.7; }
+    .nav-drop-menu {
+      position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(6px);
+      background:rgba(10,10,10,0.97); border:1px solid rgba(200,164,90,0.25);
+      padding:10px 0; min-width:208px; list-style:none; display:block;
+      opacity:0; visibility:hidden; transition:opacity .18s ease, transform .18s ease;
+      box-shadow:0 18px 40px rgba(0,0,0,0.55); z-index:60;
+    }
+    .nav-drop:hover .nav-drop-menu, .nav-drop:focus-within .nav-drop-menu {
+      opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);
+    }
+    .nav-drop-menu li { display:block; }
+    .nav-drop-menu a {
+      display:block; padding:9px 20px; white-space:nowrap;
+      color:rgba(255,255,255,0.72) !important; letter-spacing:1.8px; font-size:10.5px;
+    }
+    .nav-drop-menu a:hover { color:var(--gold) !important; background:rgba(200,164,90,0.08); }
     .ham { display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:1001; }
     .ham span { width:22px; height:1.5px; background:var(--white); display:block; transition:all .3s; }
     /* Mobile cart icon — sits next to hamburger, hidden on desktop */
@@ -1547,6 +1566,13 @@
     <img src="images-clean/logo.png" alt="Inspirit Clothing Co" class="nav-logo-img" />
   </a>
   <ul class="nav-links">
+    <li class="nav-drop">
+      <a href="#summer">Summer Drop</a>
+      <ul class="nav-drop-menu">
+        <li><a href="#summer">All Summer Drop</a></li>
+        <li><a href="#summer" onclick="event.preventDefault();openProduct(11);">Beach Shorts</a></li>
+      </ul>
+    </li>
     <li><a href="#shop">Tees</a></li>
     <li><a href="#hats">Hats</a></li>
     <li><a href="#winter">Winter Collection</a></li>
@@ -1577,6 +1603,7 @@
 
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobile-nav">
+  <a href="#summer" onclick="closeMobileNav()">Summer Drop</a>
   <a href="#shop" onclick="closeMobileNav()">Tees</a>
   <a href="#hats" onclick="closeMobileNav()">Hats</a>
   <a href="#winter" onclick="closeMobileNav()">Winter Collection</a>
@@ -1630,6 +1657,42 @@
 </div>
 
 <!-- PRODUCTS -->
+<section class="products" id="summer">
+  <div class="products-head">
+    <div>
+      <p class="section-eyebrow">New — Summer 2026</p>
+      <h2 class="section-h">Summer Drop</h2>
+    </div>
+    <a href="#summer" class="view-all">View All →</a>
+  </div>
+
+  <div class="product-grid grid-4">
+
+    <!-- 11: Beach Shorts -->
+    <div class="card" onclick="openProduct(11)">
+      <div class="card-img" style="background:#111;aspect-ratio:3/4;">
+        <span class="badge bn">Summer Drop</span>
+        <img src="images-clean/shorts-black-front.jpg" alt="Inspirit Beach Shorts front" loading="lazy" />
+        <img src="images-clean/shorts-black-back.jpg" class="card-hover-img" alt="Inspirit Beach Shorts back" />
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Beach Shorts</p>
+          <p class="card-desc">Quick-dry black beach shorts. Drawstring waist, INSPIRIT† on the leg, cross mark on the back.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$60 AUD</span>
+            <button class="card-btn">Get Yours Now →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <section class="products" id="shop">
   <div class="products-head">
     <div>
@@ -2388,6 +2451,18 @@
       images: ["images-clean/spiritual-badass-bucket-hat-model.jpg","images-clean/spiritual-badass-bucket-hat-real.jpg"],
       labels: ["On Model","Detail"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
+    { // 11 — SUMMER: Beach Shorts
+      name: "Beach Shorts",
+      badge: "Summer Drop",
+      price: "$60 AUD",
+      desc: "Black beach shorts. Elasticated waist, drawstring, INSPIRIT\u2020 on the leg. Cross mark on the back.",
+      detail: "Quick-dry woven shell. No mesh lining. Side pockets. Elasticated waist with drawstring.",
+      fit: "Regular unisex fit. Mid-length.",
+      mainImage: "images-clean/shorts-black-front.jpg",
+      images: ["images-clean/shorts-black-front.jpg","images-clean/shorts-black-back.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com/products/inspirit-beach-shorts"
     },
   ];
 
