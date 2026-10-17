@@ -1392,6 +1392,21 @@
       .afterpay-top-text { font-size:11px !important; }
       .afterpay-top-logo { height:14px !important; }
 
+      /* ── PRODUCT CARDS (mobile) ── */
+      /* Descriptions truncated mid-sentence on a phone; the popout carries them. */
+      .card-desc { display:none !important; }
+      .card-name { font-size:13px !important; letter-spacing:.6px !important; }
+      .card-foot {
+        display:flex !important; flex-direction:row !important;
+        align-items:center !important; justify-content:space-between !important;
+        gap:8px !important;
+      }
+      .card-price { white-space:nowrap !important; font-size:15px !important; }
+      .card-btn {
+        white-space:nowrap !important; font-size:10px !important;
+        padding:9px 12px !important; letter-spacing:1px !important;
+      }
+
       /* ── HERO ── */
       .hero { padding:88px 16px 56px !important; min-height:100vh !important; min-height:100svh !important; }
       .hero-btns { gap:10px !important; }
@@ -1813,8 +1828,8 @@
 <section class="products" id="shop">
   <div class="products-head">
     <div>
-      <p class="section-eyebrow">Current Drop 2026</p>
-      <h2 class="section-h">The Collection</h2>
+      <p class="section-eyebrow">The Core Range</p>
+      <h2 class="section-h">Tees</h2>
     </div>
     <a href="#shop" class="view-all">View All →</a>
   </div>
@@ -1832,7 +1847,6 @@
         <div>
           <p class="card-name">Feeding 5000 Tee</p>
           <p class="card-desc">Jesus feeding the 5000 bold on the back. Fish logo on the chest. Faith in action for the streets.</p>
-          <div class="fomo-inline"><span class="fomo-pill">Only 11 Left</span></div>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
@@ -1855,7 +1869,6 @@
         <div>
           <p class="card-name">Jesus Fish Tee — White</p>
           <p class="card-desc">Fish logo on the chest. JESUS bold in the fish on the back. Clean white, hard message.</p>
-          <div class="fomo-inline"><span class="fomo-pill">Only 7 Left</span></div>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-w"></div></div>
@@ -1878,7 +1891,6 @@
         <div>
           <p class="card-name">Spiritual Badass Tee</p>
           <p class="card-desc">Inspirit logo chest. SPIRITUAL BADASS hits hard on the back. The statement piece for believers who move bold.</p>
-          <div class="fomo-inline"><span class="fomo-pill">Only 9 Left</span></div>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-b"></div></div>
@@ -2036,7 +2048,7 @@
   <div class="story-text">
     <p class="section-eyebrow" style="margin-bottom:14px;">Who We Are</p>
     <h2 class="story-quote">This isn't just clothing.<br>It's a <em>statement of faith</em><br>you wear every day.</h2>
-    <p class="story-body">Inspirit started with a vision — that streetwear could carry something deeper. Every piece is handprinted, limited, and made with purpose. We're not a fast fashion brand. We're a movement. Rooted in faith. Built for the streets. Living Inspirit isn't just what's on the tee — it's how we move.</p>
+    <p class="story-body">Streetwear that carries something deeper. Handprinted in Australia, in limited drops. Built for the streets, rooted in faith.</p>
     <div class="verse-block">
       <p>"I can do all things through Christ who strengthens me."<span class="verse-ref">— Philippians 4:13</span></p>
     </div>
@@ -2087,28 +2099,20 @@
   <div class="insta-head">
     <p class="section-eyebrow">Instagram Community</p>
     <h3>Seen On The Streets</h3>
-    <p>Tag <strong>@inspirit_clothing_co</strong> in your streetwear fits to get featured here. Real community looks, reposted weekly.</p>
+    <p>Tag <strong>@inspirit_clothing_co</strong> in your fits and we'll feature you here.</p>
   </div>
   <div class="insta-grid">
     <article class="insta-card">
-      <img src="images-clean/model-sb.jpg" alt="Customer style post placeholder" />
-      <p class="insta-meta">@faithfit.daily</p>
-      <p class="insta-caption">Sunday service fit with the Spiritual Badass Tee. #LivingInspirit</p>
+      <img src="images-clean/model-sb.jpg" alt="Inspirit Clothing Co" />
     </article>
     <article class="insta-card">
-      <img src="images-clean/hoodie-inspirit-model-front.jpg" alt="Customer style post placeholder" />
-      <p class="insta-meta">@streetworship.co</p>
-      <p class="insta-caption">Heavyweight comfort meets purpose. Inspirit hoodie all week.</p>
+      <img src="images-clean/hoodie-inspirit-model-front.jpg" alt="Inspirit Clothing Co" />
     </article>
     <article class="insta-card">
-      <img src="images-clean/model-f5000.jpg" alt="Customer style post placeholder" />
-      <p class="insta-meta">@australia.for.christ</p>
-      <p class="insta-caption">Faith-forward graphic that starts real conversations.</p>
+      <img src="images-clean/model-f5000.jpg" alt="Inspirit Clothing Co" />
     </article>
     <article class="insta-card">
-      <img src="images-clean/spiritual-badass-bucket-hat-model.jpg" alt="Customer style post placeholder" />
-      <p class="insta-meta">@disciples.in.motion</p>
-      <p class="insta-caption">Limited bucket hats in rotation before they disappear again.</p>
+      <img src="images-clean/spiritual-badass-bucket-hat-model.jpg" alt="Inspirit Clothing Co" />
     </article>
   </div>
 </section>
