@@ -2066,6 +2066,28 @@
       </div>
     </div>
 
+    <!-- Inspirit Jumper -->
+    <div class="card" onclick="openProduct(5)">
+      <div class="card-img" style="background:#111;">
+        <span class="badge bg badge-xl">50% Off</span>
+        <img src="images-clean/jumper-inspirit-hanger-front.jpg" alt="Inspirit Jumper front" loading="lazy" />
+        <img src="images-clean/jumper-inspirit-model-front.jpg" class="card-hover-img" alt="Inspirit Jumper on model" />
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Inspirit Jumper</p>
+          <p class="card-desc">Black oversized crewneck. INSPIRIT† Clothing Co. across the chest, Jesus fish at the back neck.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price"><span class="price-was">$70</span>$35 AUD</span>
+            <button class="card-btn">Get Yours Now →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 6: Inspirit Beanie (moved from Hats) -->
     <div class="card" onclick="openProduct(6)">
       <div class="card-img" style="background:#111;aspect-ratio:3/4;">
@@ -2523,15 +2545,16 @@
       variantId: "47942350209283"
     },
     { // 5 — WINTER: Crewneck
-      name: "Inspirit Crewneck",
-      badge: "Final Run",
-      price: "$70 AUD",
-      desc: "Clean black crewneck. INSPIRIT† Clothing Co. chest logo. Minimal, bold, built to last.",
-      detail: "350gsm fleece blend. Pre-shrunk. Ribbed cuffs and hem. Unisex fit.",
-      fit: "Regular/oversized unisex fit. Model wears size L.",
-      mainImage: "images-clean/winter-crewneck-model.jpg",
-      images: ["images-clean/winter-crewneck-hanger.jpg","images-clean/winter-crewneck-model.jpg"],
-      labels: ["Hanger","Model"],
+      name: "Inspirit Jumper",
+      badge: "Half Price",
+      price: "$35 AUD",
+      was: "$70",
+      desc: "Black oversized crewneck. INSPIRIT† Clothing Co. bold across the chest, Jesus fish at the back neck. Minimal, heavy, built to last.",
+      detail: "350gsm heavyweight fleece. Pre-shrunk. Ribbed cuffs and hem. Cross detail on the cuff. Drop shoulder.",
+      fit: "Oversized unisex fit. Model wears size L.",
+      mainImage: "images-clean/jumper-inspirit-model-front.jpg",
+      images: ["images-clean/jumper-inspirit-hanger-front.jpg","images-clean/jumper-inspirit-hanger-back.jpg","images-clean/jumper-inspirit-model-front.jpg"],
+      labels: ["Hanger Front","Hanger Back","On Model"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
     { // 6 — WINTER: Beanie
@@ -2878,7 +2901,7 @@
   /* ---- THE COLLECTION grid ---- */
   const COLLECTION = [
     { i:0,  c:'tees'     }, { i:1,  c:'tees'     }, { i:2,  c:'tees'     }, { i:3,  c:'tees' },
-    { i:4,  c:'winter'   }, { i:7,  c:'winter'   }, { i:8,  c:'winter'   },
+    { i:4,  c:'winter'   }, { i:7,  c:'winter'   }, { i:8,  c:'winter'   }, { i:5,  c:'winter' },
     { i:6,  c:'winter', img:'images-clean/hat-beanie-model.jpg' },
     { i:11, c:'summer'   }, { i:12, c:'summer'   }, { i:14, c:'summer'   }, { i:13, c:'summer' },
     { i:15, c:'headwear' }, { i:16, c:'headwear' }
