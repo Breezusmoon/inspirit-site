@@ -2594,6 +2594,7 @@
       mainImage: "images-clean/jumper-inspirit-model-front.jpg",
       images: ["images-clean/jumper-inspirit-hanger-front.jpg","images-clean/jumper-inspirit-hanger-back.jpg","images-clean/jumper-inspirit-model-front.jpg"],
       labels: ["Hanger Front","Hanger Back","On Model"],
+      variants: { "XS":"49877404123395", "S":"49877404156163", "M":"49877404188931", "L":"49877404221699", "XL":"49877404254467", "2XL":"49877404287235" },
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
     { // 6 — WINTER: Beanie
@@ -2685,6 +2686,7 @@
       mainImage: "images-clean/singlet-sb-model-front-v2.jpg",
       images: ["images-clean/singlet-sb-model-front-v2.jpg","images-clean/singlet-sb-model-back.jpg","images-clean/singlet-sb-white-front.jpg","images-clean/singlet-sb-white-back.jpg"],
       labels: ["Model Front","Model Back","Hanger Front","Hanger Back"],
+      variants: { "XS":"49878670082307", "S":"49878670115075", "M":"49878670147843", "L":"49878670180611", "XL":"49878670213379", "2XL":"49878670246147" },
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
     { // 13 — SUMMER: Womens Cami (White)
@@ -2697,6 +2699,7 @@
       mainImage: "images-clean/singlet-womens-model-front-v6.jpg",
       images: ["images-clean/singlet-womens-model-front-v6.jpg","images-clean/singlet-womens-model-back.jpg","images-clean/singlet-womens-front.jpg","images-clean/singlet-womens-back.jpg"],
       labels: ["Model Front","Model Back","Hanger Front","Hanger Back"],
+      variants: { "XS":"49878670475523", "S":"49878670508291", "M":"49878670541059", "L":"49878670573827", "XL":"49878670606595" },
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
     { // 14 — SUMMER: Jesus Fish Singlet (Black)
@@ -2709,6 +2712,7 @@
       mainImage: "images-clean/singlet-jesusfish-model-front.jpg",
       images: ["images-clean/singlet-jesusfish-model-front.jpg","images-clean/singlet-jesusfish-model-back.jpg","images-clean/singlet-jesusfish-front.jpg","images-clean/singlet-jesusfish-back.jpg"],
       labels: ["Model Front","Model Back","Hanger Front","Hanger Back"],
+      variants: { "XS":"49878670278915", "S":"49878670311683", "M":"49878670344451", "L":"49878670377219", "XL":"49878670409987", "2XL":"49878670442755" },
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
     { // 15 — SUMMER: Spiritual Badass Bucket Hat
@@ -2748,6 +2752,7 @@
       mainImage: "images-clean/jumper-sb-pink-model-front.jpg",
       images: ["images-clean/jumper-sb-pink-hanger-front.jpg","images-clean/jumper-sb-pink-hanger-back.jpg","images-clean/jumper-sb-pink-model-front.jpg"],
       labels: ["Hanger Front","Hanger Back","On Model"],
+      variants: { "XS":"49877412839683", "S":"49877412872451", "M":"49877412905219", "L":"49877412937987", "XL":"49877412970755", "2XL":"49877413003523" },
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
     { // 18 — SUMMER: Inspirit Tee (White)
@@ -2760,6 +2765,7 @@
       mainImage: "images-clean/tee-white-inspirit-model-front.jpg",
       images: ["images-clean/tee-white-inspirit-hanger-front.jpg","images-clean/tee-white-inspirit-hanger-back.jpg","images-clean/tee-white-inspirit-model-front.jpg"],
       labels: ["Hanger Front","Hanger Back","On Model"],
+      variants: { "XS":"49878628368643", "S":"49878628401411", "M":"49878628434179", "L":"49878628466947", "XL":"49878628499715", "2XL":"49878628532483" },
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
   ];
@@ -3073,12 +3079,13 @@
       sizesRow.innerHTML = '<button class="size-btn selected" type="button" style="min-width:120px;" onclick="selectSize(this)">One Size</button>';
     } else {
       sizeLabel.textContent = 'Select Size';
-      sizesRow.innerHTML = '<button class="size-btn" type="button" onclick="selectSize(this)">XS</button>'
-        + '<button class="size-btn" type="button" onclick="selectSize(this)">S</button>'
-        + '<button class="size-btn" type="button" onclick="selectSize(this)">M</button>'
-        + '<button class="size-btn" type="button" onclick="selectSize(this)">L</button>'
-        + '<button class="size-btn" type="button" onclick="selectSize(this)">XL</button>'
-        + '<button class="size-btn" type="button" onclick="selectSize(this)">2XL</button>';
+      // Only offer sizes that actually exist as Shopify variants.
+      const sizes = p.variants
+        ? Object.keys(p.variants)
+        : ['XS','S','M','L','XL','2XL'];
+      sizesRow.innerHTML = sizes
+        .map(sz => '<button class="size-btn" type="button" onclick="selectSize(this)">' + sz + '</button>')
+        .join('');
     }
 
     m.classList.add('open');
@@ -3227,7 +3234,7 @@
     const idx = window._currentProductIdx;
     if (idx === undefined || idx === null) return;
     const p = PRODUCTS[idx];
-    if (!p.variantId) {
+    if (!p.variantId && !p.variants) {
       toast('Coming soon – not yet on Shopify');
       return;
     }
@@ -3239,6 +3246,14 @@
       const selected = document.querySelector('.size-btn.selected');
       if (!selected) { toast('Pick a size first'); return; }
       size = selected.textContent.trim();
+    }
+
+    // Products with real per-size variants in Shopify must send the
+    // variant that matches the chosen size, not a single shared id.
+    let variantId = p.variantId;
+    if (p.variants) {
+      variantId = p.variants[size];
+      if (!variantId) { toast('That size isn’t available'); return; }
     }
 
     // Get active colour (if product has colorways) + its matching image
@@ -3263,14 +3278,14 @@
     }
 
     const cart = loadCart();
-    const key = `${p.variantId}|${size || ''}|${colour || ''}`;
+    const key = `${variantId}|${size || ''}|${colour || ''}`;
     const existing = cart.find(item => item.key === key);
     if (existing) {
       existing.qty += 1;
     } else {
       cart.push({
         key,
-        variantId: p.variantId,
+        variantId,
         productIdx: idx,
         name: p.name,
         price: p.price,
