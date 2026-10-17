@@ -1392,21 +1392,6 @@
       .afterpay-top-text { font-size:11px !important; }
       .afterpay-top-logo { height:14px !important; }
 
-      /* ── PRODUCT CARDS (mobile) ── */
-      /* Descriptions truncated mid-sentence on a phone; the popout carries them. */
-      .card-desc { display:none !important; }
-      .card-name { font-size:13px !important; letter-spacing:.6px !important; }
-      .card-foot {
-        display:flex !important; flex-direction:row !important;
-        align-items:center !important; justify-content:space-between !important;
-        gap:8px !important;
-      }
-      .card-price { white-space:nowrap !important; font-size:15px !important; }
-      .card-btn {
-        white-space:nowrap !important; font-size:10px !important;
-        padding:9px 12px !important; letter-spacing:1px !important;
-      }
-
       /* ── HERO ── */
       .hero { padding:88px 16px 56px !important; min-height:100vh !important; min-height:100svh !important; }
       .hero-btns { gap:10px !important; }
@@ -1427,10 +1412,14 @@
       .winter-grid .card:last-child:nth-child(odd) .card-img { aspect-ratio:1/1 !important; max-height:none !important; }
       .winter-grid .card:last-child:nth-child(odd) .card-img img { object-position:center 60% !important; object-fit:cover !important; }
       .card-info { padding:10px 10px 12px !important; gap:6px !important; }
-      .card-name { font-size:15px !important; letter-spacing:.5px !important; }
-      .card-price { font-size:16px !important; }
-      .card-btn { font-size:12px !important; padding:8px 12px !important; }
-      .card-desc { font-size:12px !important; -webkit-line-clamp:2 !important; display:-webkit-box !important; -webkit-box-orient:vertical !important; overflow:hidden !important; }
+      .card-name { font-size:14px !important; letter-spacing:.5px !important; }
+      .card-price { font-size:16px !important; white-space:nowrap !important; }
+      /* Cards are ~170px wide at 375px, so the description truncates mid-word
+         and the CTA overflows. The whole card is already tappable, so drop
+         both and let the image, name and price do the work. */
+      .card-desc { display:none !important; }
+      .card-btn { display:none !important; }
+      .card-foot { justify-content:flex-start !important; }
 
       /* ── TRUST ── */
       .trust { grid-template-columns:1fr 1fr !important; }
