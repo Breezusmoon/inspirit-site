@@ -2088,6 +2088,28 @@
       </div>
     </div>
 
+    <!-- Spiritual Badass Jumper -->
+    <div class="card" onclick="openProduct(17)">
+      <div class="card-img" style="background:#111;">
+        <span class="badge bg badge-xl">50% Off</span>
+        <img src="images-clean/jumper-sb-pink-hanger-back.jpg" alt="Spiritual Badass Jumper back" loading="lazy" />
+        <img src="images-clean/jumper-sb-pink-model-front.jpg" class="card-hover-img" alt="Spiritual Badass Jumper on model" />
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Spiritual Badass Jumper</p>
+          <p class="card-desc">Black oversized crewneck. Pink INSPIRIT† on the chest, SPIRITUAL BADASS across the back. Made for her.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-b"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price"><span class="price-was">$70</span>$35 AUD</span>
+            <button class="card-btn">Get Yours Now →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- 6: Inspirit Beanie (moved from Hats) -->
     <div class="card" onclick="openProduct(6)">
       <div class="card-img" style="background:#111;aspect-ratio:3/4;">
@@ -2698,6 +2720,19 @@
       labels: ["Front"],
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
+    { // 17 — WINTER: Spiritual Badass Jumper
+      name: "Spiritual Badass Jumper",
+      badge: "Half Price",
+      price: "$35 AUD",
+      was: "$70",
+      desc: "Black oversized crewneck. Pink INSPIRIT† Clothing Co. on the chest, SPIRITUAL BADASS bold across the back. Made for her.",
+      detail: "350gsm heavyweight fleece. Pre-shrunk. Ribbed cuffs and hem. Pink cross detail on the cuff. Drop shoulder.",
+      fit: "Oversized fit. Model wears size S.",
+      mainImage: "images-clean/jumper-sb-pink-model-front.jpg",
+      images: ["images-clean/jumper-sb-pink-hanger-front.jpg","images-clean/jumper-sb-pink-hanger-back.jpg","images-clean/jumper-sb-pink-model-front.jpg"],
+      labels: ["Hanger Front","Hanger Back","On Model"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
+    },
   ];
 
   function selectSize(btn) {
@@ -2901,7 +2936,7 @@
   /* ---- THE COLLECTION grid ---- */
   const COLLECTION = [
     { i:0,  c:'tees'     }, { i:1,  c:'tees'     }, { i:2,  c:'tees'     }, { i:3,  c:'tees' },
-    { i:4,  c:'winter'   }, { i:7,  c:'winter'   }, { i:8,  c:'winter'   }, { i:5,  c:'winter' },
+    { i:4,  c:'winter'   }, { i:7,  c:'winter'   }, { i:8,  c:'winter'   }, { i:5,  c:'winter' }, { i:17, c:'winter' },
     { i:6,  c:'winter', img:'images-clean/hat-beanie-model.jpg' },
     { i:11, c:'summer'   }, { i:12, c:'summer'   }, { i:14, c:'summer'   }, { i:13, c:'summer' },
     { i:15, c:'headwear' }, { i:16, c:'headwear' }
