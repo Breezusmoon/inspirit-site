@@ -3135,8 +3135,24 @@
     localStorage.setItem('inspirit_offer_closed', '1');
   }
   window.closeOfferPopup = closeOfferPopup;
+
+  // Sends an email to Shopify as a newsletter customer (accepts marketing).
+  function sendToShopifyNewsletter(email, source) {
+    let ifr = document.getElementById('nl-sink');
+    if (!ifr) { ifr = document.createElement('iframe'); ifr.name = 'nl-sink'; ifr.id = 'nl-sink'; ifr.style.display = 'none'; document.body.appendChild(ifr); }
+    const f = document.createElement('form');
+    f.method = 'POST'; f.action = 'https://inspirit-8346.myshopify.com/contact#contact_form'; f.target = 'nl-sink'; f.style.display = 'none';
+    [['form_type','customer'],['utf8','✓'],['contact[email]',email],['contact[tags]','newsletter,'+source],['contact[accepts_marketing]','true']]
+      .forEach(([n,v]) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = n; i.value = v; f.appendChild(i); });
+    document.body.appendChild(f); f.submit(); setTimeout(() => f.remove(), 3000);
+    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: 'signup-' + source, title: 'Newsletter signup', event: true });
+  }
+  window.sendToShopifyNewsletter = sendToShopifyNewsletter;
   window.handleOfferSignup = function(e) {
     e.preventDefault();
+    const em = (e.target.querySelector('input[type=email]') || {}).value || '';
+    if (!em) return;
+    sendToShopifyNewsletter(em, 'popup');
     const btn = e.target.querySelector('button');
     btn.textContent = 'Thanks! Check your inbox ✓';
     btn.style.background = '#7bca7e';
@@ -3152,7 +3168,7 @@
       openOfferPopup();
     }
   });
-  setTimeout(openOfferPopup, 12000);
+  setTimeout(openOfferPopup, 3000);
 
   function maybeShowAbandonedReminder() {
     const cart = loadCart();
@@ -3170,6 +3186,9 @@
 
   function handleSub(e) {
     e.preventDefault();
+    const em = (e.target.querySelector('input') || {}).value || '';
+    if (!em) return;
+    sendToShopifyNewsletter(em, 'footer');
     const b = e.target.querySelector('.email-sub');
     b.textContent = "You're In ✝"; b.style.background='var(--near)'; b.style.color='var(--gold)';
     e.target.querySelector('input').value='';
@@ -3303,6 +3322,7 @@
     saveCart(cart);
     renderCart();
     updateCartBadge(cart);
+    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: 'add-to-cart-' + p.name.replace(/\W+/g,'-').toLowerCase() + '', title: 'Add to cart', event: true });
 
     // Flash button green, then close PDP and open cart
     const btn = document.getElementById('pdp-buy');
@@ -3428,7 +3448,7 @@
     const hasTee = cart.some(i => i.name && i.name.toLowerCase().includes('tee'));
     if (banner) banner.style.display = pricing.bundleEligible ? 'block' : 'none';
     if (promo && promoText) {
-      if (!pricing.bundleEligible && (hasHoodie || hasTee)) {
+      if (false) { // bundle retired
         const missing = hasHoodie ? '<strong>a Tee ($40)</strong>' : '<strong>a Hoodie ($60)</strong>';
         promoText.innerHTML = `🔥 Add ${missing} to unlock the Hoodie + Tee bundle for <strong>$80</strong> — save $20!`;
         promo.style.display = 'block';
@@ -3447,7 +3467,7 @@
     const hasItems = cart.filter(i => !i.upsell).length > 0;
     const hasHat = cart.some(i => i.key === 'upsell_hat');
     const hasBeanie = cart.some(i => i.key === 'upsell_beanie');
-    upsell.style.display = (hasItems && (!hasHat || !hasBeanie)) ? 'block' : 'none';
+    upsell.style.display = 'none'; // add-on offer retired: wrong prices + placeholder variant broke checkout
     const hatEl = document.getElementById('upsell-hat');
     const beanieEl = document.getElementById('upsell-beanie');
     if (hatEl) hatEl.style.display = hasHat ? 'none' : 'flex';
@@ -3514,7 +3534,8 @@
 
     const query = params.toString();
     const url = `https://${SHOPIFY_DOMAIN}/cart/${pairs}${query ? '?' + query : ''}`;
-    window.location.href = url;
+    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: 'checkout-click', title: 'Checkout click', event: true });
+    setTimeout(() => { window.location.href = url; }, 150);
   }
 
   // Toast notifications
@@ -3538,5 +3559,6 @@
   maybeShowAbandonedReminder();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"f0f03d0605bf45f1a3b17cf7d5e6861f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script data-goatcounter="https://inspiritclothingco.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
