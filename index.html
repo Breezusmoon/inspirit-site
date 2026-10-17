@@ -1640,8 +1640,7 @@
         <li><a href="#summer" onclick="event.preventDefault();openProduct(14);">Jesus Fish Singlet</a></li>
         <li><a href="#summer" onclick="event.preventDefault();openProduct(13);">Womens Cami</a></li>
         <li><a href="#summer" onclick="event.preventDefault();openProduct(11);">Beach Shorts</a></li>
-        <li><a href="#summer" onclick="event.preventDefault();openProduct(15);">Spiritual Badass Bucket Hat</a></li>
-        <li><a href="#summer" onclick="event.preventDefault();openProduct(16);">Inspirit Bucket Hat</a></li>
+        <li><a href="#summer" onclick="event.preventDefault();openProduct(16);">Reversible Bucket Hat</a></li>
       </ul>
     </li>
     <li><a href="#collection">The Collection</a></li>
@@ -1737,7 +1736,7 @@
     <a href="#summer" class="view-all">View All →</a>
   </div>
 
-  <div class="product-grid grid-4">
+  <div class="product-grid">
 
     <!-- 18: Inspirit Tee (White) -->
     <div class="card" onclick="openProduct(18)">
@@ -1805,27 +1804,6 @@
       </div>
     </div>
 
-    <!-- 15: Spiritual Badass Bucket Hat -->
-    <div class="card" onclick="openProduct(15)">
-      <div class="card-img" style="background:#111;aspect-ratio:3/4;">
-        <span class="badge bn">Summer Drop</span>
-        <img src="images-clean/hat-sb-summer-v2.jpg" alt="Spiritual Badass Bucket Hat" loading="lazy" />
-      </div>
-      <div class="card-info">
-        <div>
-          <p class="card-name">Spiritual Badass Bucket Hat</p>
-          <p class="card-desc">Black cotton twill. SPIRITUAL BADASS across the front panel. Structured brim.</p>
-        </div>
-        <div>
-          <div class="card-colors"><div class="cdot cdot-b"></div></div>
-          <div class="card-foot" style="margin-top:10px;">
-            <span class="card-price">$30 AUD</span>
-            <button class="card-btn">Get Yours Now &#8594;</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- 16: Inspirit Bucket Hat -->
     <div class="card" onclick="openProduct(16)">
       <div class="card-img" style="background:#111;aspect-ratio:3/4;">
@@ -1835,7 +1813,7 @@
       <div class="card-info">
         <div>
           <p class="card-name">Inspirit Bucket Hat</p>
-          <p class="card-desc">Stone cotton twill. INSPIRIT&#8224; across the front panel. Structured brim.</p>
+          <p class="card-desc">Reversible. INSPIRIT&#8224; one side, SPIRITUAL BADASS the other. Two hats in one.</p>
         </div>
         <div>
           <div class="card-colors"><div class="cdot cdot-w"></div></div>
@@ -2484,13 +2462,13 @@
       name: "Inspirit Bucket Hat",
       badge: "Summer Drop",
       price: "$30 AUD",
-      desc: "Stone cotton twill bucket hat. INSPIRIT\u2020 across the front panel.",
+      desc: "Reversible bucket hat. INSPIRIT\u2020 on one side, SPIRITUAL BADASS on the other. Two hats in one.",
       detail: "100% cotton twill. Structured brim that holds its shape. Stitched crown.",
       fit: "One size fits most. 58cm.",
       oneSize: true,
       mainImage: "images-clean/hat-inspirit-summer-v2.jpg",
-      images: ["images-clean/hat-inspirit-summer-v2.jpg"],
-      labels: ["Front"],
+      images: ["images-clean/hat-inspirit-summer-v2.jpg","images-clean/hat-sb-summer-v2.jpg"],
+      labels: ["Front","Flip side"],
       variantId: "49875736985859",
       shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
@@ -2727,7 +2705,7 @@
     { i:4,  c:'winter'   }, { i:7,  c:'winter'   }, { i:8,  c:'winter'   }, { i:5,  c:'winter' }, { i:17, c:'winter' },
     { i:6,  c:'winter', img:'images-clean/hat-beanie-model.jpg' },
     { i:18, c:'summer'   }, { i:13, c:'summer'   }, { i:14, c:'summer'   }, { i:11, c:'summer'   }, { i:12, c:'summer' },
-    { i:15, c:'headwear' }, { i:16, c:'headwear' }
+    { i:16, c:'headwear' }
   ];
 
   function renderCollection(filter) {
