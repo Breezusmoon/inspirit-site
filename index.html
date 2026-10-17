@@ -868,6 +868,17 @@
       background:rgba(200,164,90,.07);
     }
     .product-grid.grid-4 { grid-template-columns:repeat(4,1fr); }
+    .product-grid.grid-6 { grid-template-columns:repeat(6,1fr); }
+    .product-grid.grid-6 .card-img { aspect-ratio:4/5 !important; }
+    .product-grid.grid-6 .card-desc { display:none; }
+    .product-grid.grid-6 .card-info { padding:14px 14px 16px; }
+    .product-grid.grid-6 .card-name { font-size:14px; letter-spacing:1.5px; }
+    .product-grid.grid-6 .card-price { font-size:17px; }
+    .product-grid.grid-6 .card-btn { padding:7px 10px; font-size:9px; letter-spacing:1.5px; }
+    .product-grid.grid-6 .card-foot { flex-wrap:wrap; gap:8px; }
+    .product-grid.grid-6 .badge { transform:scale(.85); transform-origin:top left; }
+    @media(max-width:1100px){ .product-grid.grid-6 { grid-template-columns:repeat(3,1fr) !important; } }
+    @media(max-width:640px){ .product-grid.grid-6 { grid-template-columns:repeat(2,1fr) !important; } .product-grid.grid-6 .card-btn { display:none; } }
     .product-grid.winter-grid { grid-template-columns:repeat(3,1fr); }
     /* For 5 cards: use auto-flow */
     .card { background:var(--black); display:flex; flex-direction:column; cursor:pointer; overflow:hidden; }
@@ -1739,7 +1750,7 @@
     <a href="#summer" class="view-all">View All →</a>
   </div>
 
-  <div class="product-grid">
+  <div class="product-grid grid-6">
 
     <!-- 18: Inspirit Tee (White) -->
     <div class="card" onclick="openProduct(18)">
@@ -1811,7 +1822,7 @@
     <div class="card" onclick="openProduct(16)">
       <div class="card-img" style="background:#111;aspect-ratio:3/4;">
         <span class="badge bn">Summer Drop</span>
-        <img src="images-clean/hat-inspirit-summer-v2.jpg" alt="Inspirit Bucket Hat" loading="lazy" />
+        <img src="images-clean/hat-inspirit-white-v1.jpg" alt="Inspirit Bucket Hat" loading="lazy" />
       </div>
       <div class="card-info">
         <div>
@@ -2469,8 +2480,8 @@
       detail: "100% cotton twill. Structured brim that holds its shape. Stitched crown.",
       fit: "One size fits most. 58cm.",
       oneSize: true,
-      mainImage: "images-clean/hat-inspirit-summer-v2.jpg",
-      images: ["images-clean/hat-inspirit-summer-v2.jpg","images-clean/hat-sb-summer-v2.jpg"],
+      mainImage: "images-clean/hat-inspirit-white-v1.jpg",
+      images: ["images-clean/hat-inspirit-white-v1.jpg","images-clean/hat-sb-summer-v2.jpg"],
       labels: ["Front","Flip side"],
       variantId: "49875736985859",
       shopifyUrl: "https://inspirit-8346.myshopify.com"
