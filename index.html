@@ -3227,7 +3227,11 @@
   function loadCart() {
     try {
       const raw = localStorage.getItem(CART_KEY);
-      return raw ? JSON.parse(raw) : [];
+      const items = raw ? JSON.parse(raw) : [];
+      // Drop any item without a real Shopify variant ID (e.g. old $15 add-on placeholders)
+      const clean = items.filter(i => i && /^\d+$/.test(String(i.variantId)));
+      if (clean.length !== items.length) { try { localStorage.setItem(CART_KEY, JSON.stringify(clean)); } catch {} }
+      return clean;
     } catch { return []; }
   }
 
@@ -3476,8 +3480,8 @@
 
   function addUpsellItem(type) {
     const items = {
-      hat: { name:'Inspirit Bucket Hat', price:'$15 AUD', priceNum:15, image:'images-clean/hat-inspirit-indoor.jpg', variantId:'REPLACE_HAT_VARIANT_ID', size:'One Size', colour:null },
-      beanie: { name:'Inspirit Beanie', price:'$15 AUD', priceNum:15, image:'images-clean/hat-beanie-model.jpg', variantId:'REPLACE_BEANIE_VARIANT_ID', size:'One Size', colour:null }
+      hat: { name:'Inspirit Bucket Hat', price:'$15 AUD', priceNum:15, image:'images-clean/hat-inspirit-indoor.jpg', variantId:'49875736985859', size:'One Size', colour:null },
+      beanie: { name:'Inspirit Beanie', price:'$15 AUD', priceNum:15, image:'images-clean/hat-beanie-model.jpg', variantId:'49875737051395', size:'One Size', colour:null }
     };
     const p = items[type];
     if (!p) return;
