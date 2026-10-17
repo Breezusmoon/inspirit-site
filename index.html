@@ -1570,6 +1570,7 @@
       <a href="#summer">Summer Drop</a>
       <ul class="nav-drop-menu">
         <li><a href="#summer">All Summer Drop</a></li>
+        <li><a href="#summer" onclick="event.preventDefault();openProduct(12);">Spiritual Badass Singlet</a></li>
         <li><a href="#summer" onclick="event.preventDefault();openProduct(11);">Beach Shorts</a></li>
       </ul>
     </li>
@@ -1667,6 +1668,28 @@
   </div>
 
   <div class="product-grid grid-4">
+
+    <!-- 12: Spiritual Badass Singlet -->
+    <div class="card" onclick="openProduct(12)">
+      <div class="card-img" style="background:#111;aspect-ratio:3/4;">
+        <span class="badge bn">Summer Drop</span>
+        <img src="images-clean/singlet-sb-white-front.jpg" alt="Spiritual Badass Singlet front" loading="lazy" />
+        <img src="images-clean/singlet-sb-white-back.jpg" class="card-hover-img" alt="Spiritual Badass Singlet back" />
+      </div>
+      <div class="card-info">
+        <div>
+          <p class="card-name">Spiritual Badass Singlet</p>
+          <p class="card-desc">White muscle tank. INSPIRIT&#8224; on the chest, SPIRITUAL BADASS bold across the back.</p>
+        </div>
+        <div>
+          <div class="card-colors"><div class="cdot cdot-w"></div></div>
+          <div class="card-foot" style="margin-top:10px;">
+            <span class="card-price">$40 AUD</span>
+            <button class="card-btn">Get Yours Now &#8594;</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- 11: Beach Shorts -->
     <div class="card" onclick="openProduct(11)">
@@ -2463,6 +2486,18 @@
       images: ["images-clean/shorts-black-front.jpg","images-clean/shorts-black-back.jpg"],
       labels: ["Front","Back"],
       shopifyUrl: "https://inspirit-8346.myshopify.com/products/inspirit-beach-shorts"
+    },
+    { // 12 — SUMMER: Spiritual Badass Singlet (White)
+      name: "Spiritual Badass Singlet",
+      badge: "Summer Drop",
+      price: "$40 AUD",
+      desc: "White muscle tank. INSPIRIT\u2020 Clothing Co. on the chest, SPIRITUAL BADASS bold across the back.",
+      detail: "Heavyweight cotton. Dropped armhole, raw-edge finish. Pre-shrunk. Cross mark on the hem.",
+      fit: "Regular unisex fit. Cut for heat.",
+      mainImage: "images-clean/singlet-sb-white-front.jpg",
+      images: ["images-clean/singlet-sb-white-front.jpg","images-clean/singlet-sb-white-back.jpg"],
+      labels: ["Front","Back"],
+      shopifyUrl: "https://inspirit-8346.myshopify.com"
     },
   ];
 
