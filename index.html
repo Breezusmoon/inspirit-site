@@ -890,6 +890,39 @@
     .sale-bar-copy { display:flex; flex-direction:column; gap:6px; border-left:1px solid rgba(8,8,8,.28); padding-left:24px; }
     .sale-bar-copy strong { font-family:var(--fh); font-weight:400; font-size:clamp(17px,2.2vw,24px); letter-spacing:3.5px; text-transform:uppercase; }
     .sale-bar-copy em { font-style:normal; font-size:11.5px; letter-spacing:2px; text-transform:uppercase; opacity:.68; }
+    /* ---- THE COLLECTION (archive grid) ---- */
+    .collection { padding:110px 44px 120px; background:var(--black); }
+    .coll-head { text-align:center; margin-bottom:62px; }
+    .coll-eyebrow { font-size:10px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+    .coll-title { font-family:var(--fh); font-size:clamp(30px,4.4vw,52px); letter-spacing:7px; text-transform:uppercase; line-height:1; }
+    .coll-filters { display:flex; justify-content:center; gap:30px; margin-top:28px; flex-wrap:wrap; }
+    .coll-f { background:none; border:none; color:rgba(255,255,255,.42); font-family:inherit; font-size:11px; font-weight:600; letter-spacing:3px; text-transform:uppercase; cursor:pointer; padding:5px 0; border-bottom:1px solid transparent; transition:color .2s, border-color .2s; }
+    .coll-f:hover { color:var(--cream); }
+    .coll-f.active { color:var(--gold); border-bottom-color:var(--gold); }
+    .coll-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:54px 30px; max-width:1560px; margin:0 auto; }
+    .coll-item { cursor:pointer; text-align:center; animation:collIn .4s ease both; }
+    @keyframes collIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+    .coll-img { position:relative; aspect-ratio:3/4; overflow:hidden; background:#0f0f0f; }
+    .coll-img img { width:100%; height:100%; object-fit:cover; transition:transform .55s ease, opacity .35s ease; }
+    .coll-item:hover .coll-img img { transform:scale(1.035); }
+    .coll-img .coll-alt { position:absolute; inset:0; opacity:0; }
+    .coll-item:hover .coll-img .coll-alt { opacity:1; }
+    .coll-sale { position:absolute; top:10px; left:10px; z-index:2; background:var(--gold); color:var(--black); font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:4px 9px; }
+    .coll-label { margin-top:15px; font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--cream); }
+    .coll-price { margin-top:6px; font-size:11px; letter-spacing:1.5px; color:rgba(255,255,255,.4); }
+    .coll-price .price-was { font-size:1em; margin-right:6px; }
+    @media (max-width:1280px){ .coll-grid { grid-template-columns:repeat(4,1fr); } }
+    @media (max-width:980px) { .coll-grid { grid-template-columns:repeat(3,1fr); gap:42px 22px; } .collection { padding:80px 26px 90px; } }
+    @media screen and (max-width:600px) {
+      .coll-grid { grid-template-columns:repeat(2,1fr); gap:30px 14px; }
+      .collection { padding:56px 14px 64px; }
+      .coll-head { margin-bottom:38px; }
+      .coll-title { letter-spacing:4px; }
+      .coll-filters { gap:18px; margin-top:20px; }
+      .coll-f { font-size:9.5px; letter-spacing:2px; }
+      .coll-label { font-size:9.5px; letter-spacing:1.5px; margin-top:11px; }
+      .coll-price { font-size:10px; }
+    }
     @media screen and (max-width:600px) {
       .badge-xl { font-size:11px; letter-spacing:2px; padding:7px 13px; top:12px; left:12px; }
       .sale-bar { padding:18px 16px; margin-bottom:26px; }
@@ -1606,6 +1639,7 @@
     </li>
     <li><a href="#shop">Tees</a></li>
     <li><a href="#winter">Winter Collection</a></li>
+    <li><a href="#collection">The Collection</a></li>
     <li><a href="#shop" class="nav-cta">Shop Now</a></li>
     <li>
       <div class="nav-socials" aria-label="Social links">
@@ -1636,6 +1670,7 @@
   <a href="#summer" onclick="closeMobileNav()">Summer Drop</a>
   <a href="#shop" onclick="closeMobileNav()">Tees</a>
   <a href="#winter" onclick="closeMobileNav()">Winter Collection</a>
+  <a href="#collection" onclick="closeMobileNav()">The Collection</a>
   <a href="#shop" class="nav-cta" onclick="closeMobileNav()">Shop Now</a>
   <a href="https://instagram.com/inspirit_clothing_co" target="_blank" rel="noopener noreferrer">Instagram</a>
   <a href="https://tiktok.com/@inspiritclothingco" target="_blank" rel="noopener noreferrer">TikTok</a>
@@ -2054,6 +2089,22 @@
 
 </section>
 
+
+<!-- THE COLLECTION -->
+<section class="collection" id="collection">
+  <div class="coll-head">
+    <p class="coll-eyebrow">Every Piece</p>
+    <h2 class="coll-title">The Collection</h2>
+    <div class="coll-filters" id="coll-filters">
+      <button class="coll-f active" data-f="all">All</button>
+      <button class="coll-f" data-f="tees">Tees</button>
+      <button class="coll-f" data-f="winter">Winter</button>
+      <button class="coll-f" data-f="summer">Summer</button>
+      <button class="coll-f" data-f="headwear">Headwear</button>
+    </div>
+  </div>
+  <div class="coll-grid" id="coll-grid"></div>
+</section>
 
 <!-- HATS -->
 
@@ -2820,6 +2871,55 @@
       img.style.transform = '';
     };
   }
+
+  /* ---- THE COLLECTION grid ---- */
+  const COLLECTION = [
+    { i:0,  c:'tees'     }, { i:1,  c:'tees'     }, { i:2,  c:'tees'     }, { i:3,  c:'tees' },
+    { i:4,  c:'winter'   }, { i:7,  c:'winter'   }, { i:8,  c:'winter'   },
+    { i:6,  c:'winter', img:'images-clean/hat-beanie-model.jpg' },
+    { i:11, c:'summer'   }, { i:12, c:'summer'   }, { i:14, c:'summer'   }, { i:13, c:'summer' },
+    { i:15, c:'headwear' }, { i:16, c:'headwear' }
+  ];
+
+  function renderCollection(filter) {
+    const grid = document.getElementById('coll-grid');
+    if (!grid) return;
+    const list = (filter && filter !== 'all')
+      ? COLLECTION.filter(x => x.c === filter)
+      : COLLECTION;
+    grid.innerHTML = list.map((x, n) => {
+      const p = PRODUCTS[x.i];
+      if (!p) return '';
+      const main = x.img || p.mainImage;
+      const alt = (p.images && p.images.length > 1)
+        ? p.images.find(src => src !== main) : null;
+      const sale = p.was
+        ? '<span class="coll-sale">50% Off</span>' : '';
+      const wasTag = p.was
+        ? '<span class="price-was">' + p.was + '</span>' : '';
+      return '<div class="coll-item" style="animation-delay:' + (n * 22) + 'ms" onclick="openProduct(' + x.i + ')">'
+        +   '<div class="coll-img">' + sale
+        +     '<img src="' + main + '" alt="' + p.name + '" loading="lazy" />'
+        +     (alt ? '<img class="coll-alt" src="' + alt + '" alt="" loading="lazy" />' : '')
+        +   '</div>'
+        +   '<p class="coll-label">' + p.name + '</p>'
+        +   '<p class="coll-price">' + wasTag + p.price + '</p>'
+        + '</div>';
+    }).join('');
+  }
+
+  (function initCollection() {
+    const bar = document.getElementById('coll-filters');
+    if (!bar) return;
+    bar.addEventListener('click', function (e) {
+      const btn = e.target.closest('.coll-f');
+      if (!btn) return;
+      bar.querySelectorAll('.coll-f').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCollection(btn.dataset.f);
+    });
+    renderCollection('all');
+  })();
 
   function openProduct(idx) {
     const p = PRODUCTS[idx];
